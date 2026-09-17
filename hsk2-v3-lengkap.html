@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>HSK 2 (v3.0) — 200 Kosakata Baru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141110; --bg-elevated:#1c1815; --bg-card:#221d19; --border:#332b25;
+  --seal:#b3402f; --seal-bright:#d9553f; --gold:#c9a227; --paper:#ede6d6;
+  --paper-dim:#a89d8a; --muted:#7d7368; --green:#5b7a5c;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--paper);font-family:'Inter',sans-serif;min-height:100vh;-webkit-tap-highlight-color:transparent;}
+body::before{content:'';position:fixed;inset:0;
+  background-image:radial-gradient(circle at 20% 20%, rgba(201,162,39,0.04), transparent 40%),
+                    radial-gradient(circle at 80% 70%, rgba(179,64,47,0.05), transparent 45%);
+  pointer-events:none;z-index:0;}
+header{position:sticky;top:0;z-index:20;background:rgba(20,17,16,0.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);padding:14px 16px 10px;}
+.title-row{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;}
+.title-hanzi{font-family:'Noto Serif SC',serif;font-size:22px;color:var(--seal-bright);line-height:1;}
+.title-text{font-size:15px;font-weight:600;color:var(--paper);}
+.title-sub{font-size:11px;color:var(--muted);margin-left:auto;}
+.search-wrap{position:relative;}
+#search{width:100%;background:var(--bg-elevated);border:1px solid var(--border);color:var(--paper);
+  font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px 10px 34px;border-radius:10px;outline:none;}
+#search:focus{border-color:var(--gold);}
+#search::placeholder{color:var(--muted);}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none;}
+.cat-scroll{display:flex;gap:8px;overflow-x:auto;padding:12px 16px 4px;scrollbar-width:none;}
+.cat-scroll::-webkit-scrollbar{display:none;}
+.cat-chip{flex:0 0 auto;padding:7px 13px;border-radius:100px;border:1px solid var(--border);
+  background:var(--bg-elevated);color:var(--paper-dim);font-size:12.5px;font-weight:500;white-space:nowrap;
+  cursor:pointer;transition:background .15s, color .15s, border-color .15s;}
+.cat-chip.active{background:var(--seal);border-color:var(--seal);color:#fff;}
+.progress-bar{height:3px;background:var(--border);position:relative;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--seal-bright));width:0%;transition:width .3s;}
+main{position:relative;z-index:1;padding:16px;max-width:720px;margin:0 auto;padding-bottom:60px;}
+.section-title{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.3px;margin:22px 2px 10px;
+  display:flex;align-items:center;gap:8px;}
+.section-title:first-child{margin-top:4px;}
+.section-title .count{color:var(--muted);font-weight:500;font-size:11.5px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px 8px 10px;
+  text-align:center;cursor:pointer;transition:transform .12s, border-color .12s, background .12s;}
+.card:active{transform:scale(0.95);background:var(--bg-elevated);}
+.card:hover{border-color:var(--gold);}
+.card .hz{font-family:'Noto Serif SC',serif;font-size:26px;color:var(--paper);line-height:1.2;}
+.card .py{font-size:10.5px;color:var(--gold);margin-top:3px;font-weight:500;}
+.card .ar{font-size:10px;color:var(--paper-dim);margin-top:2px;line-height:1.25;min-height:24px;}
+.empty-state{text-align:center;color:var(--muted);padding:60px 20px;font-size:13px;}
+.empty-state .hz{font-size:34px;display:block;margin-bottom:10px;color:var(--border);font-family:'Noto Serif SC',serif;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:50;display:none;align-items:flex-end;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:var(--bg-elevated);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:22px 20px 28px;
+  max-height:85vh;overflow-y:auto;border-top:1px solid var(--border);animation:slideUp .22s ease-out;position:relative;}
+@keyframes slideUp{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:10px;margin:0 auto 16px;}
+.modal-head{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+.modal-hz{font-family:'Noto Serif SC',serif;font-size:52px;color:var(--seal-bright);line-height:1;}
+.modal-meta .py{font-size:16px;color:var(--gold);font-weight:600;}
+.modal-meta .ar{font-size:14px;color:var(--paper);margin-top:3px;}
+.modal-block{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 15px;margin-bottom:10px;}
+.modal-block .label{font-size:10.5px;font-weight:700;letter-spacing:.4px;color:var(--muted);margin-bottom:6px;}
+.modal-block.komposisi .label{color:var(--gold);}
+.modal-block.logika .label{color:var(--seal-bright);}
+.modal-block p{font-size:13.5px;line-height:1.55;color:var(--paper-dim);}
+.close-btn{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;
+  background:var(--bg-card);border:1px solid var(--border);color:var(--paper-dim);font-size:15px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;}
+@media(min-width:600px){.overlay{align-items:center;}.modal{border-radius:20px;max-width:480px;}}
+.nav-links{display:flex;gap:8px;margin-top:10px;}
+.nav-links a{font-size:11px;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:4px 10px;border-radius:8px;}
+.nav-links a.current{color:var(--gold);border-color:var(--gold);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-row">
+    <div class="title-hanzi">汉</div>
+    <div class="title-text">HSK 2 · Standar 3.0</div>
+    <div class="title-sub"><span id="totalCount">200</span> kata baru</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input id="search" type="text" placeholder="Cari hanzi, pinyin, atau arti...">
+  </div>
+</header>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="cat-scroll" id="catScroll"></div>
+<main id="main"></main>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="close-btn" id="closeBtn">✕</div>
+    <div class="modal-handle"></div>
+    <div class="modal-head">
+      <div class="modal-hz" id="mHz">爱</div>
+      <div class="modal-meta">
+        <div class="py" id="mPy">ài</div>
+        <div class="ar" id="mAr">cinta</div>
+      </div>
+    </div>
+    <div class="modal-block komposisi"><div class="label">KOMPOSISI</div><p id="mK"></p></div>
+    <div class="modal-block logika"><div class="label">LOGIKA / CERITA</div><p id="mL"></p></div>
+  </div>
+</div>
+
+<script>
+const DATA = [
+{cat:"Sistem Arah Gerak", icon:"辶", words:[
+  {h:"出",p:"chū",a:"keluar",k:"Pictograf kaki melangkah keluar dari gua.",l:"Kaki melangkah keluar dari mulut gua."},
+  {h:"进",p:"jìn",a:"masuk",k:"辶(melangkah) + 井(sumur).",l:"Melangkah turun ke dalam sumur — masuk ke dalam."},
+  {h:"过",p:"guò",a:"melewati",k:"辶(melangkah) + 寸(ukuran tangan).",l:"Melangkah melewati satu jarak ukur demi ukur."},
+  {h:"过",p:"guo",a:"partikel pengalaman",k:"Sama seperti 过(melewati).",l:"Menandakan sesuatu 'pernah' dilewati/dialami."},
+  {h:"走",p:"zǒu",a:"berjalan/pergi",k:"土(tanah) + 止(kaki berhenti).",l:"Kaki melangkah di atas tanah — berjalan atau pergi."},
+  {h:"走路",p:"zǒulù",a:"berjalan kaki",k:"走(berjalan) + 路(jalan).",l:"Berjalan menyusuri jalan."},
+  {h:"离",p:"lí",a:"berjarak dari",k:"Dulu bergambar burung terbang menjauh sangkar.",l:"Seperti burung yang lepas dan menjauh dari sangkarnya."},
+  {h:"出来",p:"chūlái",a:"keluar (mendekat)",k:"出(keluar) + 来(mendekat pembicara).",l:"Keluar dan arahnya mendekati orang yang bicara."},
+  {h:"出去",p:"chūqù",a:"keluar (menjauh)",k:"出(keluar) + 去(menjauh pembicara).",l:"Keluar dan arahnya menjauhi orang yang bicara."},
+  {h:"出国",p:"chūguó",a:"pergi ke luar negeri",k:"出(keluar) + 国(negara).",l:"Keluar meninggalkan batas negara sendiri."},
+  {h:"出门",p:"chūmén",a:"keluar rumah",k:"出(keluar) + 门(pintu).",l:"Melangkah keluar melewati pintu rumah."},
+  {h:"进来",p:"jìnlái",a:"masuk (mendekat)",k:"进(masuk) + 来(mendekat).",l:"Masuk dengan arah mendekati pembicara."},
+  {h:"进去",p:"jìnqù",a:"masuk (menjauh)",k:"进(masuk) + 去(menjauh).",l:"Masuk dengan arah menjauhi pembicara."},
+  {h:"回来",p:"huílái",a:"kembali (mendekat)",k:"回(kembali) + 来(mendekat).",l:"Kembali dengan arah mendekati pembicara."},
+  {h:"回去",p:"huíqù",a:"kembali (menjauh)",k:"回(kembali) + 去(menjauh).",l:"Kembali dengan arah menjauhi pembicara."},
+  {h:"过来",p:"guòlái",a:"kemari",k:"过(lewat) + 来(mendekat).",l:"Beralih tempat menuju arah pembicara."},
+  {h:"过去",p:"guòqù",a:"ke sana / masa lalu",k:"过(lewat) + 去(menjauh).",l:"Beralih menjauhi pembicara, atau menunjuk waktu yang telah lewat."},
+  {h:"过年",p:"guònián",a:"merayakan tahun baru",k:"过(melewati) + 年(tahun).",l:"Melewati pergantian tahun dengan perayaan."},
+  {h:"上来",p:"shànglái",a:"naik (mendekat)",k:"上(naik) + 来(mendekat).",l:"Naik dengan arah mendekati pembicara."},
+  {h:"上去",p:"shàngqù",a:"naik (menjauh)",k:"上(naik) + 去(menjauh).",l:"Naik dengan arah menjauhi pembicara."},
+  {h:"下来",p:"xiàlái",a:"turun (mendekat)",k:"下(turun) + 来(mendekat).",l:"Turun dengan arah mendekati pembicara."},
+  {h:"下去",p:"xiàqù",a:"turun (menjauh)",k:"下(turun) + 去(menjauh).",l:"Turun dengan arah menjauhi pembicara, atau 'melanjutkan'."},
+  {h:"起来",p:"qǐlái",a:"bangkit/mulai",k:"走(berjalan) + 己(diri sendiri).",l:"Diri sendiri menggerakkan badan ke atas, bangkit berdiri."},
+  {h:"往",p:"wǎng",a:"menuju",k:"彳(melangkah) + 主(bunyi/arah tuju).",l:"Melangkah menuju satu arah tertentu."},
+]},
+{cat:"Kata Sambung & Partikel", icon:"因", words:[
+  {h:"因为",p:"yīnwèi",a:"karena",k:"因(囗+大,alasan besar) + 为(demi).",l:"Alasan besar yang mendasari suatu kejadian."},
+  {h:"所以",p:"suǒyǐ",a:"maka/oleh karena itu",k:"所(戶+斤) + 以(sendok/cara).",l:"Jalan keluar/hasil yang didapat memakai cara tersebut."},
+  {h:"虽然",p:"suīrán",a:"meskipun",k:"虽(虫+唯) + 然(灬+肰).",l:"Meskipun hanya hal kecil sekalipun, keadaan tetap berlaku."},
+  {h:"但",p:"dàn",a:"tapi",k:"亻(orang) + 旦(matahari terbit).",l:"Orang yang tetap menunggu matahari terbit — tetap ada harapan."},
+  {h:"但是",p:"dànshì",a:"tetapi",k:"但(tapi) + 是(adalah).",l:"Penegasan kata sambung kontras 'tapi'."},
+  {h:"还是",p:"háishi",a:"masih / atau",k:"还(melangkah lagi) + 是(memang).",l:"Masih memang begitu keadaannya, atau untuk pilihan 'atau'."},
+  {h:"那么",p:"nàme",a:"begitu/kalau begitu",k:"那(itu) + 么(kecil,partikel).",l:"Merujuk pada keadaan seperti itu."},
+  {h:"这么",p:"zhème",a:"begini",k:"这(ini) + 么(partikel).",l:"Merujuk pada keadaan seperti ini."},
+  {h:"那样",p:"nàyàng",a:"seperti itu",k:"那(itu) + 样(rupa).",l:"Rupa atau cara seperti itu."},
+  {h:"这样",p:"zhèyàng",a:"seperti ini",k:"这(ini) + 样(rupa).",l:"Rupa atau cara seperti ini."},
+  {h:"着",p:"zhe",a:"partikel sedang berlangsung",k:"羊(bunyi) + 目(mata,disederhanakan).",l:"Menandakan suatu aksi sedang menempel berlangsung."},
+  {h:"已经",p:"yǐjīng",a:"sudah",k:"已(ular selesai melingkar) + 经(benang mengalir jadi kain).",l:"Benang yang sudah selesai ditenun jadi kain — sudah terjadi."},
+  {h:"正",p:"zhèng",a:"sedang/tepat",k:"一(garis batas) + 止(kaki berhenti tepat).",l:"Kaki berhenti tepat di garis batas — pas atau sedang berlangsung."},
+  {h:"为什么",p:"wèi shénme",a:"mengapa",k:"为(untuk/demi) + 什么(apa).",l:"Untuk alasan apa sesuatu terjadi."},
+  {h:"别",p:"bié",a:"jangan",k:"另(yang lain) + 刂(pisau).",l:"Pisau memisahkan diri dari niat itu — larangan."},
+  {h:"得",p:"de",a:"partikel derajat",k:"彳+旦+寸,mendapat sesuatu dgn usaha.",l:"Menghubungkan kata kerja/sifat dengan keterangan derajatnya."},
+  {h:"地",p:"de",a:"partikel adverbia",k:"土(tanah) + 也(juga).",l:"Mengubah kata sifat jadi keterangan cara, ditempelkan seperti tanah pijakan."},
+  {h:"等",p:"děng",a:"menunggu",k:"竹(bambu) + 寺(kuil).",l:"Tumpukan bambu tertata rapi di kuil, org menunggu gilirannya."},
+  {h:"跟",p:"gēn",a:"dengan/mengikuti",k:"⻊(kaki) + 艮(bunyi).",l:"Kaki mengikuti dari belakang seseorang."},
+  {h:"让",p:"ràng",a:"membiarkan",k:"讠(perkataan) + 上(disederhanakan).",l:"Kata-kata mempersilakan atau membiarkan sesuatu terjadi."},
+  {h:"就",p:"jiù",a:"lalu/segera",k:"京(ibu kota) + 尤(lebih).",l:"Menandakan sesuatu terjadi lebih cepat/langsung dari perkiraan."},
+  {h:"可能",p:"kěnéng",a:"mungkin",k:"可(bisa) + 能(mampu).",l:"Sesuatu yang bisa saja mampu terjadi — kemungkinan."},
+  {h:"啊",p:"a",a:"partikel seru",k:"口(mulut) + 阿(bunyi).",l:"Seruan spontan dari mulut menandai kekaguman/penekanan."},
+  {h:"完",p:"wán",a:"selesai",k:"宀(atap) + 元(awal/pokok).",l:"Sesuatu yang sudah mencapai titik akhirnya di bawah atap."},
+]},
+{cat:"Warna & Minuman", icon:"色", words:[
+  {h:"颜色",p:"yánsè",a:"warna",k:"颜(彦+页,wajah bercahaya) + 色(raut wajah).",l:"Raut wajah yang bercahaya indah — dipinjam jadi makna 'warna'."},
+  {h:"白色",p:"báisè",a:"putih",k:"白(pictograf sinar dari biji) + 色(warna).",l:"Warna seputih sinar dari biji-bijian."},
+  {h:"黑色",p:"hēisè",a:"hitam",k:"黑(rumah+api jadi jelaga) + 色(warna).",l:"Warna gelap seperti jelaga asap di dalam rumah."},
+  {h:"红色",p:"hóngsè",a:"merah",k:"红(纟+工,benang diwarnai) + 色(warna).",l:"Benang yang diberi warna merah lewat proses pewarnaan."},
+  {h:"绿色",p:"lǜsè",a:"hijau",k:"绿(纟+录,benang dicelup) + 色(warna).",l:"Benang yang dicelup warna hijau daun."},
+  {h:"红茶",p:"hóngchá",a:"teh hitam",k:"红(merah) + 茶(teh).",l:"Teh yang warnanya kemerahan pekat."},
+  {h:"绿茶",p:"lǜchá",a:"teh hijau",k:"绿(hijau) + 茶(teh).",l:"Teh yang warnanya hijau alami."},
+  {h:"奶茶",p:"nǎichá",a:"teh susu",k:"奶(susu) + 茶(teh).",l:"Teh yang dicampur dengan susu."},
+  {h:"咖啡",p:"kāfēi",a:"kopi",k:"口(radikal serapan bunyi) + 加/非.",l:"Kata serapan bunyi dari 'coffee', ditandai radikal mulut."},
+]},
+{cat:"Tubuh & Olahraga", icon:"身", words:[
+  {h:"身体",p:"shēntǐ",a:"tubuh",k:"身(org hamil,badan) + 体(亻+本,pokok diri).",l:"Badan sebagai pokok/dasar diri seseorang."},
+  {h:"手",p:"shǒu",a:"tangan",k:"Pictograf tangan dengan jari.",l:"Bentuknya menyerupai telapak tangan dengan lima jari."},
+  {h:"手表",p:"shǒubiǎo",a:"jam tangan",k:"手(tangan) + 表(衣+一,permukaan).",l:"Alat penunjuk waktu yang dipakai di permukaan pergelangan tangan."},
+  {h:"眼睛",p:"yǎnjing",a:"mata",k:"眼(目+艮) + 睛(目+青).",l:"Organ untuk melihat, dua karakter menegaskan maknanya."},
+  {h:"头",p:"tóu",a:"kepala",k:"大(besar,disederhanakan) + 页(kepala).",l:"Bagian tubuh paling besar nilainya, tempat pikiran berada."},
+  {h:"疼",p:"téng",a:"nyeri",k:"疒(sakit) + 冬(musim dingin,bunyi).",l:"Sakit yang menusuk seperti dinginnya musim dingin."},
+  {h:"跑",p:"pǎo",a:"berlari",k:"⻊(kaki) + 包(terbungkus).",l:"Kaki melaju cepat seperti terbungkus angin."},
+  {h:"跑步",p:"pǎobù",a:"joging",k:"跑(berlari) + 步(langkah).",l:"Berlari dengan langkah teratur."},
+  {h:"踢",p:"tī",a:"menendang",k:"⻊(kaki) + 易(mudah,bunyi).",l:"Kaki menyentak mudah ke arah bola."},
+  {h:"球",p:"qiú",a:"bola",k:"王(giok bulat) + 求(mencari).",l:"Benda bulat berharga yang dicari untuk dimainkan."},
+  {h:"篮球",p:"lánqiú",a:"basket",k:"篮(竹+监,keranjang bambu) + 球(bola).",l:"Bola yang dimasukkan ke keranjang dari bambu."},
+  {h:"足球",p:"zúqiú",a:"sepak bola",k:"足(kaki) + 球(bola).",l:"Bola yang dimainkan menggunakan kaki."},
+  {h:"跳舞",p:"tiàowǔ",a:"menari",k:"跳(⻊+兆,kaki melompat) + 舞(menari).",l:"Kaki melompat-lompat sambil menari."},
+  {h:"游",p:"yóu",a:"mengapung/mengembara",k:"氵(air) + 斿(bendera berkibar).",l:"Bergerak mengapung di dalam air."},
+  {h:"游泳",p:"yóuyǒng",a:"berenang",k:"游(mengapung) + 泳(氵+永,air mengalir jauh).",l:"Mengapung dan bergerak jauh di dalam air."},
+  {h:"运动",p:"yùndòng",a:"olahraga",k:"辶(melangkah) + 云(awan) + 动(力+云).",l:"Menggunakan tenaga yang berputar terus seperti gerak awan."},
+]},
+{cat:"Keluarga & Orang", icon:"家", words:[
+  {h:"爷爷",p:"yéye",a:"kakek",k:"父(ayah) + 耶(bunyi).",l:"Sosok ayah dari generasi yang lebih tua."},
+  {h:"奶奶",p:"nǎinai",a:"nenek",k:"女(perempuan) + 乃(menyusui).",l:"Sosok perempuan menyusui dari generasi lebih tua."},
+  {h:"妻子",p:"qīzi",a:"istri",k:"妻(tangan memegang sapu,peran rumah tangga kuno).",l:"Peran mengurus rumah tangga pada zaman dahulu."},
+  {h:"丈夫",p:"zhàngfu",a:"suami",k:"丈(tongkat ukur) + 夫(pria dewasa bertusuk konde).",l:"Pria dewasa yang sudah menikah, ditandai tusuk konde kuno."},
+  {h:"男孩儿",p:"nánháir",a:"anak laki-laki",k:"男(laki-laki) + 孩儿(anak).",l:"Anak berjenis kelamin laki-laki."},
+  {h:"女孩儿",p:"nǚháir",a:"anak perempuan",k:"女(perempuan) + 孩儿(anak).",l:"Anak berjenis kelamin perempuan."},
+  {h:"小孩儿",p:"xiǎoháir",a:"anak kecil",k:"小(kecil) + 孩儿(anak).",l:"Anak yang masih berusia kecil."},
+  {h:"小时候",p:"xiǎoshíhou",a:"masa kecil",k:"小时(waktu kecil) + 候(masa).",l:"Masa ketika seseorang masih kecil."},
+  {h:"自己",p:"zìjǐ",a:"diri sendiri",k:"自(hidung,menunjuk diri) + 己(tali melingkar).",l:"Menunjuk hidung sendiri sambil menyebut diri."},
+  {h:"个子",p:"gèzi",a:"tinggi badan",k:"个(satuan) + 子(akhiran).",l:"Satuan ukuran postur tubuh seseorang."},
+  {h:"姓",p:"xìng",a:"marga",k:"女(perempuan) + 生(lahir).",l:"Marga diwariskan sejak lahir dari garis keturunan ibu, zaman kuno."},
+  {h:"姓名",p:"xìngmíng",a:"nama lengkap",k:"姓(marga) + 名(nama).",l:"Gabungan marga keluarga dan nama pribadi."},
+  {h:"生日",p:"shēngrì",a:"ulang tahun",k:"生(lahir) + 日(hari).",l:"Hari ketika seseorang dilahirkan."},
+  {h:"爱好",p:"àihào",a:"hobi",k:"爱(cinta) + 好(suka).",l:"Sesuatu yang dicintai dan disukai untuk dilakukan."},
+]},
+{cat:"Tempat & Transportasi", icon:"城", words:[
+  {h:"教室",p:"jiàoshì",a:"ruang kelas",k:"教(mengajar) + 室(宀+至,ruang mencapai ilmu).",l:"Tangan mengajar di dalam ruangan yang atapnya jadi tempat mencapai ilmu."},
+  {h:"机场",p:"jīchǎng",a:"bandara",k:"机(mesin terbang) + 场(tanah lapang).",l:"Lapangan luas untuk mesin terbang lepas landas."},
+  {h:"车站",p:"chēzhàn",a:"stasiun/halte",k:"车(kendaraan) + 站(berdiri/pos).",l:"Tempat berdiri menunggu kendaraan."},
+  {h:"地铁",p:"dìtiě",a:"kereta bawah tanah",k:"地(tanah) + 铁(logam,rel).",l:"Tanah yang berlapis rel logam di bawah kota."},
+  {h:"公交车",p:"gōngjiāochē",a:"bus",k:"公(umum) + 交(bersilang rute) + 车(kendaraan).",l:"Kendaraan transportasi umum yang rutenya saling bersilang."},
+  {h:"酒店",p:"jiǔdiàn",a:"hotel",k:"酒(氵+酉,guci arak) + 店(toko).",l:"Dulu penginapan sering menjual arak, jadi disebut 'toko arak'."},
+  {h:"商场",p:"shāngchǎng",a:"mall",k:"商(dagang) + 场(lapangan).",l:"Lapangan dagang berskala besar."},
+  {h:"饭馆",p:"fànguǎn",a:"restoran",k:"饭(makanan) + 馆(bangunan resmi).",l:"Tempat makan resmi yang dikelola secara formal."},
+  {h:"药店",p:"yàodiàn",a:"apotek",k:"药(艹+乐,tanaman obat) + 店(toko).",l:"Toko yang menjual tanaman/bahan obat."},
+  {h:"门",p:"mén",a:"pintu",k:"Pictograf dua daun pintu.",l:"Bentuknya menyerupai dua daun pintu yang berhadapan."},
+  {h:"门口",p:"ménkǒu",a:"ambang pintu",k:"门(pintu) + 口(bukaan/mulut).",l:"Bukaan di depan pintu, tempat masuk-keluar."},
+  {h:"门票",p:"ménpiào",a:"tiket masuk",k:"门(pintu) + 票(tiket).",l:"Tiket untuk masuk lewat pintu suatu tempat."},
+  {h:"票",p:"piào",a:"tiket",k:"覀(tutup) + 示(altar/tanda).",l:"Tanda resmi berupa lembaran sebagai bukti."},
+  {h:"机票",p:"jīpiào",a:"tiket pesawat",k:"机(mesin terbang) + 票(tiket).",l:"Tiket untuk naik pesawat terbang."},
+  {h:"楼",p:"lóu",a:"gedung bertingkat",k:"木(kayu) + 娄(berlapis,bunyi).",l:"Kayu yang disusun berlapis-lapis membentuk gedung."},
+  {h:"路",p:"lù",a:"jalan",k:"⻊(kaki) + 各(masing-masing).",l:"Kaki masing-masing orang berjalan melintasi jalan yang sama."},
+  {h:"路上",p:"lùshang",a:"di jalan",k:"路(jalan) + 上(atas).",l:"Sedang berada di atas/sepanjang perjalanan."},
+  {h:"旁边",p:"pángbiān",a:"samping",k:"旁(方+一+八,arah di sisi) + 边(sisi).",l:"Arah di sisi sebelah suatu titik."},
+  {h:"里面",p:"lǐmiàn",a:"di dalam",k:"里(dalam) + 面(permukaan).",l:"Permukaan bagian dalam suatu ruang."},
+  {h:"外面",p:"wàimiàn",a:"di luar",k:"外(luar) + 面(permukaan).",l:"Permukaan bagian luar suatu ruang."},
+  {h:"前面",p:"qiánmiàn",a:"di depan",k:"前(depan) + 面(permukaan).",l:"Permukaan bagian depan suatu objek."},
+  {h:"后面",p:"hòumiàn",a:"di belakang",k:"后(belakang) + 面(permukaan).",l:"Permukaan bagian belakang suatu objek."},
+  {h:"上面",p:"shàngmiàn",a:"di atas",k:"上(atas) + 面(permukaan).",l:"Permukaan bagian atas suatu objek."},
+  {h:"下面",p:"xiàmiàn",a:"di bawah",k:"下(bawah) + 面(permukaan).",l:"Permukaan bagian bawah suatu objek."},
+  {h:"左",p:"zuǒ",a:"kiri",k:"Pictograf tangan kiri memegang alat kerja (工).",l:"Tangan kiri kuno yang biasa memegang alat kerja."},
+  {h:"左边",p:"zuǒbian",a:"sisi kiri",k:"左(kiri) + 边(sisi).",l:"Sisi sebelah kiri suatu objek."},
+  {h:"右",p:"yòu",a:"kanan",k:"Pictograf tangan kanan memegang mulut (口).",l:"Tangan kanan kuno yang biasa dipakai untuk makan."},
+  {h:"右边",p:"yòubian",a:"sisi kanan",k:"右(kanan) + 边(sisi).",l:"Sisi sebelah kanan suatu objek."},
+  {h:"远",p:"yuǎn",a:"jauh",k:"辶(melangkah) + 袁(bunyi).",l:"Melangkah jauh menempuh jarak panjang."},
+  {h:"近",p:"jìn",a:"dekat",k:"辶(melangkah) + 斤(kapak).",l:"Melangkah sedekat jarak ayunan kapak."},
+  {h:"旅游",p:"lǚyóu",a:"bepergian/wisata",k:"旅(rombongan berjalan) + 游(mengembara).",l:"Rombongan yang mengembara bepergian jauh."},
+]},
+{cat:"Sekolah & Kerja", icon:"教", words:[
+  {h:"教",p:"jiāo",a:"mengajar",k:"孝(berbakti,disederhanakan) + 攵(tangan memegang tongkat).",l:"Tangan memegang tongkat pengajar untuk membimbing."},
+  {h:"高中",p:"gāozhōng",a:"SMA",k:"高(tinggi) + 中(tengah,sekolah menengah).",l:"Tingkat tertinggi dari sekolah menengah."},
+  {h:"考",p:"kǎo",a:"menguji",k:"老(tua,disederhanakan) + 丂(bunyi).",l:"Seperti orang tua yang menguji kemampuan generasi muda."},
+  {h:"考试",p:"kǎoshì",a:"ujian",k:"考(menguji) + 试(讠+式,mencoba format).",l:"Mencoba menguji kemampuan lewat soal."},
+  {h:"懂",p:"dǒng",a:"mengerti",k:"忄(hati) + 董(mengawasi,bunyi).",l:"Hati yang bisa mengawasi dan memahami suatu hal."},
+  {h:"记得",p:"jìde",a:"ingat",k:"讠(perkataan) + 己(diri) + 得(mendapat).",l:"Kata-kata tentang diri sendiri yang disimpan dan didapat kembali."},
+  {h:"忘",p:"wàng",a:"lupa",k:"亡(hilang) + 心(hati).",l:"Hati yang hilang ingatannya."},
+  {h:"告诉",p:"gàosu",a:"memberitahu",k:"告(牛+口,menyampaikan) + 诉(讠+斥).",l:"Menyampaikan kata-kata penting kepada orang lain."},
+  {h:"介绍",p:"jièshào",a:"memperkenalkan",k:"介(perantara) + 绍(纟+召,memanggil).",l:"Menjadi perantara yang memanggil dua pihak agar saling kenal."},
+  {h:"希望",p:"xīwàng",a:"berharap",k:"希(kain langka) + 望(menengadah ke bulan).",l:"Menengadah berharap sesuatu yang langka terjadi."},
+  {h:"准备",p:"zhǔnbèi",a:"bersiap",k:"准(冫+隹,burung terbang tepat) + 备(sedia lengkap).",l:"Menyiapkan semua agar tepat sasaran."},
+  {h:"帮",p:"bāng",a:"membantu",k:"丰(subur) + 巾(kain,bunyi).",l:"Memberi bantuan berlimpah seperti kesuburan."},
+  {h:"帮忙",p:"bāngmáng",a:"membantu",k:"帮(bantu) + 忙(sibuk).",l:"Memberi tenaga tambahan saat orang lain sibuk."},
+  {h:"帮助",p:"bāngzhù",a:"membantu",k:"帮(bantu) + 助(且+力,tenaga tambahan).",l:"Memberi tenaga tambahan untuk menolong."},
+  {h:"开始",p:"kāishǐ",a:"memulai",k:"开(membuka) + 始(女+台,awal mula).",l:"Membuka fase awal suatu kegiatan."},
+  {h:"开学",p:"kāixué",a:"mulai sekolah",k:"开(membuka) + 学(sekolah).",l:"Membuka kembali kegiatan belajar setelah libur."},
+]},
+{cat:"Aktivitas & Objek", icon:"洗", words:[
+  {h:"洗",p:"xǐ",a:"mencuci",k:"氵(air) + 先(lebih dulu).",l:"Air yang dipakai lebih dulu sebelum aktivitas lain."},
+  {h:"洗手间",p:"xǐshǒujiān",a:"toilet",k:"洗(cuci) + 手(tangan) + 间(ruang).",l:"Ruang untuk mencuci tangan."},
+  {h:"裤子",p:"kùzi",a:"celana",k:"衤(pakaian) + 库(gudang/wadah).",l:"Pakaian berbentuk wadah untuk dua kaki."},
+  {h:"书包",p:"shūbāo",a:"tas sekolah",k:"书(buku) + 包(bungkus).",l:"Bungkusan tempat menyimpan buku."},
+  {h:"本子",p:"běnzi",a:"buku tulis",k:"本(pokok,buku) + 子(akhiran).",l:"Benda kertas berjilid untuk mencatat."},
+  {h:"笔",p:"bǐ",a:"pulpen",k:"竹(bambu) + 毛(bulu).",l:"Dulu berupa kuas bambu berbulu untuk menulis."},
+  {h:"词",p:"cí",a:"kosakata",k:"讠(perkataan) + 司(mengelola).",l:"Kata-kata yang dikelola jadi satuan makna."},
+  {h:"题",p:"tí",a:"soal",k:"页(kepala) + 是(bunyi).",l:"Kepala yang memikirkan suatu topik atau soal."},
+  {h:"画",p:"huà",a:"melukis",k:"聿(alat tulis) + 囗(bingkai).",l:"Alat tulis membuat garis dalam sebuah bingkai."},
+  {h:"笑",p:"xiào",a:"tersenyum/tertawa",k:"竹(bambu melengkung) + 夭(org melenggak-lenggok).",l:"Bambu melengkung seperti wajah orang gembira."},
+  {h:"动",p:"dòng",a:"bergerak",k:"云(awan) + 力(tenaga).",l:"Tenaga yang berputar terus seperti gerak awan."},
+  {h:"花",p:"huā",a:"bunga / menghabiskan",k:"艹(tanaman) + 化(berubah).",l:"Tanaman yang berubah mekar; juga makna 'uang yang mekar hilang'."},
+  {h:"送",p:"sòng",a:"mengantar/memberi",k:"辶(melangkah) + 关(terkait,disederhanakan).",l:"Melangkah mengantar sesuatu yang terkait dengan tujuan."},
+  {h:"拿",p:"ná",a:"mengambil",k:"合(cocok) + 手(tangan).",l:"Tangan yang cocok menggenggam suatu benda."},
+  {h:"打",p:"dǎ",a:"memukul/melakukan",k:"扌(tangan) + 丁(paku).",l:"Tangan memukul seperti memaku sesuatu."},
+  {h:"打车",p:"dǎchē",a:"naik taksi",k:"打(memukul,menghentikan) + 车(kendaraan).",l:"Menghentikan kendaraan dengan isyarat tangan untuk naik taksi."},
+  {h:"打开",p:"dǎkāi",a:"membuka",k:"打(melakukan) + 开(membuka).",l:"Melakukan aksi membuka sesuatu."},
+  {h:"比",p:"bǐ",a:"membandingkan",k:"Pictograf dua orang berdiri sejajar.",l:"Dua orang berdiri sejajar untuk dibandingkan."},
+  {h:"床",p:"chuáng",a:"ranjang",k:"广(atap) + 木(kayu).",l:"Perabot kayu di bawah atap tempat berbaring."},
+  {h:"鸟",p:"niǎo",a:"burung",k:"Pictograf burung bertengger.",l:"Bentuknya menyerupai burung dengan sayap terlipat."},
+  {h:"鱼",p:"yú",a:"ikan",k:"Pictograf ikan dengan sirip dan ekor.",l:"Bentuknya menyerupai ikan dilihat dari samping."},
+  {h:"肉",p:"ròu",a:"daging",k:"Pictograf sepotong daging berurat.",l:"Bentuknya menyerupai sayatan daging."},
+]},
+{cat:"Waktu, Cuaca & Sifat", icon:"晴", words:[
+  {h:"晴",p:"qíng",a:"cerah",k:"日(matahari) + 青(bunyi).",l:"Matahari terlihat jelas tanpa halangan awan."},
+  {h:"阴",p:"yīn",a:"mendung",k:"阝(dinding) + 月(bulan tertutup).",l:"Cahaya tertutup gelap di balik dinding awan."},
+  {h:"一会儿",p:"yíhuìr",a:"sebentar",k:"一(satu) + 会(pertemuan) + 儿(akhiran).",l:"Satu pertemuan singkat, sebentar saja."},
+  {h:"一起",p:"yìqǐ",a:"bersama-sama",k:"一(satu) + 起(bangkit).",l:"Satu gerakan bangkit yang dilakukan bersama."},
+  {h:"有时",p:"yǒushí",a:"kadang-kadang",k:"有(punya) + 时(waktu).",l:"Ada saat-saat tertentu suatu hal terjadi."},
+  {h:"经常",p:"jīngcháng",a:"sering",k:"经(mengalir) + 常(biasa).",l:"Mengalir secara biasa dan berulang."},
+  {h:"从",p:"cóng",a:"dari",k:"Dua org (人) berjejer.",l:"Seseorang mengikuti orang lain, menandai asal-mula."},
+  {h:"从小",p:"cóngxiǎo",a:"sejak kecil",k:"从(dari) + 小(kecil).",l:"Dari sejak masih kecil."},
+  {h:"周",p:"zhōu",a:"minggu/siklus",k:"用+口,disederhanakan dari pola ladang berputar.",l:"Siklus yang berputar secara teratur, seperti satu minggu."},
+  {h:"时",p:"shí",a:"waktu/saat",k:"日(matahari) + 寺(bunyi).",l:"Saat tertentu yang ditandai posisi matahari."},
+  {h:"万",p:"wàn",a:"sepuluh ribu",k:"Pictograf kuno kalajengking.",l:"Dipinjam bunyinya untuk menandai angka besar sepuluh ribu."},
+  {h:"位",p:"wèi",a:"satuan orang (sopan)",k:"亻(orang) + 立(berdiri tegak).",l:"Orang yang berdiri tegak, dihormati sebagai satuan sopan."},
+  {h:"名",p:"míng",a:"satuan orang",k:"夕(malam) + 口(mulut,menyebut nama).",l:"Menghitung orang berdasarkan nama yang disebut."},
+  {h:"次",p:"cì",a:"satuan kali",k:"冫(es) + 欠(bunyi).",l:"Menghitung urutan atau frekuensi suatu kejadian."},
+  {h:"条",p:"tiáo",a:"satuan benda panjang",k:"木(kayu) + 攵(tangan).",l:"Menghitung benda panjang tipis seperti dahan kayu."},
+  {h:"间",p:"jiān",a:"satuan ruangan",k:"门(pintu) + 日(cahaya di celah).",l:"Menghitung ruangan berdasarkan celah pintu yang memisahkannya."},
+  {h:"班",p:"bān",a:"kelas/kelompok",k:"王+刂+王,dua keping giok dibelah.",l:"Dua keping giok dibelah jadi kelompok yang setara."},
+  {h:"长",p:"cháng",a:"panjang",k:"Pictograf rambut panjang & tongkat.",l:"Menggambarkan sesuatu yang memanjang, seperti rambut atau tongkat."},
+  {h:"高",p:"gāo",a:"tinggi",k:"Pictograf menara bertingkat.",l:"Bentuknya menyerupai bangunan menara yang menjulang."},
+  {h:"不错",p:"búcuò",a:"lumayan bagus",k:"不(tidak) + 错(钅+昔,salah/berkarat).",l:"Tidak salah — cukup bagus."},
+  {h:"错",p:"cuò",a:"salah",k:"钅(logam) + 昔(dulu).",l:"Logam yang berkarat karena waktu lama — jadi rusak/salah."},
+  {h:"坏",p:"huài",a:"rusak",k:"土(tanah) + 不(tidak,disederhanakan).",l:"Tanah yang tidak utuh lagi bentuknya."},
+  {h:"快",p:"kuài",a:"cepat",k:"忄(hati) + 夬(memutuskan).",l:"Hati yang cepat mengambil keputusan."},
+  {h:"快乐",p:"kuàilè",a:"bahagia",k:"快(cepat) + 乐(alat musik).",l:"Perasaan gembira yang datang cepat seperti alunan musik."},
+  {h:"快要",p:"kuàiyào",a:"hampir/segera",k:"快(cepat) + 要(akan).",l:"Sesuatu yang akan segera terjadi."},
+  {h:"慢",p:"màn",a:"lambat",k:"忄(hati) + 曼(mengulur panjang).",l:"Hati yang mengulur waktu dengan panjang, lambat."},
+  {h:"累",p:"lèi",a:"lelah",k:"田(ladang) + 糸(tali).",l:"Ladang yang ditumpuk beban tali-temali, melelahkan."},
+  {h:"舒服",p:"shūfu",a:"nyaman",k:"舍(melepaskan) + 予(memberi) / 月(tubuh).",l:"Tubuh yang dilepaskan dari beban, terasa nyaman."},
+  {h:"意思",p:"yìsi",a:"makna/maksud",k:"音(bunyi) + 心(pikiran/hati).",l:"Bunyi yang terekam dan dimaknai di dalam hati."},
+  {h:"有意思",p:"yǒu yìsi",a:"menarik",k:"有(punya) + 意思(makna).",l:"Memiliki makna yang menarik untuk disimak."},
+  {h:"没意思",p:"méi yìsi",a:"membosankan",k:"没(tidak ada) + 意思(makna).",l:"Tidak memiliki makna menarik — membosankan."},
+  {h:"不好意思",p:"bù hǎoyìsi",a:"malu/maaf",k:"不好(tidak baik) + 意思(perasaan).",l:"Perasaan tidak enak karena malu."},
+]},
+{cat:"Pelengkap", icon:"补", words:[
+  {h:"包",p:"bāo",a:"membungkus/tas",k:"勹(membungkus) + 巳(janin di dalam).",l:"Sesuatu yang dibungkus rapat seperti janin dalam kandungan."},
+  {h:"点",p:"diǎn",a:"memesan (makanan)",k:"占(menempati) + 灬(titik kecil).",l:"Menandai pilihan tertentu dari daftar menu, seperti titik penanda."},
+  {h:"飞",p:"fēi",a:"terbang",k:"Pictograf sayap mengepak.",l:"Bentuknya menyerupai sayap burung yang mengepak terbang."},
+  {h:"每",p:"měi",a:"setiap",k:"母(ibu) + 一.",l:"Seperti seorang ibu yang memperlakukan setiap anaknya sama rata."},
+  {h:"面",p:"miàn",a:"permukaan/wajah",k:"Pictograf wajah manusia.",l:"Bagian permukaan depan suatu benda atau tubuh."},
+  {h:"上网",p:"shàngwǎng",a:"daring/online",k:"上(naik) + 网(jaring internet).",l:"Naik masuk ke dalam jaringan internet."},
+  {h:"事情",p:"shìqing",a:"urusan",k:"事(urusan) + 情(perasaan/keadaan).",l:"Urusan yang melibatkan suatu keadaan tertentu."},
+  {h:"外国",p:"wàiguó",a:"luar negeri",k:"外(luar) + 国(negara).",l:"Negara di luar negeri sendiri."},
+  {h:"网上",p:"wǎngshang",a:"di internet",k:"网(jaring) + 上(atas/di dalam).",l:"Berada di dalam jaringan internet."},
+  {h:"药",p:"yào",a:"obat",k:"艹(tanaman) + 乐(nikmat,bunyi).",l:"Tanaman yang diolah untuk menyembuhkan dan membawa kelegaan."},
+  {h:"站",p:"zhàn",a:"stasiun/berdiri",k:"立(berdiri) + 占(menempati).",l:"Berdiri tegak menempati satu titik pemberhentian."},
+  {h:"最",p:"zuì",a:"paling",k:"日(matahari,disederhanakan) + 取(mengambil).",l:"Mengambil yang tertinggi di antara semua, menandai superlatif."},
+]},
+];
+
+const ALL_WORDS = [];
+DATA.forEach(section=>{ section.words.forEach(w=>{ if(!w.skip){ ALL_WORDS.push({...w, cat:section.cat}); } }); });
+document.getElementById('totalCount').textContent = ALL_WORDS.length;
+
+const catScroll = document.getElementById('catScroll');
+const main = document.getElementById('main');
+let activeCat = 'Semua';
+
+function renderChips(){
+  catScroll.innerHTML = '';
+  const cats = ['Semua', ...DATA.map(s=>s.cat)];
+  cats.forEach(c=>{
+    const chip = document.createElement('div');
+    chip.className = 'cat-chip' + (c===activeCat ? ' active':'');
+    chip.textContent = c;
+    chip.onclick = ()=>{ activeCat = c; document.getElementById('search').value=''; render(); };
+    catScroll.appendChild(chip);
+  });
+}
+function cardHTML(w){
+  return `<div class="card"><div class="hz">${w.h}</div><div class="py">${w.p}</div><div class="ar">${w.a}</div></div>`;
+}
+function render(){
+  renderChips();
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  main.innerHTML = '';
+  if(q){
+    const results = ALL_WORDS.filter(w=> w.h.includes(q) || w.p.toLowerCase().includes(q) || w.a.toLowerCase().includes(q));
+    const title = document.createElement('div');
+    title.className = 'section-title';
+    title.innerHTML = `Hasil pencarian <span class="count">(${results.length})</span>`;
+    main.appendChild(title);
+    if(results.length===0){ main.innerHTML += `<div class="empty-state"><span class="hz">找</span>Tidak ditemukan. Coba kata kunci lain.</div>`; return; }
+    const grid = document.createElement('div'); grid.className = 'grid';
+    grid.innerHTML = results.map(cardHTML).join('');
+    main.appendChild(grid);
+    attachCardEvents(results);
+    return;
+  }
+  const sectionsToShow = activeCat==='Semua' ? DATA : DATA.filter(s=>s.cat===activeCat);
+  sectionsToShow.forEach(section=>{
+    const words = section.words.filter(w=>!w.skip);
+    const title = document.createElement('div');
+    title.className = 'section-title';
+    title.innerHTML = `${section.cat} <span class="count">(${words.length})</span>`;
+    main.appendChild(title);
+    const grid = document.createElement('div'); grid.className = 'grid';
+    grid.innerHTML = words.map(cardHTML).join('');
+    main.appendChild(grid);
+    attachCardEvents(words);
+  });
+  updateProgress();
+}
+function attachCardEvents(words){
+  const cards = main.querySelectorAll('.card');
+  cards.forEach((card, i)=>{ card.addEventListener('click', ()=> openModal(words[i])); });
+}
+const overlay = document.getElementById('overlay');
+function openModal(w){
+  document.getElementById('mHz').textContent = w.h;
+  document.getElementById('mPy').textContent = w.p;
+  document.getElementById('mAr').textContent = w.a;
+  document.getElementById('mK').textContent = w.k;
+  document.getElementById('mL').textContent = w.l;
+  overlay.classList.add('open');
+  markSeen(w.h);
+}
+document.getElementById('closeBtn').onclick = ()=> overlay.classList.remove('open');
+overlay.addEventListener('click', (e)=>{ if(e.target===overlay) overlay.classList.remove('open'); });
+const seen = new Set();
+function markSeen(hz){ seen.add(hz); updateProgress(); }
+function updateProgress(){ const pct = Math.round((seen.size / ALL_WORDS.length) * 100); document.getElementById('progressFill').style.width = pct + '%'; }
+document.getElementById('search').addEventListener('input', render);
+render();
+</script>
+</body>
+</html>
