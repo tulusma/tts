@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>中文900句 · Bab 1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#F4F5F0;color:#1A1A1A;overscroll-behavior:none;}
+.zh{font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;}
+/* ── NAV ── */
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #E5E7EB;display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom);}
+.nav-btn{flex:1;padding:10px 4px 8px;border:none;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;font-weight:700;color:#9CA3AF;}
+.nav-btn.active{color:#6B8E23;}
+.nav-btn .icon{font-size:22px;line-height:1;}
+/* ── SCREENS ── */
+.screen{display:none;min-height:100vh;padding-bottom:74px;}
+.screen.active{display:block;}
+/* ── HEADER ── */
+.hdr{background:#6B8E23;color:#fff;padding:20px 18px 18px;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,0.08);}
+.hdr-book{font-size:12px;opacity:0.8;letter-spacing:1px;}
+.hdr-title{font-size:26px;font-weight:900;margin-top:2px;}
+.hdr-sub{font-size:12px;opacity:0.85;margin-top:2px;}
+.hdr-badges{display:flex;gap:8px;margin-top:14px;}
+.hdr-badge{background:rgba(255,255,255,0.14);border-radius:8px;padding:6px 10px;text-align:center;}
+.hdr-badge b{display:block;font-size:16px;font-weight:900;}
+.hdr-badge span{font-size:9px;opacity:0.8;}
+.sticky-hdr{background:#6B8E23;color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:10px;}
+.back-btn{width:30px;height:30px;border-radius:50%;border:none;background:rgba(255,255,255,0.15);color:#fff;font-size:16px;cursor:pointer;flex-shrink:0;}
+.sticky-title{font-size:15px;font-weight:800;}
+.sticky-sub{font-size:10px;opacity:0.8;}
+.unit-actions{display:flex;gap:6px;padding:10px 16px 0;}
+.unit-action-btn{flex:1;background:#fff;border:1.5px solid #6B8E23;color:#6B8E23;border-radius:10px;padding:9px 6px;font-size:12px;font-weight:800;cursor:pointer;}
+.unit-action-btn.solid{background:#6B8E23;color:#fff;}
+/* ── HOME UNIT LIST ── */
+.unit-list{padding:14px 16px 4px;}
+.feat-card{background:linear-gradient(135deg,#E8622C,#F2934E);border-radius:14px;padding:15px;margin:14px 16px 0;color:#fff;cursor:pointer;}
+.feat-card .ft{font-size:11px;font-weight:800;letter-spacing:1px;opacity:0.9;}
+.feat-card .fm{font-size:16px;font-weight:900;margin-top:3px;}
+.feat-card .fs{font-size:11px;opacity:0.9;margin-top:2px;}
+.unit-card{background:#fff;border-radius:14px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:13px;cursor:pointer;border:2px solid transparent;}
+.unit-card:active{background:#F6F8EF;border-color:#6B8E23;}
+.unit-icon{width:48px;height:48px;border-radius:12px;background:#EEF2DF;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.unit-no{font-size:10px;font-weight:800;color:#6B8E23;letter-spacing:1px;}
+.unit-title{font-size:15px;font-weight:800;margin-top:1px;}
+.unit-title .en{font-size:11px;color:#888;font-weight:600;margin-left:4px;}
+.unit-scenarios{font-size:11px;color:#999;margin-top:3px;}
+.unit-count{font-size:10px;color:#6B8E23;font-weight:700;background:#EEF2DF;border-radius:10px;padding:3px 9px;flex-shrink:0;}
+/* ── SEARCH ── */
+.search-wrap{padding:12px 16px;background:#6B8E23;position:sticky;top:0;z-index:100;}
+.search-inp{width:100%;border:none;border-radius:10px;padding:11px 14px;font-size:14px;outline:none;}
+.search-empty{padding:60px 30px;text-align:center;color:#999;font-size:13px;}
+/* ── SENTENCE CARD ── */
+.scenario-block{padding:0 16px;}
+.scenario-hdr{display:flex;align-items:center;gap:8px;margin:16px 0 8px;}
+.scenario-tag{background:#6B8E23;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:8px;}
+.scenario-en{font-size:11px;color:#999;}
+.sent-card{background:#fff;border-radius:13px;padding:13px 14px;margin-bottom:9px;border:1px solid #ECECEC;}
+.sent-top{display:flex;align-items:flex-start;gap:10px;}
+.sent-n{width:22px;height:22px;border-radius:50%;background:#EEF2DF;color:#6B8E23;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.sent-py{font-size:12px;color:#6B8E23;font-family:monospace;margin-bottom:2px;}
+.sent-zh{font-size:19px;font-weight:700;line-height:1.5;}
+.sent-zh .hz{cursor:pointer;border-radius:4px;padding:0 1px;}
+.sent-zh .hz:active{background:#EEF2DF;}
+.sent-id{font-size:13px;color:#555;margin-top:5px;line-height:1.5;}
+.sent-audio{width:34px;height:34px;border-radius:50%;border:none;background:#F0F3E6;color:#6B8E23;font-size:15px;cursor:pointer;flex-shrink:0;margin-top:1px;}
+.sent-audio:active{background:#6B8E23;color:#fff;}
+.tap-hint{font-size:10px;color:#bbb;margin-top:6px;}
+.search-res-meta{font-size:11px;color:#999;padding:4px 16px 0;}
+/* pinyin/arti toggle */
+body.hide-py .sent-py{display:none;}
+body.hide-id .sent-id{display:none;}
+.float-tog{position:fixed;right:12px;bottom:78px;display:flex;flex-direction:column;gap:8px;z-index:150;}
+.tog-btn{width:44px;height:44px;border-radius:50%;border:none;background:#1A1A1A;color:#fff;font-size:11px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,0.25);}
+.tog-btn.off{background:#ccc;color:#666;}
+/* ── EMPTY / MISC ── */
+.notice{background:#FFF9C4;border-radius:10px;padding:11px 13px;margin:14px 16px 0;font-size:12px;color:#78350F;line-height:1.6;border:1px solid #FDD835;}
+/* ── MODAL CHAR ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;display:none;align-items:flex-end;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;padding-bottom:28px;}
+.modal-handle{width:36px;height:4px;background:#ddd;border-radius:2px;margin:12px auto 0;}
+.modal-hdr{padding:14px 16px 12px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:12px;}
+.modal-zh{font-size:38px;font-weight:900;color:#111;line-height:1;}
+.modal-meta{flex:1;}
+.modal-appears{font-size:12px;color:#888;margin-top:2px;}
+.modal-close{width:30px;height:30px;border-radius:50%;border:none;background:#f5f5f5;color:#888;font-size:15px;cursor:pointer;}
+.modal-tabs{display:flex;border-bottom:2px solid #f0f0f0;}
+.modal-tab{flex:1;padding:10px;text-align:center;font-size:12px;font-weight:700;color:#aaa;border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;}
+.modal-tab.on{color:#6B8E23;border-bottom-color:#6B8E23;}
+.stroke-area{padding:14px 16px;}
+.ctrl-row{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap;}
+.ctrl-btn{flex:1;min-width:72px;padding:9px 6px;border-radius:10px;border:2px solid #eee;background:#fff;font-size:12px;font-weight:700;cursor:pointer;color:#555;}
+.ctrl-btn.red{background:#6B8E23;border-color:#6B8E23;color:#fff;}
+.ctrl-btn.blue{background:#1D4ED8;border-color:#1D4ED8;color:#fff;}
+.speed-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.speed-row label{font-size:12px;color:#666;white-space:nowrap;}
+.speed-row input{flex:1;}
+.speed-row span{font-size:12px;color:#888;white-space:nowrap;}
+.writer-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.writer-box{position:relative;border:2px solid #eee;border-radius:14px;overflow:hidden;background:#FFFDF8;}
+.stroke-badge{background:#f5f5f5;border-radius:20px;padding:3px 12px;font-size:12px;color:#666;}
+.fan-title{font-size:10px;font-weight:800;color:#888;letter-spacing:1px;text-transform:uppercase;margin:14px 0 7px;}
+.fan-row{display:flex;flex-wrap:wrap;gap:5px;align-items:center;}
+.fan-item{text-align:center;}
+.fan-lbl{font-size:9px;color:#aaa;margin-top:2px;}
+.fan-arrow{color:#ddd;font-size:14px;align-self:center;}
+.quiz-area{padding:14px 16px;}
+.quiz-prompt{text-align:center;margin-bottom:10px;}
+.quiz-result{text-align:center;padding:10px;border-radius:10px;margin-top:8px;font-size:13px;font-weight:700;display:none;}
+.quiz-result.show{display:block;}
+.quiz-result.ok{background:#D1FAE5;color:#065F46;}
+.quiz-result.bad{background:#FEE2E2;color:#991B1B;}
+.stroke-tip{background:#FFF9C4;border-radius:8px;padding:9px 11px;font-size:12px;color:#795548;line-height:1.6;margin-bottom:10px;border:1px solid #FDD835;}
+.spinner{width:18px;height:18px;border:2px solid #ddd;border-top-color:#6B8E23;border-radius:50%;display:inline-block;animation:spin 0.7s linear infinite;margin-right:6px;vertical-align:-3px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* ── WRITER PRACTICE SCREEN ── */
+.wp-progress{padding:12px 16px 0;font-size:12px;color:#666;display:flex;justify-content:space-between;align-items:center;}
+.wp-bar{height:5px;background:#E5E7EB;border-radius:3px;margin:0 16px 10px;overflow:hidden;}
+.wp-bar-fill{height:100%;background:#6B8E23;border-radius:3px;transition:width 0.2s;}
+.wp-nav{display:flex;gap:8px;padding:0 16px;margin-top:12px;}
+.wp-context{padding:0 16px;font-size:12px;color:#888;text-align:center;margin-top:6px;}
+
+/* ══════════════ TAMBAHAN TAHAP 2 ══════════════ */
+.chip-row{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;background:#fff;position:sticky;top:0;z-index:90;border-bottom:1px solid #eee;}
+.chip{flex-shrink:0;padding:6px 13px;border-radius:20px;background:#F0F3E6;color:#557;font-size:12px;font-weight:700;border:1.5px solid transparent;cursor:pointer;white-space:nowrap;}
+.chip.on{background:#6B8E23;color:#fff;}
+.vocab-row{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #f2f2f2;cursor:pointer;background:#fff;}
+.vocab-row:active{background:#F6F8EF;}
+.vocab-zh{font-size:19px;font-weight:800;min-width:70px;}
+.vocab-py{font-size:11px;color:#6B8E23;font-family:monospace;}
+.vocab-id{font-size:12px;color:#666;margin-top:1px;}
+.vocab-kat{font-size:9px;background:#EEF2DF;color:#6B8E23;padding:2px 7px;border-radius:8px;font-weight:700;flex-shrink:0;}
+.hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px;}
+.hub-card{background:#fff;border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;border:1.5px solid #eee;}
+.hub-card:active{border-color:#6B8E23;background:#F6F8EF;}
+.hub-emoji{font-size:26px;}
+.hub-label{font-size:12px;font-weight:800;margin-top:6px;}
+.hub-sub{font-size:10px;color:#999;margin-top:2px;}
+.pattern-card{background:#fff;border-radius:13px;padding:14px;margin:0 16px 10px;border:1px solid #ECECEC;}
+.pattern-formula{font-size:17px;font-weight:800;color:#1A1A1A;}
+.pattern-py{font-size:11px;color:#6B8E23;font-family:monospace;margin-top:2px;}
+.pattern-desc{font-size:12.5px;color:#555;margin-top:7px;line-height:1.5;}
+.pattern-ex{margin-top:8px;background:#F8F9F4;border-radius:8px;padding:8px 10px;}
+.warn-box{margin-top:10px;background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;padding:10px 12px;}
+.warn-title{font-size:11px;font-weight:800;color:#B91C1C;margin-bottom:5px;}
+.warn-line{font-size:12.5px;line-height:1.6;}
+.warn-salah{color:#B91C1C;}
+.warn-benar{color:#15803D;font-weight:700;}
+.chunk-card{background:#fff;border-radius:12px;padding:11px 13px;margin:0 16px 8px;border:1px solid #ECECEC;}
+.chunk-note{font-size:11px;color:#B45309;background:#FFFBEB;border-radius:6px;padding:5px 8px;margin-top:6px;}
+.sect-title{font-size:12px;font-weight:800;color:#888;letter-spacing:0.5px;text-transform:uppercase;padding:16px 16px 8px;}
+/* Exam/practice */
+.exam-hdr{background:#6B8E23;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
+.exam-timer{font-size:18px;font-weight:900;font-family:monospace;}
+.exam-timer.warn{color:#FCA5A5;}
+.exam-progress-txt{font-size:12px;opacity:0.85;}
+.q-card{margin:16px;background:#fff;border-radius:14px;padding:16px;border:1px solid #eee;}
+.q-jenis{display:inline-block;font-size:10px;font-weight:800;background:#EEF2DF;color:#6B8E23;padding:3px 9px;border-radius:8px;margin-bottom:8px;}
+.q-text{font-size:15px;font-weight:700;line-height:1.5;}
+.q-opt{margin-top:12px;padding:12px 13px;border-radius:10px;border:2px solid #eee;font-size:14px;cursor:pointer;}
+.q-opt.zh{font-size:16px;}
+.q-opt.sel{border-color:#6B8E23;background:#F6F8EF;}
+.q-opt.correct{border-color:#22C55E;background:#F0FDF4;color:#15803D;font-weight:700;}
+.q-opt.wrong{border-color:#EF4444;background:#FEF2F2;color:#B91C1C;font-weight:700;}
+.q-pemb{margin-top:12px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.6;color:#78350F;display:none;}
+.q-pemb.show{display:block;}
+.q-nav{display:flex;gap:8px;padding:0 16px 16px;}
+.result-box{margin:20px 16px;text-align:center;background:#fff;border-radius:16px;padding:26px 16px;border:1px solid #eee;}
+.result-score{font-size:40px;font-weight:900;color:#6B8E23;}
+.result-label{font-size:13px;color:#888;margin-top:4px;}
+.susun-pool{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding:10px;background:#F8F9F4;border-radius:10px;min-height:44px;}
+.susun-word{background:#6B8E23;color:#fff;padding:7px 12px;border-radius:8px;font-size:15px;cursor:pointer;font-weight:700;}
+.susun-slot{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;min-height:40px;border:2px dashed #ddd;border-radius:10px;padding:8px;}
+.susun-slot .susun-word{background:#1D4ED8;}
+/* Matching */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:14px 16px;}
+.match-col-title{font-size:11px;font-weight:800;color:#999;margin-bottom:6px;text-align:center;}
+.match-item{background:#fff;border:2px solid #eee;border-radius:10px;padding:10px 8px;text-align:center;margin-bottom:8px;cursor:pointer;font-size:14px;font-weight:700;}
+.match-item.sel{border-color:#6B8E23;background:#F6F8EF;}
+.match-item.done{border-color:#22C55E;background:#F0FDF4;opacity:0.5;pointer-events:none;}
+.match-item.bad{border-color:#EF4444;background:#FEF2F2;}
+/* Fill blank / ruby */
+.ruby-sent{font-size:22px;line-height:2.6;text-align:center;padding:10px 8px;}
+.ruby-char{display:inline-flex;flex-direction:column;align-items:center;margin:0 1px;vertical-align:bottom;}
+.ruby-top{font-size:10px;color:#6B8E23;font-family:monospace;height:13px;}
+.blank-box{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:2px dashed #6B8E23;border-radius:8px;background:#F6F8EF;font-size:18px;color:#6B8E23;cursor:pointer;}
+.fb-opts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;padding:0 16px;}
+.fb-opt{padding:9px 16px;border-radius:10px;border:2px solid #eee;font-size:18px;font-weight:800;cursor:pointer;background:#fff;}
+.fb-remind{margin:14px 16px 0;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:10px 12px;font-size:12.5px;color:#1e40af;line-height:1.6;display:none;}
+.fb-remind.show{display:block;}
+/* Analisis kalimat */
+.an-input{width:calc(100% - 32px);margin:14px 16px 0;border:2px solid #eee;border-radius:10px;padding:11px 13px;font-size:15px;}
+.an-btn{margin:10px 16px 0;background:#6B8E23;color:#fff;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:800;width:calc(100% - 32px);cursor:pointer;}
+.an-sect{margin:14px 16px 0;background:#fff;border-radius:12px;padding:13px 14px;border:1px solid #eee;}
+.an-sect-title{font-size:11px;font-weight:800;color:#6B8E23;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.word-chip{display:inline-block;background:#F0F3E6;border-radius:8px;padding:5px 9px;margin:0 4px 6px 0;text-align:center;}
+.word-chip .wc-zh{font-size:16px;font-weight:800;display:block;}
+.word-chip .wc-py{font-size:9px;color:#6B8E23;font-family:monospace;}
+.word-chip .wc-id{font-size:9px;color:#888;}
+.tone-char{display:inline-flex;flex-direction:column;align-items:center;margin:0 4px 8px;}
+.tone-char .tc-zh{font-size:24px;font-weight:800;}
+.tone-char .tc-py{font-size:11px;font-family:monospace;margin-top:2px;}
+.tone-1{color:#DC2626;} .tone-2{color:#D97706;} .tone-3{color:#16A34A;} .tone-4{color:#2563EB;} .tone-0{color:#6B7280;}
+.sandhi-tag{display:inline-block;background:#FEF3C7;color:#92400E;font-size:10px;font-weight:800;padding:2px 8px;border-radius:8px;margin:2px 3px 0 0;}
+/* Font style / Bentuk */
+.font-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px;}
+.font-cell{background:#FFFDF8;border:1px solid #eee;border-radius:12px;padding:14px 8px;text-align:center;}
+.font-cell .fc-label{font-size:10px;color:#999;margin-bottom:6px;}
+.font-cell .fc-char{font-size:38px;}
+.font-cell .fc-status{font-size:9px;color:#bbb;margin-top:5px;}
+/* Reference tables */
+.ref-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #f2f2f2;}
+.ref-zh{font-size:22px;font-weight:800;width:36px;text-align:center;flex-shrink:0;}
+.ref-py{font-size:11px;color:#6B8E23;font-family:monospace;}
+.ref-ket{font-size:12px;color:#666;margin-top:1px;}
+.ref-ex{font-size:16px;color:#999;flex-shrink:0;}
+.tone-curve{width:30px;height:30px;flex-shrink:0;}
+.info-empty{padding:30px 20px;text-align:center;color:#aaa;font-size:12.5px;line-height:1.6;}
+
+</style>
+</head>
+<body>
+
+<!-- ══ HOME ══ -->
+<div class="screen active" id="screen-home">
+  <div class="hdr">
+    <div class="hdr-book">中文900句</div>
+    <div class="hdr-title zh">人际交往</div>
+    <div class="hdr-sub">Bab 1 · Interpersonal Relationship</div>
+    <div class="hdr-badges">
+      <div class="hdr-badge"><b>135</b><span>KALIMAT</span></div>
+      <div class="hdr-badge"><b>9</b><span>UNIT</span></div>
+      <div class="hdr-badge"><b id="charCountBadge">-</b><span>HANZI</span></div>
+    </div>
+  </div>
+  <div class="feat-card" onclick="openUnit(1)">
+    <div class="ft">🎯 PRIORITAS</div>
+    <div class="fm">Latihan UTS Besok — Unit 02 问候</div>
+    <div class="fs">10 kalimat (No. 16–25) · tap hanzi untuk latihan tulis</div>
+  </div>
+  <div class="notice">📖 Tap kartu unit untuk lihat kalimat. Tap <b>hanzi mana pun</b> di kalimat untuk lihat urutan goresan &amp; latihan menulis dengan jari.</div>
+  <div class="unit-list" id="unitList"></div>
+</div>
+
+<!-- ══ UNIT DETAIL ══ -->
+<div class="screen" id="screen-unit">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div>
+      <div class="sticky-title zh" id="unitTitle"></div>
+      <div class="sticky-sub" id="unitSub"></div>
+    </div>
+  </div>
+  <div class="unit-actions">
+    <button class="unit-action-btn solid" onclick="startWriterPractice()">✍️ Latihan Tulis Semua Karakter</button>
+  </div>
+  <div id="unitBody"></div>
+</div>
+
+<!-- ══ WRITER PRACTICE ══ -->
+<div class="screen" id="screen-wp">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div>
+      <div class="sticky-title">✍️ Latihan Tulis</div>
+      <div class="sticky-sub" id="wpUnitName"></div>
+    </div>
+  </div>
+  <div class="wp-progress"><span id="wpCount"></span><span id="wpCharLabel"></span></div>
+  <div class="wp-bar"><div class="wp-bar-fill" id="wpBarFill" style="width:0%"></div></div>
+  <div class="stroke-area">
+    <div class="stroke-tip" id="wpTip">💡 Tulis karakter di bawah dengan jari, ikuti urutan goresan yang benar.</div>
+    <div class="writer-wrap">
+      <div class="writer-box"><div id="wpQuizTarget" style="width:240px;height:240px;"></div></div>
+    </div>
+    <div class="quiz-result" id="wpResult"></div>
+  </div>
+  <div class="wp-context" id="wpContext"></div>
+  <div class="wp-nav">
+    <button class="ctrl-btn" onclick="wpPrev()">← Sebelumnya</button>
+    <button class="ctrl-btn" onclick="wpRedo()">🔄 Ulang</button>
+    <button class="ctrl-btn red" onclick="wpNext()">Lanjut →</button>
+  </div>
+</div>
+
+<!-- ══ SEARCH ══ -->
+<div class="screen" id="screen-search">
+  <div class="search-wrap">
+    <input class="search-inp" id="searchInp" placeholder="Cari hanzi, pinyin, atau arti Indonesia..." oninput="doSearch()"/>
+  </div>
+  <div id="searchBody"><div class="search-empty">Ketik untuk mencari di antara 135 kalimat.<br>Contoh: "terima kasih", "nǐ hǎo", "谢谢"</div></div>
+</div>
+
+
+<!-- ══ KOSAKATA ══ -->
+<div class="screen" id="screen-vocab">
+  <div class="sticky-hdr"><div><div class="sticky-title">📚 Kosakata</div><div class="sticky-sub" id="vocabCountLbl"></div></div></div>
+  <div class="chip-row" id="vocabChips"></div>
+  <div id="vocabList"></div>
+</div>
+
+<!-- ══ POLA & TATA BAHASA ══ -->
+<div class="screen" id="screen-pola">
+  <div class="sticky-hdr"><div><div class="sticky-title">🧩 Pola & Tata Bahasa</div><div class="sticky-sub">24 pola · 21 词块</div></div></div>
+  <div class="chip-row">
+    <div class="chip on" id="polaChipAll" onclick="setPolaFilter('all')">Semua</div>
+    <div class="chip" id="polaChipWarn" onclick="setPolaFilter('warn')">⚠️ Sering Salah</div>
+    <div class="chip" id="polaChipChunk" onclick="setPolaFilter('chunk')">词块</div>
+  </div>
+  <div id="polaList"></div>
+</div>
+
+<!-- ══ LATIHAN HUB ══ -->
+<div class="screen" id="screen-latihan">
+  <div class="hdr" style="padding-bottom:14px">
+    <div class="hdr-book">中文900句 · Bab 1</div>
+    <div class="hdr-title" style="font-size:22px">🎯 Latihan</div>
+    <div class="hdr-sub">Pilih mode latihan di bawah</div>
+  </div>
+  <div class="hub-grid">
+    <div class="hub-card" onclick="openExam(true)"><div class="hub-emoji">⏱️</div><div class="hub-label">Simulasi Ujian</div><div class="hub-sub">30 soal + timer</div></div>
+    <div class="hub-card" onclick="openExam(false)"><div class="hub-emoji">📝</div><div class="hub-label">Latihan Bebas</div><div class="hub-sub">Tanpa timer</div></div>
+    <div class="hub-card" onclick="openMatching()"><div class="hub-emoji">🔗</div><div class="hub-label">Matching</div><div class="hub-sub">Jodohkan hanzi</div></div>
+    <div class="hub-card" onclick="openFillblank()"><div class="hub-emoji">✏️</div><div class="hub-label">Isian Rumpang</div><div class="hub-sub">+ pinyin ruby</div></div>
+    <div class="hub-card" onclick="openAnalisis()"><div class="hub-emoji">🔬</div><div class="hub-label">Analisis Kalimat</div><div class="hub-sub">Tempel kalimat apa pun</div></div>
+    <div class="hub-card" onclick="openTonePractice()"><div class="hub-emoji">🎵</div><div class="hub-label">Latihan Nada</div><div class="hub-sub">Kurva & sandhi</div></div>
+    <div class="hub-card" onclick="openProduksi()"><div class="hub-emoji">🧱</div><div class="hub-label">Latihan Produksi</div><div class="hub-sub">Susun kalimat</div></div>
+    <div class="hub-card" onclick="openPhonetic()"><div class="hub-emoji">🔤</div><div class="hub-label">Deret Fonetik</div><div class="hub-sub">Komponen bunyi</div></div>
+    <div class="hub-card" onclick="openStrokeRef()"><div class="hub-emoji">✍️</div><div class="hub-label">28 Goresan</div><div class="hub-sub">Rujukan</div></div>
+    <div class="hub-card" onclick="openRadicalRef()"><div class="hub-emoji">🧭</div><div class="hub-label">40 Radikal</div><div class="hub-sub">Rujukan</div></div>
+  </div>
+</div>
+
+<!-- ══ EXAM / QUIZ ══ -->
+<div class="screen" id="screen-exam">
+  <div class="exam-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div class="exam-progress-txt" id="examProgress"></div>
+    <div class="exam-timer" id="examTimer"></div>
+  </div>
+  <div id="examBody"></div>
+</div>
+
+<!-- ══ MATCHING ══ -->
+<div class="screen" id="screen-matching">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div><div class="sticky-title">🔗 Matching</div><div class="sticky-sub" id="matchProgress"></div></div>
+  </div>
+  <div class="chip-row" id="matchChips"></div>
+  <div class="match-grid" id="matchGrid"></div>
+  <div style="padding:0 16px"><button class="ctrl-btn red" style="width:100%" onclick="newMatchRound()">🔄 Soal Baru</button></div>
+</div>
+
+<!-- ══ FILL BLANK ══ -->
+<div class="screen" id="screen-fillblank">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div><div class="sticky-title">✏️ Isian Rumpang</div><div class="sticky-sub" id="fbProgress"></div></div>
+  </div>
+  <div class="ruby-sent" id="fbSent"></div>
+  <div class="fb-opts" id="fbOpts"></div>
+  <div class="fb-remind" id="fbRemind"></div>
+  <div class="q-nav"><button class="ctrl-btn" onclick="fbNext()">Lanjut →</button></div>
+</div>
+
+<!-- ══ ANALISIS KALIMAT ══ -->
+<div class="screen" id="screen-analisis">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div><div class="sticky-title">🔬 Analisis Kalimat</div><div class="sticky-sub">Tempel kalimat Mandarin apa pun</div></div>
+  </div>
+  <input class="an-input" id="anInput" placeholder="Contoh: 你好！我叫丁大伟。" value="你好！我叫丁大伟。"/>
+  <button class="an-btn" onclick="runAnalisis()">🔬 Analisis</button>
+  <div id="anResult"></div>
+</div>
+
+<!-- ══ LATIHAN NADA ══ -->
+<div class="screen" id="screen-nada">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div><div class="sticky-title">🎵 Latihan Nada</div><div class="sticky-sub">Kurva nada & aturan sandhi</div></div>
+  </div>
+  <div id="nadaBody"></div>
+</div>
+
+<!-- ══ LATIHAN PRODUKSI ══ -->
+<div class="screen" id="screen-produksi">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div><div class="sticky-title">🧱 Latihan Produksi</div><div class="sticky-sub" id="prodProgress"></div></div>
+  </div>
+  <div class="q-card">
+    <div class="q-jenis">Susun kalimat</div>
+    <div class="q-text" id="prodPrompt"></div>
+    <div class="susun-slot" id="prodSlot"></div>
+    <div class="susun-pool" id="prodPool"></div>
+    <div class="q-pemb" id="prodResult"></div>
+  </div>
+  <div class="q-nav">
+    <button class="ctrl-btn" onclick="prodReset()">🔄 Ulang</button>
+    <button class="ctrl-btn blue" onclick="prodCheck()">✓ Cek</button>
+    <button class="ctrl-btn red" onclick="prodNext()">Lanjut →</button>
+  </div>
+</div>
+
+<!-- ══ DERET FONETIK ══ -->
+<div class="screen" id="screen-phonetic">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div><div class="sticky-title">🔤 Deret Fonetik</div><div class="sticky-sub">Karakter berbagi komponen bunyi</div></div>
+  </div>
+  <div class="notice">Korpus Bab 1 baru 258 kata, jadi deret fonetik yang bisa didemonstrasikan dari kalimat asli masih terbatas. Akan bertambah kaya seiring Bab 2 dst ditambahkan.</div>
+  <div id="phoneticBody"></div>
+</div>
+
+<!-- ══ RUJUKAN GORESAN ══ -->
+<div class="screen" id="screen-strokeref">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div><div class="sticky-title">✍️ Rujukan 28 Goresan</div><div class="sticky-sub">Nama baku jenis goresan</div></div>
+  </div>
+  <div id="strokeRefBody"></div>
+</div>
+
+<!-- ══ RUJUKAN RADIKAL ══ -->
+<div class="screen" id="screen-radicalref">
+  <div class="sticky-hdr">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div><div class="sticky-title">🧭 Rujukan 40 Radikal</div><div class="sticky-sub">Komponen dasar hanzi</div></div>
+  </div>
+  <div id="radicalRefBody"></div>
+</div>
+
+<!-- ══ NAV ══ -->
+<div class="nav">
+  <button class="nav-btn active" data-s="home" onclick="showScreen('home')"><span class="icon">🏠</span>Beranda</button>
+  <button class="nav-btn" data-s="vocab" onclick="showScreen('vocab')"><span class="icon">📚</span>Kosakata</button>
+  <button class="nav-btn" data-s="pola" onclick="showScreen('pola')"><span class="icon">🧩</span>Pola</button>
+  <button class="nav-btn" data-s="latihan" onclick="showScreen('latihan')"><span class="icon">🎯</span>Latihan</button>
+  <button class="nav-btn" data-s="search" onclick="showScreen('search')"><span class="icon">🔍</span>Cari</button>
+</div>
+
+<!-- ══ FLOATING TOGGLES ══ -->
+<div class="float-tog">
+  <button class="tog-btn" id="togPy" onclick="togglePy()">拼音</button>
+  <button class="tog-btn" id="togId" onclick="toggleId()">Arti</button>
+</div>
+
+<!-- ══ MODAL: DETAIL KARAKTER ══ -->
+<div class="overlay" id="overlay" onclick="closeMIfBg(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <div class="modal-zh zh" id="mZh"></div>
+      <div class="modal-meta">
+        <div class="modal-appears" id="mAppears"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-tabs">
+      <button class="modal-tab on" id="tabBtnStroke" onclick="mTab('stroke',this)">✍️ Goresan</button>
+      <button class="modal-tab" id="tabBtnQuiz" onclick="mTab('quiz',this)">🎯 Tulis</button>
+      <button class="modal-tab" id="tabBtnArti" style="display:none" onclick="mTab('arti',this)">📖 Arti</button>
+      <button class="modal-tab" id="tabBtnBentuk" style="display:none" onclick="mTab('bentuk',this)">🈶 Bentuk</button>
+      <button class="modal-tab" id="tabBtnInfo" style="display:none" onclick="mTab('info',this)">ℹ️ Info</button>
+    </div>
+    <div id="mStroke">
+      <div class="stroke-area">
+        <div class="stroke-tip" id="strokeTip">💡 Tap Animasi untuk lihat urutan penulisan.</div>
+        <div class="speed-row">
+          <label>⚡ Kecepatan:</label>
+          <input type="range" min="0.3" max="2" step="0.1" value="0.8" oninput="updateSpeed(this)" id="speedSlider"/>
+          <span id="speedVal">0.8x</span>
+        </div>
+        <div class="ctrl-row">
+          <button class="ctrl-btn red" onclick="doAnimate()">▶ Animasi</button>
+          <button class="ctrl-btn blue" onclick="doShow()">👁 Tampil</button>
+          <button class="ctrl-btn" onclick="doHide()">🙈 Sembunyikan</button>
+          <button class="ctrl-btn" id="loopBtn" onclick="doLoop()">🔁 Loop</button>
+        </div>
+        <div class="writer-wrap">
+          <div class="writer-box" id="writerBox"><div id="writerTarget" style="width:220px;height:220px;"></div></div>
+          <div class="stroke-badge" id="strokeBadge"></div>
+        </div>
+        <div class="fan-title">Urutan Goresan Per Tahap</div>
+        <div class="fan-row" id="fanRow"></div>
+      </div>
+    </div>
+    <div id="mQuiz" style="display:none">
+      <div class="quiz-area">
+        <div class="stroke-tip" style="background:#EFF6FF;border-color:#BFDBFE;color:#1e40af">✏️ Ikuti urutan goresan dengan tap/drag mengikuti arah yang benar!</div>
+        <div class="quiz-prompt">
+          <div style="font-size:12px;color:#888;margin-bottom:5px">Tulis karakter ini:</div>
+          <div style="font-size:26px;font-weight:900" class="zh" id="qChar"></div>
+        </div>
+        <div class="writer-wrap">
+          <div class="writer-box"><div id="quizTarget" style="width:220px;height:220px;"></div></div>
+        </div>
+        <div class="quiz-result" id="quizResult"></div>
+        <div style="display:flex;gap:8px;margin-top:10px;">
+          <button class="ctrl-btn red" onclick="startQuiz()" style="flex:1">🎯 Mulai</button>
+          <button class="ctrl-btn" onclick="resetQuiz()" style="flex:1">🔄 Ulang</button>
+        </div>
+      </div>
+    </div>
+    <div id="mArti" style="display:none"><div class="stroke-area" id="mArtiBody"></div></div>
+    <div id="mBentuk" style="display:none"><div class="font-grid" id="mBentukBody"></div></div>
+    <div id="mInfo" style="display:none"><div class="stroke-area" id="mInfoBody"></div></div>
+  </div>
+</div>
+
+<script>
+// 中文900句 — Bab 1: 人际交往 Interpersonal Relationship
+// 9 unit x 3 skenario x 5 kalimat = 135 kalimat
+const BOOK_TITLE = "中文900句";
+const PART_TITLE = "人际交往";
+const PART_SUB = "Interpersonal Relationship";
+
+const UNITS = [
+{no:"01", zh:"介绍", en:"Introduction", emoji:"🤝", scenarios:[
+  {zh:"自己", en:"Oneself", sentences:[
+    {n:1, zh:"你好！我叫丁大伟。", py:"Nǐ hǎo! Wǒ jiào Dīng Dàwěi.", id:"Halo! Nama saya Ding Dawei."},
+    {n:2, zh:"我来自英国。", py:"Wǒ láizì Yīngguó.", id:"Saya berasal dari Inggris."},
+    {n:3, zh:"这是我第一次来中国。", py:"Zhè shì wǒ dì-yī cì lái Zhōngguó.", id:"Ini pertama kalinya saya datang ke Tiongkok."},
+    {n:4, zh:"您怎么称呼？", py:"Nín zěnme chēnghu?", id:"Siapa nama Anda? (cara sopan bertanya nama)"},
+    {n:5, zh:"认识你很高兴。", py:"Rènshi nǐ hěn gāoxìng.", id:"Senang berkenalan dengan Anda."},
+  ]},
+  {zh:"他人", en:"Others", sentences:[
+    {n:6, zh:"我来介绍一下。", py:"Wǒ lái jièshào yíxià.", id:"Biar saya perkenalkan."},
+    {n:7, zh:"这位是李老师。", py:"Zhè wèi shì Lǐ lǎoshī.", id:"Ini adalah Bapak/Ibu Li (guru)."},
+    {n:8, zh:"他是我的好朋友。", py:"Tā shì wǒ de hǎopéngyou.", id:"Dia teman baik saya."},
+    {n:9, zh:"林先生，久仰久仰。", py:"Lín xiānsheng, jiǔyǎng jiǔyǎng.", id:"Pak Lin, saya sudah lama mendengar nama Anda."},
+    {n:10, zh:"你们加下微信吧。", py:"Nǐmen jiā xià wēixìn ba.", id:"Kalian saling tambahkan WeChat saja ya."},
+  ]},
+  {zh:"场所", en:"Place", sentences:[
+    {n:11, zh:"这是我们公司大楼。", py:"Zhè shì wǒmen gōngsī dàlóu.", id:"Ini gedung perusahaan kami."},
+    {n:12, zh:"我们的办公室在三层。", py:"Wǒmen de bàngōngshì zài sān céng.", id:"Kantor kami ada di lantai tiga."},
+    {n:13, zh:"左边是图书馆，右边是体育馆。", py:"Zuǒbian shì túshūguǎn, yòubian shì tǐyùguǎn.", id:"Di sebelah kiri perpustakaan, di sebelah kanan gedung olahraga."},
+    {n:14, zh:"那边有一家书店。", py:"Nàbian yǒu yì jiā shūdiàn.", id:"Di sana ada toko buku."},
+    {n:15, zh:"这座楼有100多年的历史了。", py:"Zhè zuò lóu yǒu yìbǎi duō nián de lìshǐ le.", id:"Gedung ini sudah berusia lebih dari 100 tahun."},
+  ]},
+]},
+{no:"02", zh:"问候", en:"Greeting", emoji:"👋", scenarios:[
+  {zh:"日常", en:"Daily", sentences:[
+    {n:16, zh:"杨阳，上班去呀？", py:"Yáng Yáng, shàngbān qù ya?", id:"Yang Yang, mau berangkat kerja ya?"},
+    {n:17, zh:"你也来跑步哇？", py:"Nǐ yě lái pǎobù wa?", id:"Kamu juga lari pagi ya?"},
+    {n:18, zh:"最近忙什么呢？", py:"Zuìjìn máng shénme ne?", id:"Akhir-akhir ini sibuk apa?"},
+    {n:19, zh:"最近挺好的吧？", py:"Zuìjìn tǐng hǎo de ba?", id:"Belakangan ini baik-baik saja kan?"},
+    {n:20, zh:"好久不见。", py:"Hǎojiǔ bújiàn.", id:"Lama tidak berjumpa."},
+  ]},
+  {zh:"路遇", en:"Encounter", sentences:[
+    {n:21, zh:"真是你呀！", py:"Zhēn shì nǐ ya!", id:"Ternyata benar kamu!"},
+    {n:22, zh:"我们又见面了。", py:"Wǒmen yòu jiànmiàn le.", id:"Kita bertemu lagi."},
+    {n:23, zh:"好巧哇！", py:"Hǎo qiǎo wa!", id:"Kebetulan sekali!"},
+    {n:24, zh:"没想到在这儿碰到你。", py:"Méi xiǎngdào zài zhèr pèngdào nǐ.", id:"Tidak menyangka bisa bertemu kamu di sini."},
+    {n:25, zh:"我差点儿没认出你。", py:"Wǒ chàdiǎnr méi rènchū nǐ.", id:"Saya hampir tidak mengenali kamu."},
+  ]},
+  {zh:"职场", en:"Workplace", sentences:[
+    {n:26, zh:"高总好！", py:"Gāo zǒng hǎo!", id:"Selamat siang, Direktur Gao!"},
+    {n:27, zh:"早哇，张经理。", py:"Zǎo wa, Zhāng jīnglǐ.", id:"Selamat pagi, Manajer Zhang."},
+    {n:28, zh:"王姐，忙呢？", py:"Wáng jiě, máng ne?", id:"Kak Wang, lagi sibuk ya?"},
+    {n:29, zh:"工作辛苦了！", py:"Gōngzuò xīnkǔ le!", id:"Terima kasih atas kerja kerasnya!"},
+    {n:30, zh:"您更辛苦。", py:"Nín gèng xīnkǔ.", id:"Anda yang lebih berat pekerjaannya."},
+  ]},
+]},
+{no:"03", zh:"礼节", en:"Etiquette", emoji:"🎁", scenarios:[
+  {zh:"待客", en:"Hospitality", sentences:[
+    {n:31, zh:"欢迎！", py:"Huānyíng!", id:"Selamat datang!"},
+    {n:32, zh:"快请进！", py:"Kuài qǐng jìn!", id:"Ayo silakan masuk!"},
+    {n:33, zh:"您坐！", py:"Nín zuò!", id:"Silakan duduk!"},
+    {n:34, zh:"你喝茶还是咖啡？", py:"Nǐ hē chá háishi kāfēi?", id:"Anda mau minum teh atau kopi?"},
+    {n:35, zh:"来，吃点儿水果。", py:"Lái, chī diǎnr shuǐguǒ.", id:"Ayo, makan buah sedikit."},
+  ]},
+  {zh:"礼物", en:"Gift", sentences:[
+    {n:36, zh:"这是我的一点儿心意，请收下。", py:"Zhè shì wǒ de yìdiǎnr xīnyì, qǐng shōuxià.", id:"Ini sedikit tanda perhatian dari saya, mohon diterima."},
+    {n:37, zh:"我带了一瓶葡萄酒，希望您喜欢。", py:"Wǒ dàile yì píng pútaojiǔ, xīwàng nín xǐhuan.", id:"Saya membawa sebotol anggur, semoga Anda suka."},
+    {n:38, zh:"你来就好，还带东西干吗？", py:"Nǐ lái jiù hǎo, hái dài dōngxi gànmá?", id:"Kamu datang saja sudah cukup, kenapa masih bawa-bawa sesuatu?"},
+    {n:39, zh:"这太贵重了！", py:"Zhè tài guìzhòng le!", id:"Ini terlalu mahal!"},
+    {n:40, zh:"谢谢，我很喜欢。", py:"Xièxie, wǒ hěn xǐhuan.", id:"Terima kasih, saya sangat suka."},
+  ]},
+  {zh:"宴请", en:"Banquet", sentences:[
+    {n:41, zh:"干杯！", py:"Gānbēi!", id:"Bersulang!"},
+    {n:42, zh:"您先请。", py:"Nín xiān qǐng.", id:"Silakan Anda duluan."},
+    {n:43, zh:"尝尝这个菜。", py:"Chángchang zhège cài.", id:"Cicipi masakan ini."},
+    {n:44, zh:"大家吃好喝好。", py:"Dàjiā chīhǎo hēhǎo.", id:"Semoga semua makan dan minum dengan puas."},
+    {n:45, zh:"感谢你们的款待！", py:"Gǎnxiè nǐmen de kuǎndài!", id:"Terima kasih atas jamuannya!"},
+  ]},
+]},
+{no:"04", zh:"通信", en:"Communication", emoji:"📞", scenarios:[
+  {zh:"接打电话", en:"Make/Receive a Call", sentences:[
+    {n:46, zh:"喂，是张老师吗？", py:"Wéi, shì Zhāng lǎoshī ma?", id:"Halo, apakah ini Bapak/Ibu Zhang?"},
+    {n:47, zh:"我是刘佳。", py:"Wǒ shì Liú Jiā.", id:"Saya Liu Jia."},
+    {n:48, zh:"请问您是哪位？", py:"Qǐngwèn nín shì nǎ wèi?", id:"Maaf, ini dengan siapa?"},
+    {n:49, zh:"请等一下。", py:"Qǐng děng yíxià.", id:"Mohon tunggu sebentar."},
+    {n:50, zh:"有事儿联系，再见。", py:"Yǒu shìr liánxì, zàijiàn.", id:"Kalau ada urusan hubungi saya, sampai jumpa."},
+  ]},
+  {zh:"联系不畅", en:"Poor Connection", sentences:[
+    {n:51, zh:"您现在方便说话吗？", py:"Nín xiànzài fāngbiàn shuōhuà ma?", id:"Apakah sekarang nyaman untuk bicara?"},
+    {n:52, zh:"收到后请回个消息。", py:"Shōudào hòu qǐng huí ge xiāoxi.", id:"Setelah diterima, mohon balas pesannya."},
+    {n:53, zh:"抱歉，刚才在路上，没听到。", py:"Bàoqiàn, gāngcái zài lùshang, méi tīngdào.", id:"Maaf, tadi sedang di jalan, tidak dengar."},
+    {n:54, zh:"刚才一直在忙，没看手机。", py:"Gāngcái yìzhí zài máng, méi kàn shǒujī.", id:"Tadi terus sibuk, tidak sempat cek HP."},
+    {n:55, zh:"不好意思，没及时回复。", py:"Bù hǎoyìsi, méi jíshí huífù.", id:"Maaf, tidak sempat membalas tepat waktu."},
+  ]},
+  {zh:"联系失败", en:"Connection Failure", sentences:[
+    {n:56, zh:"你打错了。", py:"Nǐ dǎcuò le.", id:"Anda salah sambung."},
+    {n:57, zh:"他的电话一直占线。", py:"Tā de diànhuà yìzhí zhànxiàn.", id:"Teleponnya terus sibuk (tidak bisa dihubungi)."},
+    {n:58, zh:"信号不好，听不清楚。", py:"Xìnhào bù hǎo, tīng bu qīngchu.", id:"Sinyalnya jelek, tidak terdengar jelas."},
+    {n:59, zh:"他把电话挂了。", py:"Tā bǎ diànhuà guà le.", id:"Dia menutup teleponnya."},
+    {n:60, zh:"她手机关机了。", py:"Tā shǒujī guānjī le.", id:"HP-nya mati."},
+  ]},
+]},
+{no:"05", zh:"预约", en:"Appointment", emoji:"🗓️", scenarios:[
+  {zh:"商务约见", en:"Business Appointment", sentences:[
+    {n:61, zh:"我想见一下江总。", py:"Wǒ xiǎng jiàn yíxià Jiāng zǒng.", id:"Saya ingin bertemu dengan Direktur Jiang."},
+    {n:62, zh:"您约的几点？", py:"Nín yuē de jǐ diǎn?", id:"Anda janjian jam berapa?"},
+    {n:63, zh:"他什么时候有空儿？", py:"Tā shénme shíhou yǒu kòngr?", id:"Kapan dia ada waktu luang?"},
+    {n:64, zh:"您明天下午三点有时间吗？", py:"Nín míngtiān xiàwǔ sān diǎn yǒu shíjiān ma?", id:"Apakah Anda ada waktu besok jam 3 sore?"},
+    {n:65, zh:"我们明天上午去，方便吗？", py:"Wǒmen míngtiān shàngwǔ qù, fāngbiàn ma?", id:"Kami akan datang besok pagi, apakah nyaman?"},
+  ]},
+  {zh:"个人护理", en:"Personal Care", sentences:[
+    {n:66, zh:"赵大夫明天下午四点有空儿吗？", py:"Zhào dàifu míngtiān xiàwǔ sì diǎn yǒu kòngr ma?", id:"Apakah Dokter Zhao ada waktu besok jam 4 sore?"},
+    {n:67, zh:"我想约刘师傅。", py:"Wǒ xiǎng yuē Liú shīfu.", id:"Saya ingin membuat janji dengan Pak Liu."},
+    {n:68, zh:"周六已经约满了。", py:"Zhōuliù yǐjīng yuēmǎn le.", id:"Hari Sabtu sudah penuh terpesan."},
+    {n:69, zh:"请你提前一天提醒我一下。", py:"Qǐng nǐ tíqián yìtiān tíxǐng wǒ yíxià.", id:"Tolong ingatkan saya sehari sebelumnya."},
+    {n:70, zh:"我今天有事儿去不了了。", py:"Wǒ jīntiān yǒu shìr qùbuliǎo le.", id:"Hari ini saya ada urusan jadi tidak bisa datang."},
+  ]},
+  {zh:"订座/订票", en:"Reservation", sentences:[
+    {n:71, zh:"我想订个包间。", py:"Wǒ xiǎng dìng ge bāojiān.", id:"Saya ingin memesan ruangan privat."},
+    {n:72, zh:"您来之前再打电话确认一下。", py:"Nín lái zhīqián zài dǎ diànhuà quèrèn yíxià.", id:"Sebelum datang, mohon telepon lagi untuk konfirmasi."},
+    {n:73, zh:"我订一张8号去香港的机票。", py:"Wǒ dìng yì zhāng bā hào qù Xiānggǎng de jīpiào.", id:"Saya memesan satu tiket pesawat ke Hong Kong tanggal 8."},
+    {n:74, zh:"这个时间不合适。", py:"Zhège shíjiān bù héshì.", id:"Waktu ini tidak cocok."},
+    {n:75, zh:"现在还没开始售票。", py:"Xiànzài hái méi kāishǐ shòu piào.", id:"Sekarang penjualan tiket belum dimulai."},
+  ]},
+]},
+{no:"06", zh:"帮助", en:"Help", emoji:"🙌", scenarios:[
+  {zh:"朋友", en:"Friend", sentences:[
+    {n:76, zh:"有个事情想请你帮忙。", py:"Yǒu ge shìqing xiǎng qǐng nǐ bāngmáng.", id:"Ada hal yang ingin saya minta bantuan Anda."},
+    {n:77, zh:"你有事儿就说一声。", py:"Nǐ yǒu shìr jiù shuō yì shēng.", id:"Kalau ada perlu apa-apa, bilang saja."},
+    {n:78, zh:"这事儿交给我吧。", py:"Zhè shìr jiāo gěi wǒ ba.", id:"Serahkan urusan ini pada saya."},
+    {n:79, zh:"没事儿，有我呢。", py:"Méishìr, yǒu wǒ ne.", id:"Tidak apa-apa, ada saya kok."},
+    {n:80, zh:"你帮了我这么多，太感谢了！", py:"Nǐ bāngle wǒ zhème duō, tài gǎnxiè le!", id:"Kamu sudah banyak membantu saya, terima kasih banyak!"},
+  ]},
+  {zh:"同事", en:"Colleague", sentences:[
+    {n:81, zh:"你能帮我一下吗？", py:"Nǐ néng bāng wǒ yíxià ma?", id:"Bisakah kamu membantu saya sebentar?"},
+    {n:82, zh:"你帮我带份午餐吧。", py:"Nǐ bāng wǒ dài fèn wǔcān ba.", id:"Tolong bawakan saya makan siang."},
+    {n:83, zh:"我的电脑坏了，你帮我看看吧。", py:"Wǒ de diànnǎo huài le, nǐ bāng wǒ kànkan ba.", id:"Komputer saya rusak, tolong bantu periksa."},
+    {n:84, zh:"你拿去用吧。", py:"Nǐ náqu yòng ba.", id:"Ambil saja untuk dipakai."},
+    {n:85, zh:"我下班后开车带你过去。", py:"Wǒ xiàbān hòu kāichē dài nǐ guòqu.", id:"Setelah pulang kerja saya akan antar kamu ke sana."},
+  ]},
+  {zh:"陌生人", en:"Stranger", sentences:[
+    {n:86, zh:"你需要帮忙吗？", py:"Nǐ xūyào bāngmáng ma?", id:"Apakah kamu butuh bantuan?"},
+    {n:87, zh:"您能帮我们拍张照吗？", py:"Nín néng bāng wǒmen pāi zhāng zhào ma?", id:"Bisakah Anda memotret kami?"},
+    {n:88, zh:"麻烦你帮我推一下，好吗？", py:"Máfan nǐ bāng wǒ tuī yíxià, hǎo ma?", id:"Maaf merepotkan, bisa tolong dorongkan sebentar?"},
+    {n:89, zh:"东西太重了，我来帮你。", py:"Dōngxi tài zhòng le, wǒ lái bāng nǐ.", id:"Barangnya terlalu berat, biar saya bantu."},
+    {n:90, zh:"抱歉，我帮不了你。", py:"Bàoqiàn, wǒ bāngbuliǎo nǐ.", id:"Maaf, saya tidak bisa membantu Anda."},
+  ]},
+]},
+{no:"07", zh:"拜访", en:"Visit", emoji:"🏠", scenarios:[
+  {zh:"朋友", en:"Friend", sentences:[
+    {n:91, zh:"我来出差，正好也看看你。", py:"Wǒ lái chūchāi, zhènghǎo yě kànkan nǐ.", id:"Saya sedang dinas, sekalian mampir menengok kamu."},
+    {n:92, zh:"我们一会儿在咖啡厅见吧。", py:"Wǒmen yíhuìr zài kāfēitīng jiàn ba.", id:"Kita ketemu nanti di kedai kopi ya."},
+    {n:93, zh:"我给你家宝宝买了个玩具。", py:"Wǒ gěi nǐ jiā bǎobao mǎile ge wánjù.", id:"Saya belikan mainan untuk anak Anda."},
+    {n:94, zh:"你家的花养得真好！", py:"Nǐ jiā de huā yǎng de zhēn hǎo!", id:"Bunga di rumahmu dirawat dengan sangat baik!"},
+    {n:95, zh:"有空儿再来玩儿。", py:"Yǒu kòngr zài lái wánr.", id:"Kalau ada waktu, main lagi ya."},
+  ]},
+  {zh:"前辈", en:"Senior", sentences:[
+    {n:96, zh:"早就想来拜访您了。", py:"Zǎo jiù xiǎng lái bàifǎng nín le.", id:"Sudah lama saya ingin berkunjung ke tempat Anda."},
+    {n:97, zh:"有机会见到您，真是太荣幸了！", py:"Yǒu jīhuì jiàndào nín, zhēn shì tài róngxìng le!", id:"Sungguh suatu kehormatan bisa bertemu dengan Anda!"},
+    {n:98, zh:"您最近身体怎么样？", py:"Nín zuìjìn shēntǐ zěnmeyàng?", id:"Bagaimana kondisi kesehatan Anda akhir-akhir ini?"},
+    {n:99, zh:"我想请教您几个问题。", py:"Wǒ xiǎng qǐngjiào nín jǐ ge wèntí.", id:"Saya ingin bertanya beberapa hal kepada Anda."},
+    {n:100, zh:"时间不早了，我就不打扰了。", py:"Shíjiān bù zǎo le, wǒ jiù bù dǎrǎo le.", id:"Hari sudah larut, saya tidak akan mengganggu lagi."},
+  ]},
+  {zh:"客户", en:"Client", sentences:[
+    {n:101, zh:"您的朋友介绍我跟您联系。", py:"Nín de péngyou jièshào wǒ gēn nín liánxì.", id:"Teman Anda menyarankan saya untuk menghubungi Anda."},
+    {n:102, zh:"我这次是专程来拜访您的。", py:"Wǒ zhè cì shì zhuānchéng lái bàifǎng nín de.", id:"Kali ini saya datang khusus untuk mengunjungi Anda."},
+    {n:103, zh:"这是我们的项目方案。", py:"Zhè shì wǒmen de xiàngmù fāng'àn.", id:"Ini adalah proposal proyek kami."},
+    {n:104, zh:"业务方面您找我就可以。", py:"Yèwù fāngmiàn nín zhǎo wǒ jiù kěyǐ.", id:"Untuk urusan bisnis, Anda cukup hubungi saya."},
+    {n:105, zh:"您慢走！", py:"Nín mànzǒu!", id:"Hati-hati di jalan!"},
+  ]},
+]},
+{no:"08", zh:"接待", en:"Reception", emoji:"🏢", scenarios:[
+  {zh:"公司", en:"Company", sentences:[
+    {n:106, zh:"您好！我找国际合作部。", py:"Nín hǎo! Wǒ zhǎo guójì hézuò bù.", id:"Halo! Saya mencari Departemen Kerja Sama Internasional."},
+    {n:107, zh:"抱歉，领导还在开会。", py:"Bàoqiàn, lǐngdǎo hái zài kāihuì.", id:"Maaf, atasan masih rapat."},
+    {n:108, zh:"请您在这儿稍坐一会儿。", py:"Qǐng nín zài zhèr shāo zuò yíhuìr.", id:"Silakan duduk sebentar di sini."},
+    {n:109, zh:"大概要等多久？", py:"Dàgài yào děng duō jiǔ?", id:"Kira-kira harus menunggu berapa lama?"},
+    {n:110, zh:"请问电梯在哪边？", py:"Qǐngwèn diàntī zài nǎbiān?", id:"Maaf, liftnya di sebelah mana ya?"},
+  ]},
+  {zh:"商区", en:"Commercial Center", sentences:[
+    {n:111, zh:"这儿有卫生间吗？", py:"Zhèr yǒu wèishēngjiān ma?", id:"Di sini ada toilet tidak?"},
+    {n:112, zh:"导购机器人可以帮你。", py:"Dǎogòu jīqìrén kěyǐ bāng nǐ.", id:"Robot pemandu belanja bisa membantu Anda."},
+    {n:113, zh:"超市在负一层。", py:"Chāoshì zài fù yī céng.", id:"Supermarketnya ada di lantai B1."},
+    {n:114, zh:"餐饮区在五楼南边。", py:"Cānyǐnqū zài wǔ lóu nánbian.", id:"Area makanan ada di sisi selatan lantai lima."},
+    {n:115, zh:"您走反了，是这个方向。", py:"Nín zǒufǎn le, shì zhège fāngxiàng.", id:"Anda salah arah, yang benar arah sini."},
+  ]},
+  {zh:"会场", en:"Venue", sentences:[
+    {n:116, zh:"您好，我来参会。", py:"Nín hǎo, wǒ lái cān huì.", id:"Halo, saya datang untuk menghadiri rapat."},
+    {n:117, zh:"这是会议材料。", py:"Zhè shì huìyì cáiliào.", id:"Ini adalah materi rapat."},
+    {n:118, zh:"请您在这儿签到。", py:"Qǐng nín zài zhèr qiāndào.", id:"Silakan tanda tangan absensi di sini."},
+    {n:119, zh:"我现在应该往哪儿走？", py:"Wǒ xiànzài yīnggāi wǎng nǎr zǒu?", id:"Sekarang saya harus jalan ke arah mana?"},
+    {n:120, zh:"报告厅在二楼吗？", py:"Bàogàotīng zài èr lóu ma?", id:"Apakah ruang seminar ada di lantai dua?"},
+  ]},
+]},
+{no:"09", zh:"聚会", en:"Gathering", emoji:"🎉", scenarios:[
+  {zh:"联谊", en:"Social Life", sentences:[
+    {n:121, zh:"周末我有一个聚会。", py:"Zhōumò wǒ yǒu yí ge jùhuì.", id:"Akhir pekan ini saya ada acara kumpul-kumpul."},
+    {n:122, zh:"我们要在新年晚会上表演节目。", py:"Wǒmen yào zài xīnnián wǎnhuì shang biǎoyǎn jiémù.", id:"Kami akan tampil di acara malam Tahun Baru."},
+    {n:123, zh:"我给大家唱首歌吧。", py:"Wǒ gěi dàjiā chàng shǒu gē ba.", id:"Biar saya nyanyikan sebuah lagu untuk semua."},
+    {n:124, zh:"大家来这边取饮料吧。", py:"Dàjiā lái zhèbian qǔ yǐnliào ba.", id:"Ayo semua ambil minuman di sini."},
+    {n:125, zh:"咱们一起合张影吧。", py:"Zánmen yìqǐ hé zhāng yǐng ba.", id:"Ayo kita foto bersama."},
+  ]},
+  {zh:"庆典", en:"Celebration", sentences:[
+    {n:126, zh:"场地已经布置好了。", py:"Chǎngdì yǐjīng bùzhì hǎo le.", id:"Tempatnya sudah selesai ditata."},
+    {n:127, zh:"您是前辈，请坐第一排！", py:"Nín shì qiánbèi, qǐng zuò dì-yī pái!", id:"Anda senior kami, silakan duduk di baris pertama!"},
+    {n:128, zh:"各位领导、各位朋友，欢迎大家的到来！", py:"Gè wèi lǐngdǎo, gè wèi péngyou, huānyíng dàjiā de dàolái!", id:"Para pemimpin dan teman-teman sekalian, selamat datang!"},
+    {n:129, zh:"您代表大家讲几句吧。", py:"Nín dàibiǎo dàjiā jiǎng jǐ jù ba.", id:"Silakan Anda mewakili semua untuk memberi sepatah dua kata sambutan."},
+    {n:130, zh:"希望公司蒸蒸日上。", py:"Xīwàng gōngsī zhēngzhēng-rìshàng.", id:"Semoga perusahaan semakin maju dan berkembang."},
+  ]},
+  {zh:"答谢", en:"Express Gratitude", sentences:[
+    {n:131, zh:"吴老师，我敬您一杯。", py:"Wú lǎoshī, wǒ jìng nín yì bēi.", id:"Bapak/Ibu Wu, saya persembahkan satu gelas untuk Anda (toast)."},
+    {n:132, zh:"这段时间收获特别大。", py:"Zhè duàn shíjiān shōuhuò tèbié dà.", id:"Selama ini saya mendapat banyak sekali pelajaran/hasil."},
+    {n:133, zh:"活动安排得很丰富。", py:"Huódòng ānpái de hěn fēngfù.", id:"Acaranya diatur dengan sangat beragam."},
+    {n:134, zh:"大家都特别珍惜这个机会。", py:"Dàjiā dōu tèbié zhēnxī zhège jīhuì.", id:"Semua orang sangat menghargai kesempatan ini."},
+    {n:135, zh:"我们的成功离不开你们的支持。", py:"Wǒmen de chénggōng lí bu kāi nǐmen de zhīchí.", id:"Keberhasilan kami tidak lepas dari dukungan kalian."},
+  ]},
+]},
+];
+
+// 中文900句 Bab 1 — Data turunan dari 135 kalimat (tahap 1)
+// Diekstrak & divalidasi terprogram dari korpus SENTENCES yang sudah ada
+
+const VOCAB = [
+  {zh:"我",py:"wǒ",id:"saya/aku",kategori:"Kata Ganti",contoh:{n:1,zh:"你好！我叫丁大伟。",py:"Nǐ hǎo! Wǒ jiào Dīng Dàwěi.",id:"Halo! Nama saya Ding Dawei."}},
+  {zh:"你",py:"nǐ",id:"kamu",kategori:"Kata Ganti",contoh:{n:1,zh:"你好！我叫丁大伟。",py:"Nǐ hǎo! Wǒ jiào Dīng Dàwěi.",id:"Halo! Nama saya Ding Dawei."}},
+  {zh:"您",py:"nín",id:"Anda (hormat)",kategori:"Kata Ganti",contoh:{n:4,zh:"您怎么称呼？",py:"Nín zěnme chēnghu?",id:"Siapa nama Anda? (cara sopan bertanya nama)"}},
+  {zh:"他",py:"tā",id:"dia (lk)",kategori:"Kata Ganti",contoh:{n:8,zh:"他是我的好朋友。",py:"Tā shì wǒ de hǎopéngyou.",id:"Dia teman baik saya."}},
+  {zh:"我们",py:"wǒmen",id:"kami/kita",kategori:"Kata Ganti",contoh:{n:11,zh:"这是我们公司大楼。",py:"Zhè shì wǒmen gōngsī dàlóu.",id:"Ini gedung perusahaan kami."}},
+  {zh:"你们",py:"nǐmen",id:"kalian",kategori:"Kata Ganti",contoh:{n:10,zh:"你们加下微信吧。",py:"Nǐmen jiā xià wēixìn ba.",id:"Kalian saling tambahkan WeChat saja ya."}},
+  {zh:"这",py:"zhè",id:"ini",kategori:"Kata Ganti",contoh:{n:3,zh:"这是我第一次来中国。",py:"Zhè shì wǒ dì-yī cì lái Zhōngguó.",id:"Ini pertama kalinya saya datang ke Tiongkok."}},
+  {zh:"这位",py:"zhè wèi",id:"orang ini (hormat)",kategori:"Kata Ganti",contoh:{n:7,zh:"这位是李老师。",py:"Zhè wèi shì Lǐ lǎoshī.",id:"Ini adalah Bapak/Ibu Li (guru)."}},
+  {zh:"这个",py:"zhège",id:"yang ini",kategori:"Kata Ganti",contoh:{n:43,zh:"尝尝这个菜。",py:"Chángchang zhège cài.",id:"Cicipi masakan ini."}},
+  {zh:"这儿",py:"zhèr",id:"di sini",kategori:"Kata Ganti",contoh:{n:24,zh:"没想到在这儿碰到你。",py:"Méi xiǎngdào zài zhèr pèngdào nǐ.",id:"Tidak menyangka bisa bertemu kamu di sini."}},
+  {zh:"这边",py:"zhèbian",id:"sebelah sini",kategori:"Kata Ganti",contoh:{n:124,zh:"大家来这边取饮料吧。",py:"Dàjiā lái zhèbian qǔ yǐnliào ba.",id:"Ayo semua ambil minuman di sini."}},
+  {zh:"那边",py:"nàbian",id:"sebelah sana",kategori:"Kata Ganti",contoh:{n:14,zh:"那边有一家书店。",py:"Nàbian yǒu yì jiā shūdiàn.",id:"Di sana ada toko buku."}},
+  {zh:"咱们",py:"zánmen",id:"kita (termasuk lawan bicara)",kategori:"Kata Ganti",contoh:{n:125,zh:"咱们一起合张影吧。",py:"Zánmen yìqǐ hé zhāng yǐng ba.",id:"Ayo kita foto bersama."}},
+  {zh:"各位",py:"gè wèi",id:"para/semua (hormat)",kategori:"Kata Ganti",contoh:{n:128,zh:"各位领导、各位朋友，欢迎大家的到来！",py:"Gè wèi lǐngdǎo, gè wèi péngyou, huānyíng dàjiā de dàolái!",id:"Para pemimpin dan teman-teman sekalian, selamat datang!"}},
+  {zh:"这次",py:"zhè cì",id:"kali ini",kategori:"Kata Ganti",contoh:{n:102,zh:"我这次是专程来拜访您的。",py:"Wǒ zhè cì shì zhuānchéng lái bàifǎng nín de.",id:"Kali ini saya datang khusus untuk mengunjungi Anda."}},
+  {zh:"叫",py:"jiào",id:"bernama/memanggil",kategori:"Kata Kerja",contoh:{n:1,zh:"你好！我叫丁大伟。",py:"Nǐ hǎo! Wǒ jiào Dīng Dàwěi.",id:"Halo! Nama saya Ding Dawei."}},
+  {zh:"来自",py:"láizì",id:"berasal dari",kategori:"Kata Kerja",contoh:{n:2,zh:"我来自英国。",py:"Wǒ láizì Yīngguó.",id:"Saya berasal dari Inggris."}},
+  {zh:"是",py:"shì",id:"adalah",kategori:"Kata Kerja",contoh:{n:3,zh:"这是我第一次来中国。",py:"Zhè shì wǒ dì-yī cì lái Zhōngguó.",id:"Ini pertama kalinya saya datang ke Tiongkok."}},
+  {zh:"来",py:"lái",id:"datang",kategori:"Kata Kerja",contoh:{n:3,zh:"这是我第一次来中国。",py:"Zhè shì wǒ dì-yī cì lái Zhōngguó.",id:"Ini pertama kalinya saya datang ke Tiongkok."}},
+  {zh:"称呼",py:"chēnghu",id:"menyebut/sapaan",kategori:"Kata Kerja",contoh:{n:4,zh:"您怎么称呼？",py:"Nín zěnme chēnghu?",id:"Siapa nama Anda? (cara sopan bertanya nama)"}},
+  {zh:"认识",py:"rènshi",id:"mengenal/berkenalan",kategori:"Kata Kerja",contoh:{n:5,zh:"认识你很高兴。",py:"Rènshi nǐ hěn gāoxìng.",id:"Senang berkenalan dengan Anda."}},
+  {zh:"介绍",py:"jièshào",id:"memperkenalkan",kategori:"Kata Kerja",contoh:{n:6,zh:"我来介绍一下。",py:"Wǒ lái jièshào yíxià.",id:"Biar saya perkenalkan."}},
+  {zh:"加",py:"jiā",id:"menambahkan",kategori:"Kata Kerja",contoh:{n:10,zh:"你们加下微信吧。",py:"Nǐmen jiā xià wēixìn ba.",id:"Kalian saling tambahkan WeChat saja ya."}},
+  {zh:"在",py:"zài",id:"berada di",kategori:"Kata Kerja",contoh:{n:12,zh:"我们的办公室在三层。",py:"Wǒmen de bàngōngshì zài sān céng.",id:"Kantor kami ada di lantai tiga."}},
+  {zh:"有",py:"yǒu",id:"ada/punya",kategori:"Kata Kerja",contoh:{n:14,zh:"那边有一家书店。",py:"Nàbian yǒu yì jiā shūdiàn.",id:"Di sana ada toko buku."}},
+  {zh:"去",py:"qù",id:"pergi",kategori:"Kata Kerja",contoh:{n:16,zh:"杨阳，上班去呀？",py:"Yáng Yáng, shàngbān qù ya?",id:"Yang Yang, mau berangkat kerja ya?"}},
+  {zh:"跑步",py:"pǎobù",id:"lari/joging",kategori:"Kata Kerja",contoh:{n:17,zh:"你也来跑步哇？",py:"Nǐ yě lái pǎobù wa?",id:"Kamu juga lari pagi ya?"}},
+  {zh:"见",py:"jiàn",id:"bertemu",kategori:"Kata Kerja",contoh:{n:20,zh:"好久不见。",py:"Hǎojiǔ bújiàn.",id:"Lama tidak berjumpa."}},
+  {zh:"见面",py:"jiànmiàn",id:"bertemu/berjumpa",kategori:"Kata Kerja",contoh:{n:22,zh:"我们又见面了。",py:"Wǒmen yòu jiànmiàn le.",id:"Kita bertemu lagi."}},
+  {zh:"碰到",py:"pèngdào",id:"bertemu tak sengaja",kategori:"Kata Kerja",contoh:{n:24,zh:"没想到在这儿碰到你。",py:"Méi xiǎngdào zài zhèr pèngdào nǐ.",id:"Tidak menyangka bisa bertemu kamu di sini."}},
+  {zh:"认出",py:"rènchū",id:"mengenali",kategori:"Kata Kerja",contoh:{n:25,zh:"我差点儿没认出你。",py:"Wǒ chàdiǎnr méi rènchū nǐ.",id:"Saya hampir tidak mengenali kamu."}},
+  {zh:"欢迎",py:"huānyíng",id:"menyambut",kategori:"Kata Kerja",contoh:{n:31,zh:"欢迎！",py:"Huānyíng!",id:"Selamat datang!"}},
+  {zh:"请",py:"qǐng",id:"silakan/mohon",kategori:"Kata Kerja",contoh:{n:32,zh:"快请进！",py:"Kuài qǐng jìn!",id:"Ayo silakan masuk!"}},
+  {zh:"进",py:"jìn",id:"masuk",kategori:"Kata Kerja",contoh:{n:32,zh:"快请进！",py:"Kuài qǐng jìn!",id:"Ayo silakan masuk!"}},
+  {zh:"坐",py:"zuò",id:"duduk",kategori:"Kata Kerja",contoh:{n:33,zh:"您坐！",py:"Nín zuò!",id:"Silakan duduk!"}},
+  {zh:"喝",py:"hē",id:"minum",kategori:"Kata Kerja",contoh:{n:34,zh:"你喝茶还是咖啡？",py:"Nǐ hē chá háishi kāfēi?",id:"Anda mau minum teh atau kopi?"}},
+  {zh:"吃",py:"chī",id:"makan",kategori:"Kata Kerja",contoh:{n:35,zh:"来，吃点儿水果。",py:"Lái, chī diǎnr shuǐguǒ.",id:"Ayo, makan buah sedikit."}},
+  {zh:"带",py:"dài",id:"membawa",kategori:"Kata Kerja",contoh:{n:37,zh:"我带了一瓶葡萄酒，希望您喜欢。",py:"Wǒ dàile yì píng pútaojiǔ, xīwàng nín xǐhuan.",id:"Saya membawa sebotol anggur, semoga Anda suka."}},
+  {zh:"希望",py:"xīwàng",id:"berharap",kategori:"Kata Kerja",contoh:{n:37,zh:"我带了一瓶葡萄酒，希望您喜欢。",py:"Wǒ dàile yì píng pútaojiǔ, xīwàng nín xǐhuan.",id:"Saya membawa sebotol anggur, semoga Anda suka."}},
+  {zh:"喜欢",py:"xǐhuan",id:"suka",kategori:"Kata Kerja",contoh:{n:37,zh:"我带了一瓶葡萄酒，希望您喜欢。",py:"Wǒ dàile yì píng pútaojiǔ, xīwàng nín xǐhuan.",id:"Saya membawa sebotol anggur, semoga Anda suka."}},
+  {zh:"收下",py:"shōuxià",id:"menerima (pemberian)",kategori:"Kata Kerja",contoh:{n:36,zh:"这是我的一点儿心意，请收下。",py:"Zhè shì wǒ de yìdiǎnr xīnyì, qǐng shōuxià.",id:"Ini sedikit tanda perhatian dari saya, mohon diterima."}},
+  {zh:"尝",py:"cháng",id:"mencicipi",kategori:"Kata Kerja",contoh:{n:43,zh:"尝尝这个菜。",py:"Chángchang zhège cài.",id:"Cicipi masakan ini."}},
+  {zh:"感谢",py:"gǎnxiè",id:"berterima kasih",kategori:"Kata Kerja",contoh:{n:45,zh:"感谢你们的款待！",py:"Gǎnxiè nǐmen de kuǎndài!",id:"Terima kasih atas jamuannya!"}},
+  {zh:"等",py:"děng",id:"menunggu",kategori:"Kata Kerja",contoh:{n:49,zh:"请等一下。",py:"Qǐng děng yíxià.",id:"Mohon tunggu sebentar."}},
+  {zh:"联系",py:"liánxì",id:"menghubungi",kategori:"Kata Kerja",contoh:{n:50,zh:"有事儿联系，再见。",py:"Yǒu shìr liánxì, zàijiàn.",id:"Kalau ada urusan hubungi saya, sampai jumpa."}},
+  {zh:"方便",py:"fāngbiàn",id:"nyaman/mudah",kategori:"Kata Sifat",contoh:{n:51,zh:"您现在方便说话吗？",py:"Nín xiànzài fāngbiàn shuōhuà ma?",id:"Apakah sekarang nyaman untuk bicara?"}},
+  {zh:"说话",py:"shuōhuà",id:"berbicara",kategori:"Kata Kerja",contoh:{n:51,zh:"您现在方便说话吗？",py:"Nín xiànzài fāngbiàn shuōhuà ma?",id:"Apakah sekarang nyaman untuk bicara?"}},
+  {zh:"收到",py:"shōudào",id:"menerima (kabar/barang)",kategori:"Kata Kerja",contoh:{n:52,zh:"收到后请回个消息。",py:"Shōudào hòu qǐng huí ge xiāoxi.",id:"Setelah diterima, mohon balas pesannya."}},
+  {zh:"回",py:"huí",id:"membalas/pulang",kategori:"Kata Kerja",contoh:{n:52,zh:"收到后请回个消息。",py:"Shōudào hòu qǐng huí ge xiāoxi.",id:"Setelah diterima, mohon balas pesannya."}},
+  {zh:"听到",py:"tīngdào",id:"mendengar",kategori:"Kata Kerja",contoh:{n:53,zh:"抱歉，刚才在路上，没听到。",py:"Bàoqiàn, gāngcái zài lùshang, méi tīngdào.",id:"Maaf, tadi sedang di jalan, tidak dengar."}},
+  {zh:"看",py:"kàn",id:"melihat",kategori:"Kata Kerja",contoh:{n:54,zh:"刚才一直在忙，没看手机。",py:"Gāngcái yìzhí zài máng, méi kàn shǒujī.",id:"Tadi terus sibuk, tidak sempat cek HP."}},
+  {zh:"打",py:"dǎ",id:"memukul/menelepon",kategori:"Kata Kerja",contoh:{n:56,zh:"你打错了。",py:"Nǐ dǎcuò le.",id:"Anda salah sambung."}},
+  {zh:"错",py:"cuò",id:"salah",kategori:"Kata Sifat",contoh:{n:56,zh:"你打错了。",py:"Nǐ dǎcuò le.",id:"Anda salah sambung."}},
+  {zh:"听",py:"tīng",id:"mendengar",kategori:"Kata Kerja",contoh:{n:58,zh:"信号不好，听不清楚。",py:"Xìnhào bù hǎo, tīng bu qīngchu.",id:"Sinyalnya jelek, tidak terdengar jelas."}},
+  {zh:"清楚",py:"qīngchu",id:"jelas",kategori:"Kata Sifat",contoh:{n:58,zh:"信号不好，听不清楚。",py:"Xìnhào bù hǎo, tīng bu qīngchu.",id:"Sinyalnya jelek, tidak terdengar jelas."}},
+  {zh:"挂",py:"guà",id:"menutup telepon/menggantung",kategori:"Kata Kerja",contoh:{n:59,zh:"他把电话挂了。",py:"Tā bǎ diànhuà guà le.",id:"Dia menutup teleponnya."}},
+  {zh:"想",py:"xiǎng",id:"ingin",kategori:"Kata Kerja",contoh:{n:61,zh:"我想见一下江总。",py:"Wǒ xiǎng jiàn yíxià Jiāng zǒng.",id:"Saya ingin bertemu dengan Direktur Jiang."}},
+  {zh:"约",py:"yuē",id:"membuat janji",kategori:"Kata Kerja",contoh:{n:62,zh:"您约的几点？",py:"Nín yuē de jǐ diǎn?",id:"Anda janjian jam berapa?"}},
+  {zh:"提前",py:"tíqián",id:"lebih awal/mendahulukan",kategori:"Kata Kerja",contoh:{n:69,zh:"请你提前一天提醒我一下。",py:"Qǐng nǐ tíqián yìtiān tíxǐng wǒ yíxià.",id:"Tolong ingatkan saya sehari sebelumnya."}},
+  {zh:"提醒",py:"tíxǐng",id:"mengingatkan",kategori:"Kata Kerja",contoh:{n:69,zh:"请你提前一天提醒我一下。",py:"Qǐng nǐ tíqián yìtiān tíxǐng wǒ yíxià.",id:"Tolong ingatkan saya sehari sebelumnya."}},
+  {zh:"订",py:"dìng",id:"memesan",kategori:"Kata Kerja",contoh:{n:71,zh:"我想订个包间。",py:"Wǒ xiǎng dìng ge bāojiān.",id:"Saya ingin memesan ruangan privat."}},
+  {zh:"确认",py:"quèrèn",id:"mengonfirmasi",kategori:"Kata Kerja",contoh:{n:72,zh:"您来之前再打电话确认一下。",py:"Nín lái zhīqián zài dǎ diànhuà quèrèn yíxià.",id:"Sebelum datang, mohon telepon lagi untuk konfirmasi."}},
+  {zh:"开始",py:"kāishǐ",id:"mulai",kategori:"Kata Kerja",contoh:{n:75,zh:"现在还没开始售票。",py:"Xiànzài hái méi kāishǐ shòu piào.",id:"Sekarang penjualan tiket belum dimulai."}},
+  {zh:"帮忙",py:"bāngmáng",id:"membantu",kategori:"Kata Kerja",contoh:{n:76,zh:"有个事情想请你帮忙。",py:"Yǒu ge shìqing xiǎng qǐng nǐ bāngmáng.",id:"Ada hal yang ingin saya minta bantuan Anda."}},
+  {zh:"说",py:"shuō",id:"berkata",kategori:"Kata Kerja",contoh:{n:77,zh:"你有事儿就说一声。",py:"Nǐ yǒu shìr jiù shuō yì shēng.",id:"Kalau ada perlu apa-apa, bilang saja."}},
+  {zh:"交给",py:"jiāogěi",id:"menyerahkan",kategori:"Kata Kerja",contoh:{n:78,zh:"这事儿交给我吧。",py:"Zhè shìr jiāo gěi wǒ ba.",id:"Serahkan urusan ini pada saya."}},
+  {zh:"给",py:"gěi",id:"memberi/untuk",kategori:"Kata Kerja",contoh:{n:78,zh:"这事儿交给我吧。",py:"Zhè shìr jiāo gěi wǒ ba.",id:"Serahkan urusan ini pada saya."}},
+  {zh:"帮",py:"bāng",id:"membantu",kategori:"Kata Kerja",contoh:{n:80,zh:"你帮了我这么多，太感谢了！",py:"Nǐ bāngle wǒ zhème duō, tài gǎnxiè le!",id:"Kamu sudah banyak membantu saya, terima kasih banyak!"}},
+  {zh:"能",py:"néng",id:"bisa/mampu",kategori:"Kata Kerja",contoh:{n:81,zh:"你能帮我一下吗？",py:"Nǐ néng bāng wǒ yíxià ma?",id:"Bisakah kamu membantu saya sebentar?"}},
+  {zh:"拿",py:"ná",id:"mengambil",kategori:"Kata Kerja",contoh:{n:84,zh:"你拿去用吧。",py:"Nǐ náqu yòng ba.",id:"Ambil saja untuk dipakai."}},
+  {zh:"用",py:"yòng",id:"menggunakan",kategori:"Kata Kerja",contoh:{n:84,zh:"你拿去用吧。",py:"Nǐ náqu yòng ba.",id:"Ambil saja untuk dipakai."}},
+  {zh:"下班",py:"xiàbān",id:"pulang kerja",kategori:"Kata Kerja",contoh:{n:85,zh:"我下班后开车带你过去。",py:"Wǒ xiàbān hòu kāichē dài nǐ guòqu.",id:"Setelah pulang kerja saya akan antar kamu ke sana."}},
+  {zh:"开车",py:"kāichē",id:"menyetir",kategori:"Kata Kerja",contoh:{n:85,zh:"我下班后开车带你过去。",py:"Wǒ xiàbān hòu kāichē dài nǐ guòqu.",id:"Setelah pulang kerja saya akan antar kamu ke sana."}},
+  {zh:"过去",py:"guòqu",id:"pergi ke sana",kategori:"Kata Kerja",contoh:{n:85,zh:"我下班后开车带你过去。",py:"Wǒ xiàbān hòu kāichē dài nǐ guòqu.",id:"Setelah pulang kerja saya akan antar kamu ke sana."}},
+  {zh:"需要",py:"xūyào",id:"membutuhkan",kategori:"Kata Kerja",contoh:{n:86,zh:"你需要帮忙吗？",py:"Nǐ xūyào bāngmáng ma?",id:"Apakah kamu butuh bantuan?"}},
+  {zh:"拍照",py:"pāizhào",id:"memotret",kategori:"Kata Kerja",contoh:{n:87,zh:"您能帮我们拍张照吗？",py:"Nín néng bāng wǒmen pāi zhāng zhào ma?",id:"Bisakah Anda memotret kami?"}},
+  {zh:"麻烦",py:"máfan",id:"merepotkan",kategori:"Kata Sifat",contoh:{n:88,zh:"麻烦你帮我推一下，好吗？",py:"Máfan nǐ bāng wǒ tuī yíxià, hǎo ma?",id:"Maaf merepotkan, bisa tolong dorongkan sebentar?"}},
+  {zh:"推",py:"tuī",id:"mendorong",kategori:"Kata Kerja",contoh:{n:88,zh:"麻烦你帮我推一下，好吗？",py:"Máfan nǐ bāng wǒ tuī yíxià, hǎo ma?",id:"Maaf merepotkan, bisa tolong dorongkan sebentar?"}},
+  {zh:"重",py:"zhòng",id:"berat",kategori:"Kata Sifat",contoh:{n:89,zh:"东西太重了，我来帮你。",py:"Dōngxi tài zhòng le, wǒ lái bāng nǐ.",id:"Barangnya terlalu berat, biar saya bantu."}},
+  {zh:"出差",py:"chūchāi",id:"dinas luar kota",kategori:"Kata Kerja",contoh:{n:91,zh:"我来出差，正好也看看你。",py:"Wǒ lái chūchāi, zhènghǎo yě kànkan nǐ.",id:"Saya sedang dinas, sekalian mampir menengok kamu."}},
+  {zh:"买",py:"mǎi",id:"membeli",kategori:"Kata Kerja",contoh:{n:93,zh:"我给你家宝宝买了个玩具。",py:"Wǒ gěi nǐ jiā bǎobao mǎile ge wánjù.",id:"Saya belikan mainan untuk anak Anda."}},
+  {zh:"养",py:"yǎng",id:"merawat",kategori:"Kata Kerja",contoh:{n:94,zh:"你家的花养得真好！",py:"Nǐ jiā de huā yǎng de zhēn hǎo!",id:"Bunga di rumahmu dirawat dengan sangat baik!"}},
+  {zh:"玩儿",py:"wánr",id:"bermain/berkunjung santai",kategori:"Kata Kerja",contoh:{n:95,zh:"有空儿再来玩儿。",py:"Yǒu kòngr zài lái wánr.",id:"Kalau ada waktu, main lagi ya."}},
+  {zh:"拜访",py:"bàifǎng",id:"berkunjung (formal)",kategori:"Kata Kerja",contoh:{n:96,zh:"早就想来拜访您了。",py:"Zǎo jiù xiǎng lái bàifǎng nín le.",id:"Sudah lama saya ingin berkunjung ke tempat Anda."}},
+  {zh:"见到",py:"jiàndào",id:"berhasil bertemu",kategori:"Kata Kerja",contoh:{n:97,zh:"有机会见到您，真是太荣幸了！",py:"Yǒu jīhuì jiàndào nín, zhēn shì tài róngxìng le!",id:"Sungguh suatu kehormatan bisa bertemu dengan Anda!"}},
+  {zh:"请教",py:"qǐngjiào",id:"minta petunjuk (hormat)",kategori:"Kata Kerja",contoh:{n:99,zh:"我想请教您几个问题。",py:"Wǒ xiǎng qǐngjiào nín jǐ ge wèntí.",id:"Saya ingin bertanya beberapa hal kepada Anda."}},
+  {zh:"打扰",py:"dǎrǎo",id:"mengganggu",kategori:"Kata Kerja",contoh:{n:100,zh:"时间不早了，我就不打扰了。",py:"Shíjiān bù zǎo le, wǒ jiù bù dǎrǎo le.",id:"Hari sudah larut, saya tidak akan mengganggu lagi."}},
+  {zh:"跟",py:"gēn",id:"dengan (prep.)",kategori:"Kata Fungsi",contoh:{n:101,zh:"您的朋友介绍我跟您联系。",py:"Nín de péngyou jièshào wǒ gēn nín liánxì.",id:"Teman Anda menyarankan saya untuk menghubungi Anda."}},
+  {zh:"找",py:"zhǎo",id:"mencari",kategori:"Kata Kerja",contoh:{n:104,zh:"业务方面您找我就可以。",py:"Yèwù fāngmiàn nín zhǎo wǒ jiù kěyǐ.",id:"Untuk urusan bisnis, Anda cukup hubungi saya."}},
+  {zh:"可以",py:"kěyǐ",id:"boleh/bisa",kategori:"Kata Kerja",contoh:{n:104,zh:"业务方面您找我就可以。",py:"Yèwù fāngmiàn nín zhǎo wǒ jiù kěyǐ.",id:"Untuk urusan bisnis, Anda cukup hubungi saya."}},
+  {zh:"合作",py:"hézuò",id:"kerja sama",kategori:"Kata Kerja",contoh:{n:106,zh:"您好！我找国际合作部。",py:"Nín hǎo! Wǒ zhǎo guójì hézuò bù.",id:"Halo! Saya mencari Departemen Kerja Sama Internasional."}},
+  {zh:"开会",py:"kāihuì",id:"rapat",kategori:"Kata Kerja",contoh:{n:107,zh:"抱歉，领导还在开会。",py:"Bàoqiàn, lǐngdǎo hái zài kāihuì.",id:"Maaf, atasan masih rapat."}},
+  {zh:"应该",py:"yīnggāi",id:"seharusnya",kategori:"Kata Kerja",contoh:{n:119,zh:"我现在应该往哪儿走？",py:"Wǒ xiànzài yīnggāi wǎng nǎr zǒu?",id:"Sekarang saya harus jalan ke arah mana?"}},
+  {zh:"往",py:"wǎng",id:"menuju/ke arah",kategori:"Kata Fungsi",contoh:{n:119,zh:"我现在应该往哪儿走？",py:"Wǒ xiànzài yīnggāi wǎng nǎr zǒu?",id:"Sekarang saya harus jalan ke arah mana?"}},
+  {zh:"走",py:"zǒu",id:"berjalan",kategori:"Kata Kerja",contoh:{n:119,zh:"我现在应该往哪儿走？",py:"Wǒ xiànzài yīnggāi wǎng nǎr zǒu?",id:"Sekarang saya harus jalan ke arah mana?"}},
+  {zh:"表演",py:"biǎoyǎn",id:"tampil/pentas",kategori:"Kata Kerja",contoh:{n:122,zh:"我们要在新年晚会上表演节目。",py:"Wǒmen yào zài xīnnián wǎnhuì shang biǎoyǎn jiémù.",id:"Kami akan tampil di acara malam Tahun Baru."}},
+  {zh:"唱",py:"chàng",id:"menyanyi",kategori:"Kata Kerja",contoh:{n:123,zh:"我给大家唱首歌吧。",py:"Wǒ gěi dàjiā chàng shǒu gē ba.",id:"Biar saya nyanyikan sebuah lagu untuk semua."}},
+  {zh:"取",py:"qǔ",id:"mengambil",kategori:"Kata Kerja",contoh:{n:124,zh:"大家来这边取饮料吧。",py:"Dàjiā lái zhèbian qǔ yǐnliào ba.",id:"Ayo semua ambil minuman di sini."}},
+  {zh:"布置",py:"bùzhì",id:"menata",kategori:"Kata Kerja",contoh:{n:126,zh:"场地已经布置好了。",py:"Chǎngdì yǐjīng bùzhì hǎo le.",id:"Tempatnya sudah selesai ditata."}},
+  {zh:"代表",py:"dàibiǎo",id:"mewakili",kategori:"Kata Kerja",contoh:{n:129,zh:"您代表大家讲几句吧。",py:"Nín dàibiǎo dàjiā jiǎng jǐ jù ba.",id:"Silakan Anda mewakili semua untuk memberi sepatah dua kata sambutan."}},
+  {zh:"讲",py:"jiǎng",id:"berbicara",kategori:"Kata Kerja",contoh:{n:129,zh:"您代表大家讲几句吧。",py:"Nín dàibiǎo dàjiā jiǎng jǐ jù ba.",id:"Silakan Anda mewakili semua untuk memberi sepatah dua kata sambutan."}},
+  {zh:"敬",py:"jìng",id:"menghormati (bersulang)",kategori:"Kata Kerja",contoh:{n:131,zh:"吴老师，我敬您一杯。",py:"Wú lǎoshī, wǒ jìng nín yì bēi.",id:"Bapak/Ibu Wu, saya persembahkan satu gelas untuk Anda (toast)."}},
+  {zh:"安排",py:"ānpái",id:"mengatur",kategori:"Kata Kerja",contoh:{n:133,zh:"活动安排得很丰富。",py:"Huódòng ānpái de hěn fēngfù.",id:"Acaranya diatur dengan sangat beragam."}},
+  {zh:"珍惜",py:"zhēnxī",id:"menghargai",kategori:"Kata Kerja",contoh:{n:134,zh:"大家都特别珍惜这个机会。",py:"Dàjiā dōu tèbié zhēnxī zhège jīhuì.",id:"Semua orang sangat menghargai kesempatan ini."}},
+  {zh:"支持",py:"zhīchí",id:"mendukung",kategori:"Kata Kerja",contoh:{n:135,zh:"我们的成功离不开你们的支持。",py:"Wǒmen de chénggōng lí bu kāi nǐmen de zhīchí.",id:"Keberhasilan kami tidak lepas dari dukungan kalian."}},
+  {zh:"高兴",py:"gāoxìng",id:"senang",kategori:"Kata Sifat",contoh:{n:5,zh:"认识你很高兴。",py:"Rènshi nǐ hěn gāoxìng.",id:"Senang berkenalan dengan Anda."}},
+  {zh:"好",py:"hǎo",id:"baik",kategori:"Kata Sifat",contoh:{n:8,zh:"他是我的好朋友。",py:"Tā shì wǒ de hǎopéngyou.",id:"Dia teman baik saya."}},
+  {zh:"忙",py:"máng",id:"sibuk",kategori:"Kata Sifat",contoh:{n:18,zh:"最近忙什么呢？",py:"Zuìjìn máng shénme ne?",id:"Akhir-akhir ini sibuk apa?"}},
+  {zh:"挺",py:"tǐng",id:"cukup/lumayan",kategori:"Kata Sifat",contoh:{n:19,zh:"最近挺好的吧？",py:"Zuìjìn tǐng hǎo de ba?",id:"Belakangan ini baik-baik saja kan?"}},
+  {zh:"真",py:"zhēn",id:"benar-benar",kategori:"Kata Sifat",contoh:{n:21,zh:"真是你呀！",py:"Zhēn shì nǐ ya!",id:"Ternyata benar kamu!"}},
+  {zh:"巧",py:"qiǎo",id:"kebetulan",kategori:"Kata Sifat",contoh:{n:23,zh:"好巧哇！",py:"Hǎo qiǎo wa!",id:"Kebetulan sekali!"}},
+  {zh:"辛苦",py:"xīnkǔ",id:"kerja keras/melelahkan",kategori:"Kata Sifat",contoh:{n:29,zh:"工作辛苦了！",py:"Gōngzuò xīnkǔ le!",id:"Terima kasih atas kerja kerasnya!"}},
+  {zh:"快",py:"kuài",id:"cepat",kategori:"Kata Sifat",contoh:{n:32,zh:"快请进！",py:"Kuài qǐng jìn!",id:"Ayo silakan masuk!"}},
+  {zh:"贵重",py:"guìzhòng",id:"berharga/mahal",kategori:"Kata Sifat",contoh:{n:39,zh:"这太贵重了！",py:"Zhè tài guìzhòng le!",id:"Ini terlalu mahal!"}},
+  {zh:"合适",py:"héshì",id:"cocok",kategori:"Kata Sifat",contoh:{n:74,zh:"这个时间不合适。",py:"Zhège shíjiān bù héshì.",id:"Waktu ini tidak cocok."}},
+  {zh:"坏",py:"huài",id:"rusak",kategori:"Kata Sifat",contoh:{n:83,zh:"我的电脑坏了，你帮我看看吧。",py:"Wǒ de diànnǎo huài le, nǐ bāng wǒ kànkan ba.",id:"Komputer saya rusak, tolong bantu periksa."}},
+  {zh:"荣幸",py:"róngxìng",id:"suatu kehormatan",kategori:"Kata Sifat",contoh:{n:97,zh:"有机会见到您，真是太荣幸了！",py:"Yǒu jīhuì jiàndào nín, zhēn shì tài róngxìng le!",id:"Sungguh suatu kehormatan bisa bertemu dengan Anda!"}},
+  {zh:"丰富",py:"fēngfù",id:"beragam/kaya",kategori:"Kata Sifat",contoh:{n:133,zh:"活动安排得很丰富。",py:"Huódòng ānpái de hěn fēngfù.",id:"Acaranya diatur dengan sangat beragam."}},
+  {zh:"多",py:"duō",id:"banyak/lebih",kategori:"Kata Sifat",contoh:{n:15,zh:"这座楼有100多年的历史了。",py:"Zhè zuò lóu yǒu yìbǎi duō nián de lìshǐ le.",id:"Gedung ini sudah berusia lebih dari 100 tahun."}},
+  {zh:"老师",py:"lǎoshī",id:"guru",kategori:"Kata Benda",contoh:{n:7,zh:"这位是李老师。",py:"Zhè wèi shì Lǐ lǎoshī.",id:"Ini adalah Bapak/Ibu Li (guru)."}},
+  {zh:"朋友",py:"péngyou",id:"teman",kategori:"Kata Benda",contoh:{n:8,zh:"他是我的好朋友。",py:"Tā shì wǒ de hǎopéngyou.",id:"Dia teman baik saya."}},
+  {zh:"先生",py:"xiānsheng",id:"Tuan/Bapak",kategori:"Kata Benda",contoh:{n:9,zh:"林先生，久仰久仰。",py:"Lín xiānsheng, jiǔyǎng jiǔyǎng.",id:"Pak Lin, saya sudah lama mendengar nama Anda."}},
+  {zh:"微信",py:"wēixìn",id:"WeChat",kategori:"Kata Benda",contoh:{n:10,zh:"你们加下微信吧。",py:"Nǐmen jiā xià wēixìn ba.",id:"Kalian saling tambahkan WeChat saja ya."}},
+  {zh:"公司",py:"gōngsī",id:"perusahaan",kategori:"Kata Benda",contoh:{n:11,zh:"这是我们公司大楼。",py:"Zhè shì wǒmen gōngsī dàlóu.",id:"Ini gedung perusahaan kami."}},
+  {zh:"大楼",py:"dàlóu",id:"gedung",kategori:"Kata Benda",contoh:{n:11,zh:"这是我们公司大楼。",py:"Zhè shì wǒmen gōngsī dàlóu.",id:"Ini gedung perusahaan kami."}},
+  {zh:"办公室",py:"bàngōngshì",id:"kantor",kategori:"Kata Benda",contoh:{n:12,zh:"我们的办公室在三层。",py:"Wǒmen de bàngōngshì zài sān céng.",id:"Kantor kami ada di lantai tiga."}},
+  {zh:"左边",py:"zuǒbian",id:"sebelah kiri",kategori:"Tempat",contoh:{n:13,zh:"左边是图书馆，右边是体育馆。",py:"Zuǒbian shì túshūguǎn, yòubian shì tǐyùguǎn.",id:"Di sebelah kiri perpustakaan, di sebelah kanan gedung olahraga."}},
+  {zh:"图书馆",py:"túshūguǎn",id:"perpustakaan",kategori:"Tempat",contoh:{n:13,zh:"左边是图书馆，右边是体育馆。",py:"Zuǒbian shì túshūguǎn, yòubian shì tǐyùguǎn.",id:"Di sebelah kiri perpustakaan, di sebelah kanan gedung olahraga."}},
+  {zh:"右边",py:"yòubian",id:"sebelah kanan",kategori:"Tempat",contoh:{n:13,zh:"左边是图书馆，右边是体育馆。",py:"Zuǒbian shì túshūguǎn, yòubian shì tǐyùguǎn.",id:"Di sebelah kiri perpustakaan, di sebelah kanan gedung olahraga."}},
+  {zh:"体育馆",py:"tǐyùguǎn",id:"gedung olahraga",kategori:"Tempat",contoh:{n:13,zh:"左边是图书馆，右边是体育馆。",py:"Zuǒbian shì túshūguǎn, yòubian shì tǐyùguǎn.",id:"Di sebelah kiri perpustakaan, di sebelah kanan gedung olahraga."}},
+  {zh:"书店",py:"shūdiàn",id:"toko buku",kategori:"Tempat",contoh:{n:14,zh:"那边有一家书店。",py:"Nàbian yǒu yì jiā shūdiàn.",id:"Di sana ada toko buku."}},
+  {zh:"楼",py:"lóu",id:"gedung",kategori:"Kata Benda",contoh:{n:15,zh:"这座楼有100多年的历史了。",py:"Zhè zuò lóu yǒu yìbǎi duō nián de lìshǐ le.",id:"Gedung ini sudah berusia lebih dari 100 tahun."}},
+  {zh:"历史",py:"lìshǐ",id:"sejarah",kategori:"Kata Benda",contoh:{n:15,zh:"这座楼有100多年的历史了。",py:"Zhè zuò lóu yǒu yìbǎi duō nián de lìshǐ le.",id:"Gedung ini sudah berusia lebih dari 100 tahun."}},
+  {zh:"经理",py:"jīnglǐ",id:"manajer",kategori:"Kata Benda",contoh:{n:27,zh:"早哇，张经理。",py:"Zǎo wa, Zhāng jīnglǐ.",id:"Selamat pagi, Manajer Zhang."}},
+  {zh:"姐",py:"jiě",id:"kakak perempuan (panggilan)",kategori:"Kata Benda",contoh:{n:28,zh:"王姐，忙呢？",py:"Wáng jiě, máng ne?",id:"Kak Wang, lagi sibuk ya?"}},
+  {zh:"工作",py:"gōngzuò",id:"pekerjaan/bekerja",kategori:"Kata Benda",contoh:{n:29,zh:"工作辛苦了！",py:"Gōngzuò xīnkǔ le!",id:"Terima kasih atas kerja kerasnya!"}},
+  {zh:"茶",py:"chá",id:"teh",kategori:"Makanan",contoh:{n:34,zh:"你喝茶还是咖啡？",py:"Nǐ hē chá háishi kāfēi?",id:"Anda mau minum teh atau kopi?"}},
+  {zh:"咖啡",py:"kāfēi",id:"kopi",kategori:"Makanan",contoh:{n:34,zh:"你喝茶还是咖啡？",py:"Nǐ hē chá háishi kāfēi?",id:"Anda mau minum teh atau kopi?"}},
+  {zh:"水果",py:"shuǐguǒ",id:"buah",kategori:"Makanan",contoh:{n:35,zh:"来，吃点儿水果。",py:"Lái, chī diǎnr shuǐguǒ.",id:"Ayo, makan buah sedikit."}},
+  {zh:"心意",py:"xīnyì",id:"tanda perhatian",kategori:"Kata Benda",contoh:{n:36,zh:"这是我的一点儿心意，请收下。",py:"Zhè shì wǒ de yìdiǎnr xīnyì, qǐng shōuxià.",id:"Ini sedikit tanda perhatian dari saya, mohon diterima."}},
+  {zh:"葡萄酒",py:"pútaojiǔ",id:"anggur/wine",kategori:"Makanan",contoh:{n:37,zh:"我带了一瓶葡萄酒，希望您喜欢。",py:"Wǒ dàile yì píng pútaojiǔ, xīwàng nín xǐhuan.",id:"Saya membawa sebotol anggur, semoga Anda suka."}},
+  {zh:"东西",py:"dōngxi",id:"barang",kategori:"Kata Benda",contoh:{n:38,zh:"你来就好，还带东西干吗？",py:"Nǐ lái jiù hǎo, hái dài dōngxi gànmá?",id:"Kamu datang saja sudah cukup, kenapa masih bawa-bawa sesuatu?"}},
+  {zh:"菜",py:"cài",id:"masakan",kategori:"Makanan",contoh:{n:43,zh:"尝尝这个菜。",py:"Chángchang zhège cài.",id:"Cicipi masakan ini."}},
+  {zh:"大家",py:"dàjiā",id:"semua orang",kategori:"Kata Ganti",contoh:{n:44,zh:"大家吃好喝好。",py:"Dàjiā chīhǎo hēhǎo.",id:"Semoga semua makan dan minum dengan puas."}},
+  {zh:"款待",py:"kuǎndài",id:"jamuan/perlakuan tamu",kategori:"Kata Benda",contoh:{n:45,zh:"感谢你们的款待！",py:"Gǎnxiè nǐmen de kuǎndài!",id:"Terima kasih atas jamuannya!"}},
+  {zh:"事儿",py:"shìr",id:"urusan",kategori:"Kata Benda",contoh:{n:50,zh:"有事儿联系，再见。",py:"Yǒu shìr liánxì, zàijiàn.",id:"Kalau ada urusan hubungi saya, sampai jumpa."}},
+  {zh:"消息",py:"xiāoxi",id:"kabar/pesan",kategori:"Kata Benda",contoh:{n:52,zh:"收到后请回个消息。",py:"Shōudào hòu qǐng huí ge xiāoxi.",id:"Setelah diterima, mohon balas pesannya."}},
+  {zh:"路上",py:"lùshang",id:"di jalan",kategori:"Tempat",contoh:{n:53,zh:"抱歉，刚才在路上，没听到。",py:"Bàoqiàn, gāngcái zài lùshang, méi tīngdào.",id:"Maaf, tadi sedang di jalan, tidak dengar."}},
+  {zh:"手机",py:"shǒujī",id:"HP",kategori:"Kata Benda",contoh:{n:54,zh:"刚才一直在忙，没看手机。",py:"Gāngcái yìzhí zài máng, méi kàn shǒujī.",id:"Tadi terus sibuk, tidak sempat cek HP."}},
+  {zh:"电话",py:"diànhuà",id:"telepon",kategori:"Kata Benda",contoh:{n:57,zh:"他的电话一直占线。",py:"Tā de diànhuà yìzhí zhànxiàn.",id:"Teleponnya terus sibuk (tidak bisa dihubungi)."}},
+  {zh:"信号",py:"xìnhào",id:"sinyal",kategori:"Kata Benda",contoh:{n:58,zh:"信号不好，听不清楚。",py:"Xìnhào bù hǎo, tīng bu qīngchu.",id:"Sinyalnya jelek, tidak terdengar jelas."}},
+  {zh:"空儿",py:"kòngr",id:"waktu luang",kategori:"Kata Benda",contoh:{n:63,zh:"他什么时候有空儿？",py:"Tā shénme shíhou yǒu kòngr?",id:"Kapan dia ada waktu luang?"}},
+  {zh:"时间",py:"shíjiān",id:"waktu",kategori:"Kata Benda",contoh:{n:64,zh:"您明天下午三点有时间吗？",py:"Nín míngtiān xiàwǔ sān diǎn yǒu shíjiān ma?",id:"Apakah Anda ada waktu besok jam 3 sore?"}},
+  {zh:"大夫",py:"dàifu",id:"dokter",kategori:"Kata Benda",contoh:{n:66,zh:"赵大夫明天下午四点有空儿吗？",py:"Zhào dàifu míngtiān xiàwǔ sì diǎn yǒu kòngr ma?",id:"Apakah Dokter Zhao ada waktu besok jam 4 sore?"}},
+  {zh:"师傅",py:"shīfu",id:"pak (ahli/tukang)",kategori:"Kata Benda",contoh:{n:67,zh:"我想约刘师傅。",py:"Wǒ xiǎng yuē Liú shīfu.",id:"Saya ingin membuat janji dengan Pak Liu."}},
+  {zh:"包间",py:"bāojiān",id:"ruangan privat",kategori:"Tempat",contoh:{n:71,zh:"我想订个包间。",py:"Wǒ xiǎng dìng ge bāojiān.",id:"Saya ingin memesan ruangan privat."}},
+  {zh:"机票",py:"jīpiào",id:"tiket pesawat",kategori:"Kata Benda",contoh:{n:73,zh:"我订一张8号去香港的机票。",py:"Wǒ dìng yì zhāng bā hào qù Xiānggǎng de jīpiào.",id:"Saya memesan satu tiket pesawat ke Hong Kong tanggal 8."}},
+  {zh:"事情",py:"shìqing",id:"hal/urusan",kategori:"Kata Benda",contoh:{n:76,zh:"有个事情想请你帮忙。",py:"Yǒu ge shìqing xiǎng qǐng nǐ bāngmáng.",id:"Ada hal yang ingin saya minta bantuan Anda."}},
+  {zh:"午餐",py:"wǔcān",id:"makan siang",kategori:"Makanan",contoh:{n:82,zh:"你帮我带份午餐吧。",py:"Nǐ bāng wǒ dài fèn wǔcān ba.",id:"Tolong bawakan saya makan siang."}},
+  {zh:"电脑",py:"diànnǎo",id:"komputer",kategori:"Kata Benda",contoh:{n:83,zh:"我的电脑坏了，你帮我看看吧。",py:"Wǒ de diànnǎo huài le, nǐ bāng wǒ kànkan ba.",id:"Komputer saya rusak, tolong bantu periksa."}},
+  {zh:"玩具",py:"wánjù",id:"mainan",kategori:"Kata Benda",contoh:{n:93,zh:"我给你家宝宝买了个玩具。",py:"Wǒ gěi nǐ jiā bǎobao mǎile ge wánjù.",id:"Saya belikan mainan untuk anak Anda."}},
+  {zh:"花",py:"huā",id:"bunga",kategori:"Kata Benda",contoh:{n:94,zh:"你家的花养得真好！",py:"Nǐ jiā de huā yǎng de zhēn hǎo!",id:"Bunga di rumahmu dirawat dengan sangat baik!"}},
+  {zh:"机会",py:"jīhuì",id:"kesempatan",kategori:"Kata Benda",contoh:{n:97,zh:"有机会见到您，真是太荣幸了！",py:"Yǒu jīhuì jiàndào nín, zhēn shì tài róngxìng le!",id:"Sungguh suatu kehormatan bisa bertemu dengan Anda!"}},
+  {zh:"身体",py:"shēntǐ",id:"kesehatan/tubuh",kategori:"Kata Benda",contoh:{n:98,zh:"您最近身体怎么样？",py:"Nín zuìjìn shēntǐ zěnmeyàng?",id:"Bagaimana kondisi kesehatan Anda akhir-akhir ini?"}},
+  {zh:"问题",py:"wèntí",id:"pertanyaan/masalah",kategori:"Kata Benda",contoh:{n:99,zh:"我想请教您几个问题。",py:"Wǒ xiǎng qǐngjiào nín jǐ ge wèntí.",id:"Saya ingin bertanya beberapa hal kepada Anda."}},
+  {zh:"项目",py:"xiàngmù",id:"proyek",kategori:"Kata Benda",contoh:{n:103,zh:"这是我们的项目方案。",py:"Zhè shì wǒmen de xiàngmù fāng'àn.",id:"Ini adalah proposal proyek kami."}},
+  {zh:"方案",py:"fāng'àn",id:"proposal/rencana",kategori:"Kata Benda",contoh:{n:103,zh:"这是我们的项目方案。",py:"Zhè shì wǒmen de xiàngmù fāng'àn.",id:"Ini adalah proposal proyek kami."}},
+  {zh:"业务",py:"yèwù",id:"urusan bisnis",kategori:"Kata Benda",contoh:{n:104,zh:"业务方面您找我就可以。",py:"Yèwù fāngmiàn nín zhǎo wǒ jiù kěyǐ.",id:"Untuk urusan bisnis, Anda cukup hubungi saya."}},
+  {zh:"方面",py:"fāngmiàn",id:"segi/aspek",kategori:"Kata Benda",contoh:{n:104,zh:"业务方面您找我就可以。",py:"Yèwù fāngmiàn nín zhǎo wǒ jiù kěyǐ.",id:"Untuk urusan bisnis, Anda cukup hubungi saya."}},
+  {zh:"国际",py:"guójì",id:"internasional",kategori:"Kata Sifat",contoh:{n:106,zh:"您好！我找国际合作部。",py:"Nín hǎo! Wǒ zhǎo guójì hézuò bù.",id:"Halo! Saya mencari Departemen Kerja Sama Internasional."}},
+  {zh:"部",py:"bù",id:"departemen",kategori:"Kata Benda",contoh:{n:106,zh:"您好！我找国际合作部。",py:"Nín hǎo! Wǒ zhǎo guójì hézuò bù.",id:"Halo! Saya mencari Departemen Kerja Sama Internasional."}},
+  {zh:"领导",py:"lǐngdǎo",id:"atasan/pemimpin",kategori:"Kata Benda",contoh:{n:107,zh:"抱歉，领导还在开会。",py:"Bàoqiàn, lǐngdǎo hái zài kāihuì.",id:"Maaf, atasan masih rapat."}},
+  {zh:"电梯",py:"diàntī",id:"lift",kategori:"Kata Benda",contoh:{n:110,zh:"请问电梯在哪边？",py:"Qǐngwèn diàntī zài nǎbiān?",id:"Maaf, liftnya di sebelah mana ya?"}},
+  {zh:"卫生间",py:"wèishēngjiān",id:"toilet",kategori:"Tempat",contoh:{n:111,zh:"这儿有卫生间吗？",py:"Zhèr yǒu wèishēngjiān ma?",id:"Di sini ada toilet tidak?"}},
+  {zh:"机器人",py:"jīqìrén",id:"robot",kategori:"Kata Benda",contoh:{n:112,zh:"导购机器人可以帮你。",py:"Dǎogòu jīqìrén kěyǐ bāng nǐ.",id:"Robot pemandu belanja bisa membantu Anda."}},
+  {zh:"超市",py:"chāoshì",id:"supermarket",kategori:"Tempat",contoh:{n:113,zh:"超市在负一层。",py:"Chāoshì zài fù yī céng.",id:"Supermarketnya ada di lantai B1."}},
+  {zh:"方向",py:"fāngxiàng",id:"arah",kategori:"Kata Benda",contoh:{n:115,zh:"您走反了，是这个方向。",py:"Nín zǒufǎn le, shì zhège fāngxiàng.",id:"Anda salah arah, yang benar arah sini."}},
+  {zh:"会议",py:"huìyì",id:"rapat",kategori:"Kata Benda",contoh:{n:117,zh:"这是会议材料。",py:"Zhè shì huìyì cáiliào.",id:"Ini adalah materi rapat."}},
+  {zh:"材料",py:"cáiliào",id:"materi/bahan",kategori:"Kata Benda",contoh:{n:117,zh:"这是会议材料。",py:"Zhè shì huìyì cáiliào.",id:"Ini adalah materi rapat."}},
+  {zh:"报告厅",py:"bàogàotīng",id:"ruang seminar",kategori:"Tempat",contoh:{n:120,zh:"报告厅在二楼吗？",py:"Bàogàotīng zài èr lóu ma?",id:"Apakah ruang seminar ada di lantai dua?"}},
+  {zh:"聚会",py:"jùhuì",id:"acara kumpul",kategori:"Kata Benda",contoh:{n:121,zh:"周末我有一个聚会。",py:"Zhōumò wǒ yǒu yí ge jùhuì.",id:"Akhir pekan ini saya ada acara kumpul-kumpul."}},
+  {zh:"晚会",py:"wǎnhuì",id:"acara malam",kategori:"Kata Benda",contoh:{n:122,zh:"我们要在新年晚会上表演节目。",py:"Wǒmen yào zài xīnnián wǎnhuì shang biǎoyǎn jiémù.",id:"Kami akan tampil di acara malam Tahun Baru."}},
+  {zh:"节目",py:"jiémù",id:"acara/program",kategori:"Kata Benda",contoh:{n:122,zh:"我们要在新年晚会上表演节目。",py:"Wǒmen yào zài xīnnián wǎnhuì shang biǎoyǎn jiémù.",id:"Kami akan tampil di acara malam Tahun Baru."}},
+  {zh:"歌",py:"gē",id:"lagu",kategori:"Kata Benda",contoh:{n:123,zh:"我给大家唱首歌吧。",py:"Wǒ gěi dàjiā chàng shǒu gē ba.",id:"Biar saya nyanyikan sebuah lagu untuk semua."}},
+  {zh:"饮料",py:"yǐnliào",id:"minuman",kategori:"Makanan",contoh:{n:124,zh:"大家来这边取饮料吧。",py:"Dàjiā lái zhèbian qǔ yǐnliào ba.",id:"Ayo semua ambil minuman di sini."}},
+  {zh:"场地",py:"chǎngdì",id:"tempat/venue",kategori:"Tempat",contoh:{n:126,zh:"场地已经布置好了。",py:"Chǎngdì yǐjīng bùzhì hǎo le.",id:"Tempatnya sudah selesai ditata."}},
+  {zh:"前辈",py:"qiánbèi",id:"senior",kategori:"Kata Benda",contoh:{n:127,zh:"您是前辈，请坐第一排！",py:"Nín shì qiánbèi, qǐng zuò dì-yī pái!",id:"Anda senior kami, silakan duduk di baris pertama!"}},
+  {zh:"到来",py:"dàolái",id:"kedatangan",kategori:"Kata Benda",contoh:{n:128,zh:"各位领导、各位朋友，欢迎大家的到来！",py:"Gè wèi lǐngdǎo, gè wèi péngyou, huānyíng dàjiā de dàolái!",id:"Para pemimpin dan teman-teman sekalian, selamat datang!"}},
+  {zh:"收获",py:"shōuhuò",id:"hasil/pencapaian",kategori:"Kata Benda",contoh:{n:132,zh:"这段时间收获特别大。",py:"Zhè duàn shíjiān shōuhuò tèbié dà.",id:"Selama ini saya mendapat banyak sekali pelajaran/hasil."}},
+  {zh:"活动",py:"huódòng",id:"acara/kegiatan",kategori:"Kata Benda",contoh:{n:133,zh:"活动安排得很丰富。",py:"Huódòng ānpái de hěn fēngfù.",id:"Acaranya diatur dengan sangat beragam."}},
+  {zh:"成功",py:"chénggōng",id:"keberhasilan",kategori:"Kata Benda",contoh:{n:135,zh:"我们的成功离不开你们的支持。",py:"Wǒmen de chénggōng lí bu kāi nǐmen de zhīchí.",id:"Keberhasilan kami tidak lepas dari dukungan kalian."}},
+  {zh:"英国",py:"Yīngguó",id:"Inggris",kategori:"Kata Benda",contoh:{n:2,zh:"我来自英国。",py:"Wǒ láizì Yīngguó.",id:"Saya berasal dari Inggris."}},
+  {zh:"中国",py:"Zhōngguó",id:"Tiongkok",kategori:"Kata Benda",contoh:{n:3,zh:"这是我第一次来中国。",py:"Zhè shì wǒ dì-yī cì lái Zhōngguó.",id:"Ini pertama kalinya saya datang ke Tiongkok."}},
+  {zh:"香港",py:"Xiānggǎng",id:"Hong Kong",kategori:"Kata Benda",contoh:{n:73,zh:"我订一张8号去香港的机票。",py:"Wǒ dìng yì zhāng bā hào qù Xiānggǎng de jīpiào.",id:"Saya memesan satu tiket pesawat ke Hong Kong tanggal 8."}},
+  {zh:"咖啡厅",py:"kāfēitīng",id:"kedai kopi",kategori:"Tempat",contoh:{n:92,zh:"我们一会儿在咖啡厅见吧。",py:"Wǒmen yíhuìr zài kāfēitīng jiàn ba.",id:"Kita ketemu nanti di kedai kopi ya."}},
+  {zh:"宝宝",py:"bǎobao",id:"bayi/anak kecil",kategori:"Kata Benda",contoh:{n:93,zh:"我给你家宝宝买了个玩具。",py:"Wǒ gěi nǐ jiā bǎobao mǎile ge wánjù.",id:"Saya belikan mainan untuk anak Anda."}},
+  {zh:"什么",py:"shénme",id:"apa",kategori:"Kata Tanya",contoh:{n:18,zh:"最近忙什么呢？",py:"Zuìjìn máng shénme ne?",id:"Akhir-akhir ini sibuk apa?"}},
+  {zh:"怎么",py:"zěnme",id:"bagaimana",kategori:"Kata Tanya",contoh:{n:4,zh:"您怎么称呼？",py:"Nín zěnme chēnghu?",id:"Siapa nama Anda? (cara sopan bertanya nama)"}},
+  {zh:"怎么样",py:"zěnmeyàng",id:"bagaimana (keadaan)",kategori:"Kata Tanya",contoh:{n:98,zh:"您最近身体怎么样？",py:"Nín zuìjìn shēntǐ zěnmeyàng?",id:"Bagaimana kondisi kesehatan Anda akhir-akhir ini?"}},
+  {zh:"哪",py:"nǎ",id:"mana",kategori:"Kata Tanya",contoh:{n:48,zh:"请问您是哪位？",py:"Qǐngwèn nín shì nǎ wèi?",id:"Maaf, ini dengan siapa?"}},
+  {zh:"哪边",py:"nǎbiān",id:"sebelah mana",kategori:"Kata Tanya",contoh:{n:110,zh:"请问电梯在哪边？",py:"Qǐngwèn diàntī zài nǎbiān?",id:"Maaf, liftnya di sebelah mana ya?"}},
+  {zh:"几",py:"jǐ",id:"berapa (< 10)",kategori:"Kata Tanya",contoh:{n:62,zh:"您约的几点？",py:"Nín yuē de jǐ diǎn?",id:"Anda janjian jam berapa?"}},
+  {zh:"多久",py:"duō jiǔ",id:"berapa lama",kategori:"Kata Tanya",contoh:{n:109,zh:"大概要等多久？",py:"Dàgài yào děng duō jiǔ?",id:"Kira-kira harus menunggu berapa lama?"}},
+  {zh:"什么时候",py:"shénme shíhou",id:"kapan",kategori:"Kata Tanya",contoh:{n:63,zh:"他什么时候有空儿？",py:"Tā shénme shíhou yǒu kòngr?",id:"Kapan dia ada waktu luang?"}},
+  {zh:"干吗",py:"gànmá",id:"buat apa/kenapa",kategori:"Kata Tanya",contoh:{n:38,zh:"你来就好，还带东西干吗？",py:"Nǐ lái jiù hǎo, hái dài dōngxi gànmá?",id:"Kamu datang saja sudah cukup, kenapa masih bawa-bawa sesuatu?"}},
+  {zh:"最近",py:"zuìjìn",id:"akhir-akhir ini",kategori:"Waktu",contoh:{n:18,zh:"最近忙什么呢？",py:"Zuìjìn máng shénme ne?",id:"Akhir-akhir ini sibuk apa?"}},
+  {zh:"好久",py:"hǎojiǔ",id:"lama",kategori:"Waktu",contoh:{n:20,zh:"好久不见。",py:"Hǎojiǔ bújiàn.",id:"Lama tidak berjumpa."}},
+  {zh:"现在",py:"xiànzài",id:"sekarang",kategori:"Waktu",contoh:{n:51,zh:"您现在方便说话吗？",py:"Nín xiànzài fāngbiàn shuōhuà ma?",id:"Apakah sekarang nyaman untuk bicara?"}},
+  {zh:"明天",py:"míngtiān",id:"besok",kategori:"Waktu",contoh:{n:64,zh:"您明天下午三点有时间吗？",py:"Nín míngtiān xiàwǔ sān diǎn yǒu shíjiān ma?",id:"Apakah Anda ada waktu besok jam 3 sore?"}},
+  {zh:"下午",py:"xiàwǔ",id:"sore",kategori:"Waktu",contoh:{n:64,zh:"您明天下午三点有时间吗？",py:"Nín míngtiān xiàwǔ sān diǎn yǒu shíjiān ma?",id:"Apakah Anda ada waktu besok jam 3 sore?"}},
+  {zh:"上午",py:"shàngwǔ",id:"pagi",kategori:"Waktu",contoh:{n:65,zh:"我们明天上午去，方便吗？",py:"Wǒmen míngtiān shàngwǔ qù, fāngbiàn ma?",id:"Kami akan datang besok pagi, apakah nyaman?"}},
+  {zh:"今天",py:"jīntiān",id:"hari ini",kategori:"Waktu",contoh:{n:70,zh:"我今天有事儿去不了了。",py:"Wǒ jīntiān yǒu shìr qùbuliǎo le.",id:"Hari ini saya ada urusan jadi tidak bisa datang."}},
+  {zh:"已经",py:"yǐjīng",id:"sudah",kategori:"Waktu",contoh:{n:68,zh:"周六已经约满了。",py:"Zhōuliù yǐjīng yuēmǎn le.",id:"Hari Sabtu sudah penuh terpesan."}},
+  {zh:"周六",py:"zhōuliù",id:"hari Sabtu",kategori:"Waktu",contoh:{n:68,zh:"周六已经约满了。",py:"Zhōuliù yǐjīng yuēmǎn le.",id:"Hari Sabtu sudah penuh terpesan."}},
+  {zh:"之前",py:"zhīqián",id:"sebelum",kategori:"Waktu",contoh:{n:72,zh:"您来之前再打电话确认一下。",py:"Nín lái zhīqián zài dǎ diànhuà quèrèn yíxià.",id:"Sebelum datang, mohon telepon lagi untuk konfirmasi."}},
+  {zh:"一会儿",py:"yíhuìr",id:"sebentar/nanti",kategori:"Waktu",contoh:{n:92,zh:"我们一会儿在咖啡厅见吧。",py:"Wǒmen yíhuìr zài kāfēitīng jiàn ba.",id:"Kita ketemu nanti di kedai kopi ya."}},
+  {zh:"早就",py:"zǎo jiù",id:"sudah sejak lama",kategori:"Waktu",contoh:{n:96,zh:"早就想来拜访您了。",py:"Zǎo jiù xiǎng lái bàifǎng nín le.",id:"Sudah lama saya ingin berkunjung ke tempat Anda."}},
+  {zh:"周末",py:"zhōumò",id:"akhir pekan",kategori:"Waktu",contoh:{n:121,zh:"周末我有一个聚会。",py:"Zhōumò wǒ yǒu yí ge jùhuì.",id:"Akhir pekan ini saya ada acara kumpul-kumpul."}},
+  {zh:"新年",py:"xīnnián",id:"tahun baru",kategori:"Waktu",contoh:{n:122,zh:"我们要在新年晚会上表演节目。",py:"Wǒmen yào zài xīnnián wǎnhuì shang biǎoyǎn jiémù.",id:"Kami akan tampil di acara malam Tahun Baru."}},
+  {zh:"刚才",py:"gāngcái",id:"tadi",kategori:"Waktu",contoh:{n:53,zh:"抱歉，刚才在路上，没听到。",py:"Bàoqiàn, gāngcái zài lùshang, méi tīngdào.",id:"Maaf, tadi sedang di jalan, tidak dengar."}},
+  {zh:"一直",py:"yìzhí",id:"terus",kategori:"Waktu",contoh:{n:54,zh:"刚才一直在忙，没看手机。",py:"Gāngcái yìzhí zài máng, méi kàn shǒujī.",id:"Tadi terus sibuk, tidak sempat cek HP."}},
+  {zh:"及时",py:"jíshí",id:"tepat waktu",kategori:"Waktu",contoh:{n:55,zh:"不好意思，没及时回复。",py:"Bù hǎoyìsi, méi jíshí huífù.",id:"Maaf, tidak sempat membalas tepat waktu."}},
+  {zh:"再",py:"zài",id:"lagi/nanti",kategori:"Kata Fungsi",contoh:{n:72,zh:"您来之前再打电话确认一下。",py:"Nín lái zhīqián zài dǎ diànhuà quèrèn yíxià.",id:"Sebelum datang, mohon telepon lagi untuk konfirmasi."}},
+  {zh:"的",py:"de",id:"(partikel posesif)",kategori:"Kata Fungsi",contoh:{n:8,zh:"他是我的好朋友。",py:"Tā shì wǒ de hǎopéngyou.",id:"Dia teman baik saya."}},
+  {zh:"了",py:"le",id:"(partikel perubahan/selesai)",kategori:"Kata Fungsi",contoh:{n:15,zh:"这座楼有100多年的历史了。",py:"Zhè zuò lóu yǒu yìbǎi duō nián de lìshǐ le.",id:"Gedung ini sudah berusia lebih dari 100 tahun."}},
+  {zh:"吗",py:"ma",id:"(partikel tanya)",kategori:"Kata Fungsi",contoh:{n:46,zh:"喂，是张老师吗？",py:"Wéi, shì Zhāng lǎoshī ma?",id:"Halo, apakah ini Bapak/Ibu Zhang?"}},
+  {zh:"呢",py:"ne",id:"(partikel)",kategori:"Kata Fungsi",contoh:{n:18,zh:"最近忙什么呢？",py:"Zuìjìn máng shénme ne?",id:"Akhir-akhir ini sibuk apa?"}},
+  {zh:"吧",py:"ba",id:"(partikel ajakan/dugaan)",kategori:"Kata Fungsi",contoh:{n:10,zh:"你们加下微信吧。",py:"Nǐmen jiā xià wēixìn ba.",id:"Kalian saling tambahkan WeChat saja ya."}},
+  {zh:"把",py:"bǎ",id:"(partikel objek)",kategori:"Kata Fungsi",contoh:{n:59,zh:"他把电话挂了。",py:"Tā bǎ diànhuà guà le.",id:"Dia menutup teleponnya."}},
+  {zh:"还是",py:"háishi",id:"atau (pilihan)",kategori:"Kata Fungsi",contoh:{n:34,zh:"你喝茶还是咖啡？",py:"Nǐ hē chá háishi kāfēi?",id:"Anda mau minum teh atau kopi?"}},
+  {zh:"太",py:"tài",id:"terlalu",kategori:"Kata Fungsi",contoh:{n:39,zh:"这太贵重了！",py:"Zhè tài guìzhòng le!",id:"Ini terlalu mahal!"}},
+  {zh:"很",py:"hěn",id:"sangat",kategori:"Kata Fungsi",contoh:{n:5,zh:"认识你很高兴。",py:"Rènshi nǐ hěn gāoxìng.",id:"Senang berkenalan dengan Anda."}},
+  {zh:"也",py:"yě",id:"juga",kategori:"Kata Fungsi",contoh:{n:17,zh:"你也来跑步哇？",py:"Nǐ yě lái pǎobù wa?",id:"Kamu juga lari pagi ya?"}},
+  {zh:"又",py:"yòu",id:"lagi (sudah terjadi)",kategori:"Kata Fungsi",contoh:{n:22,zh:"我们又见面了。",py:"Wǒmen yòu jiànmiàn le.",id:"Kita bertemu lagi."}},
+  {zh:"不",py:"bù",id:"tidak",kategori:"Kata Fungsi",contoh:{n:20,zh:"好久不见。",py:"Hǎojiǔ bújiàn.",id:"Lama tidak berjumpa."}},
+  {zh:"没",py:"méi",id:"tidak (lampau)",kategori:"Kata Fungsi",contoh:{n:24,zh:"没想到在这儿碰到你。",py:"Méi xiǎngdào zài zhèr pèngdào nǐ.",id:"Tidak menyangka bisa bertemu kamu di sini."}},
+  {zh:"就",py:"jiù",id:"saja/langsung",kategori:"Kata Fungsi",contoh:{n:38,zh:"你来就好，还带东西干吗？",py:"Nǐ lái jiù hǎo, hái dài dōngxi gànmá?",id:"Kamu datang saja sudah cukup, kenapa masih bawa-bawa sesuatu?"}},
+  {zh:"还",py:"hái",id:"masih",kategori:"Kata Fungsi",contoh:{n:38,zh:"你来就好，还带东西干吗？",py:"Nǐ lái jiù hǎo, hái dài dōngxi gànmá?",id:"Kamu datang saja sudah cukup, kenapa masih bawa-bawa sesuatu?"}},
+  {zh:"都",py:"dōu",id:"semua",kategori:"Kata Fungsi",contoh:{n:134,zh:"大家都特别珍惜这个机会。",py:"Dàjiā dōu tèbié zhēnxī zhège jīhuì.",id:"Semua orang sangat menghargai kesempatan ini."}},
+  {zh:"先",py:"xiān",id:"duluan",kategori:"Kata Fungsi",contoh:{n:42,zh:"您先请。",py:"Nín xiān qǐng.",id:"Silakan Anda duluan."}},
+  {zh:"更",py:"gèng",id:"lebih",kategori:"Kata Fungsi",contoh:{n:30,zh:"您更辛苦。",py:"Nín gèng xīnkǔ.",id:"Anda yang lebih berat pekerjaannya."}},
+  {zh:"差点儿",py:"chàdiǎnr",id:"hampir",kategori:"Kata Fungsi",contoh:{n:25,zh:"我差点儿没认出你。",py:"Wǒ chàdiǎnr méi rènchū nǐ.",id:"Saya hampir tidak mengenali kamu."}},
+  {zh:"一",py:"yī",id:"satu",kategori:"Angka",contoh:{n:14,zh:"那边有一家书店。",py:"Nàbian yǒu yì jiā shūdiàn.",id:"Di sana ada toko buku."}},
+  {zh:"三",py:"sān",id:"tiga",kategori:"Angka",contoh:{n:12,zh:"我们的办公室在三层。",py:"Wǒmen de bàngōngshì zài sān céng.",id:"Kantor kami ada di lantai tiga."}},
+  {zh:"一百",py:"yìbǎi",id:"seratus",kategori:"Angka",contoh:{n:15,zh:"这座楼有100多年的历史了。",py:"Zhè zuò lóu yǒu yìbǎi duō nián de lìshǐ le.",id:"Gedung ini sudah berusia lebih dari 100 tahun."}},
+  {zh:"位",py:"wèi",id:"(penggolong: orang, hormat)",kategori:"Angka",contoh:{n:7,zh:"这位是李老师。",py:"Zhè wèi shì Lǐ lǎoshī.",id:"Ini adalah Bapak/Ibu Li (guru)."}},
+  {zh:"家",py:"jiā",id:"(penggolong: toko/rumah)",kategori:"Angka",contoh:{n:14,zh:"那边有一家书店。",py:"Nàbian yǒu yì jiā shūdiàn.",id:"Di sana ada toko buku."}},
+  {zh:"座",py:"zuò",id:"(penggolong: bangunan)",kategori:"Angka",contoh:{n:15,zh:"这座楼有100多年的历史了。",py:"Zhè zuò lóu yǒu yìbǎi duō nián de lìshǐ le.",id:"Gedung ini sudah berusia lebih dari 100 tahun."}},
+  {zh:"层",py:"céng",id:"lantai/tingkat",kategori:"Angka",contoh:{n:12,zh:"我们的办公室在三层。",py:"Wǒmen de bàngōngshì zài sān céng.",id:"Kantor kami ada di lantai tiga."}},
+  {zh:"张",py:"zhāng",id:"(penggolong: lembar)",kategori:"Angka",contoh:{n:73,zh:"我订一张8号去香港的机票。",py:"Wǒ dìng yì zhāng bā hào qù Xiānggǎng de jīpiào.",id:"Saya memesan satu tiket pesawat ke Hong Kong tanggal 8."}},
+  {zh:"份",py:"fèn",id:"(penggolong: porsi)",kategori:"Angka",contoh:{n:82,zh:"你帮我带份午餐吧。",py:"Nǐ bāng wǒ dài fèn wǔcān ba.",id:"Tolong bawakan saya makan siang."}},
+  {zh:"首",py:"shǒu",id:"(penggolong: lagu)",kategori:"Angka",contoh:{n:123,zh:"我给大家唱首歌吧。",py:"Wǒ gěi dàjiā chàng shǒu gē ba.",id:"Biar saya nyanyikan sebuah lagu untuk semua."}},
+  {zh:"句",py:"jù",id:"(penggolong: kalimat)",kategori:"Angka",contoh:{n:129,zh:"您代表大家讲几句吧。",py:"Nín dàibiǎo dàjiā jiǎng jǐ jù ba.",id:"Silakan Anda mewakili semua untuk memberi sepatah dua kata sambutan."}},
+  {zh:"杯",py:"bēi",id:"(penggolong: gelas)",kategori:"Angka",contoh:{n:131,zh:"吴老师，我敬您一杯。",py:"Wú lǎoshī, wǒ jìng nín yì bēi.",id:"Bapak/Ibu Wu, saya persembahkan satu gelas untuk Anda (toast)."}},
+  {zh:"段",py:"duàn",id:"(penggolong: periode)",kategori:"Angka",contoh:{n:132,zh:"这段时间收获特别大。",py:"Zhè duàn shíjiān shōuhuò tèbié dà.",id:"Selama ini saya mendapat banyak sekali pelajaran/hasil."}},
+  {zh:"排",py:"pái",id:"baris",kategori:"Angka",contoh:{n:127,zh:"您是前辈，请坐第一排！",py:"Nín shì qiánbèi, qǐng zuò dì-yī pái!",id:"Anda senior kami, silakan duduk di baris pertama!"}},
+  {zh:"瓶",py:"píng",id:"(penggolong: botol)",kategori:"Angka",contoh:{n:37,zh:"我带了一瓶葡萄酒，希望您喜欢。",py:"Wǒ dàile yì píng pútaojiǔ, xīwàng nín xǐhuan.",id:"Saya membawa sebotol anggur, semoga Anda suka."}},
+  {zh:"特别",py:"tèbié",id:"sangat/khusus",kategori:"Kata Fungsi",contoh:{n:132,zh:"这段时间收获特别大。",py:"Zhè duàn shíjiān shōuhuò tèbié dà.",id:"Selama ini saya mendapat banyak sekali pelajaran/hasil."}},
+];
+
+const PATTERNS = [
+  {rumus:"A 是 B",py:"A shì B",judul:"Kalimat penegas 'adalah'",penjelasan:"Menyatakan A adalah/sama dengan B. Wajib pakai 是, tidak seperti Bahasa Indonesia yang bisa tanpa kata kerja.",contoh:[{n:11,zh:"这是我们公司大楼。",py:"Zhè shì wǒmen gōngsī dàlóu.",id:"Ini gedung perusahaan kami."},{n:13,zh:"左边是图书馆，右边是体育馆。",py:"Zuǒbian shì túshūguǎn, yòubian shì tǐyùguǎn.",id:"Di sebelah kiri perpustakaan, di sebelah kanan gedung olahraga."}],salah:"我律师。",benar:"我是律师。",alasan:"Bahasa Indonesia boleh 'saya pengacara' tanpa kata kerja, Mandarin wajib pakai 是."},
+  {rumus:"A 的 B",py:"A de B",judul:"Kepemilikan/penjelas dengan 的",penjelasan:"的 menghubungkan pemilik/penjelas (A) dengan benda (B). A selalu di depan, 的 di tengah, B di belakang.",contoh:[{n:8,zh:"他是我的好朋友。",py:"Tā shì wǒ de hǎopéngyou.",id:"Dia teman baik saya."},{n:94,zh:"你家的花养得真好！",py:"Nǐ jiā de huā yǎng de zhēn hǎo!",id:"Bunga di rumahmu dirawat dengan sangat baik!"}],salah:"朋友我的很好。",benar:"我的朋友很好。",alasan:"的 dan kata benda yang dijelaskan (B) harus tetap satu kesatuan A的B, tidak boleh dipisah."},
+  {rumus:"...吗？",py:"...ma?",judul:"Pertanyaan ya/tidak dengan 吗",penjelasan:"Menambahkan 吗 di akhir kalimat pernyataan mengubahnya jadi pertanyaan ya/tidak.",contoh:[{n:46,zh:"喂，是张老师吗？",py:"Wéi, shì Zhāng lǎoshī ma?",id:"Halo, apakah ini Bapak/Ibu Zhang?"},{n:51,zh:"您现在方便说话吗？",py:"Nín xiànzài fāngbiàn shuōhuà ma?",id:"Apakah sekarang nyaman untuk bicara?"}],salah:"你是不是学生吗？",benar:"你是学生吗？ / 你是不是学生？",alasan:"吗 dan pola 是不是 sama-sama membuat pertanyaan ya/tidak, tidak boleh dipakai bersamaan."},
+  {rumus:"...呢？",py:"...ne?",judul:"Partikel 呢 (pertanyaan balik/lanjutan)",penjelasan:"呢 di akhir kalimat pendek menanyakan hal yang sama dengan konteks sebelumnya, atau menekankan pertanyaan yang sedang berlangsung.",contoh:[{n:18,zh:"最近忙什么呢？",py:"Zuìjìn máng shénme ne?",id:"Akhir-akhir ini sibuk apa?"},{n:28,zh:"王姐，忙呢？",py:"Wáng jiě, máng ne?",id:"Kak Wang, lagi sibuk ya?"}],salah:"我很好，你好呢？",benar:"我很好，你呢？",alasan:"呢 sudah mewakili seluruh pertanyaan 'bagaimana denganmu', tidak perlu mengulang kata sifatnya."},
+  {rumus:"...吧",py:"...ba",judul:"Partikel 吧 (ajakan/dugaan)",penjelasan:"吧 di akhir kalimat melembutkan ajakan atau menunjukkan dugaan/persetujuan.",contoh:[{n:10,zh:"你们加下微信吧。",py:"Nǐmen jiā xià wēixìn ba.",id:"Kalian saling tambahkan WeChat saja ya."},{n:19,zh:"最近挺好的吧？",py:"Zuìjìn tǐng hǎo de ba?",id:"Belakangan ini baik-baik saja kan?"}],salah:"我们去吧吗？",benar:"我们去吧？",alasan:"吧 dan 吗 sama-sama partikel akhir kalimat yang mengubah nada; tidak digabung."},
+  {rumus:"Verb/Adj + 了",py:"...le",judul:"了 penanda perubahan/selesai",penjelasan:"了 menandai sesuatu sudah terjadi atau keadaan baru saja berubah.",contoh:[{n:22,zh:"我们又见面了。",py:"Wǒmen yòu jiànmiàn le.",id:"Kita bertemu lagi."},{n:56,zh:"你打错了。",py:"Nǐ dǎcuò le.",id:"Anda salah sambung."},{n:60,zh:"她手机关机了。",py:"Tā shǒujī guānjī le.",id:"HP-nya mati."}],salah:"我没有见面了他。",benar:"我们见面了。 / 我没见过他。",alasan:"没(有) tidak pernah dipasangkan dengan 了 dalam klausa yang sama."},
+  {rumus:"太 + Adj + 了",py:"tài...le",judul:"太...了 (terlalu/sangat)",penjelasan:"Menekankan sifat berlebihan. 太 di depan kata sifat, 了 di akhir.",contoh:[{n:39,zh:"这太贵重了！",py:"Zhè tài guìzhòng le!",id:"Ini terlalu mahal!"},{n:97,zh:"有机会见到您，真是太荣幸了！",py:"Yǒu jīhuì jiàndào nín, zhēn shì tài róngxìng le!",id:"Sungguh suatu kehormatan bisa bertemu dengan Anda!"}],salah:"这个很太贵了。",benar:"这个太贵了。",alasan:"太...了 sudah menyatakan tingkat berlebihan, tidak digabung lagi dengan 很."},
+  {rumus:"A 还是 B",py:"A háishi B",judul:"还是 pilihan dalam pertanyaan",penjelasan:"还是 dipakai untuk menanyakan pilihan antara A atau B.",contoh:[{n:34,zh:"你喝茶还是咖啡？",py:"Nǐ hē chá háishi kāfēi?",id:"Anda mau minum teh atau kopi?"}],salah:"你喝茶或者咖啡？",benar:"你喝茶还是咖啡？",alasan:"或者 dipakai dalam kalimat pernyataan, 还是 dipakai khusus dalam kalimat tanya pilihan."},
+  {rumus:"S + 把 + O + V + 了",py:"S bǎ O V le",judul:"Kalimat 把 (memindahkan objek)",penjelasan:"把 memindahkan objek ke depan kata kerja untuk menekankan apa yang terjadi pada objek itu.",contoh:[{n:59,zh:"他把电话挂了。",py:"Tā bǎ diànhuà guà le.",id:"Dia menutup teleponnya."}],salah:"他挂了电话把。",benar:"他把电话挂了。",alasan:"Pola把 adalah S+把+O+V, objek dipindah ke depan kata kerja, bukan tetap di belakang."},
+  {rumus:"没(有) + V",py:"méi(yǒu) + V",judul:"没(有) — negasi kejadian lampau",penjelasan:"没(有) menegasikan sesuatu yang tidak/belum terjadi.",contoh:[{n:24,zh:"没想到在这儿碰到你。",py:"Méi xiǎngdào zài zhèr pèngdào nǐ.",id:"Tidak menyangka bisa bertemu kamu di sini."},{n:53,zh:"抱歉，刚才在路上，没听到。",py:"Bàoqiàn, gāngcái zài lùshang, méi tīngdào.",id:"Maaf, tadi sedang di jalan, tidak dengar."}],salah:"我不看电影昨天。",benar:"我昨天没看电影。",alasan:"Kejadian yang sudah lewat dan tidak terjadi dinegasikan dengan 没, bukan 不."},
+  {rumus:"不 + V/Adj",py:"bù + V/Adj",judul:"不 — negasi umum",penjelasan:"不 menegasikan kata kerja/sifat secara umum, kebiasaan, atau keadaan sekarang.",contoh:[{n:20,zh:"好久不见。",py:"Hǎojiǔ bújiàn.",id:"Lama tidak berjumpa."},{n:74,zh:"这个时间不合适。",py:"Zhège shíjiān bù héshì.",id:"Waktu ini tidak cocok."}],salah:"我没是学生。",benar:"我不是学生。",alasan:"是 selalu dinegasikan dengan 不, tidak pernah dengan 没."},
+  {rumus:"想 + V",py:"xiǎng + V",judul:"想 — menyatakan keinginan",penjelasan:"想 diikuti kata kerja untuk menyatakan keinginan melakukan sesuatu.",contoh:[{n:61,zh:"我想见一下江总。",py:"Wǒ xiǎng jiàn yíxià Jiāng zǒng.",id:"Saya ingin bertemu dengan Direktur Jiang."},{n:71,zh:"我想订个包间。",py:"Wǒ xiǎng dìng ge bāojiān.",id:"Saya ingin memesan ruangan privat."}],salah:"我想去要中国。",benar:"我想去中国。",alasan:"想 sendiri sudah cukup menyatakan keinginan, tidak perlu ditambah 要 setelah kata kerjanya."},
+  {rumus:"能/可以 + V",py:"néng/kěyǐ + V",judul:"能/可以 — kemampuan & izin",penjelasan:"能 untuk kemampuan situasional atau izin, 可以 untuk izin/boleh.",contoh:[{n:81,zh:"你能帮我一下吗？",py:"Nǐ néng bāng wǒ yíxià ma?",id:"Bisakah kamu membantu saya sebentar?"},{n:112,zh:"导购机器人可以帮你。",py:"Dǎogòu jīqìrén kěyǐ bāng nǐ.",id:"Robot pemandu belanja bisa membantu Anda."}],salah:"我不能会说汉语。",benar:"我不会说汉语。",alasan:"会 untuk kemampuan yang dipelajari, 能 untuk kemampuan situasional — jangan digabung negasinya."},
+  {rumus:"请 + V",py:"qǐng + V",judul:"请 — permintaan sopan",penjelasan:"请 di depan kata kerja membuat permintaan menjadi sopan/formal.",contoh:[{n:32,zh:"快请进！",py:"Kuài qǐng jìn!",id:"Ayo silakan masuk!"},{n:108,zh:"请您在这儿稍坐一会儿。",py:"Qǐng nín zài zhèr shāo zuò yíhuìr.",id:"Silakan duduk sebentar di sini."}],salah:"进请！",benar:"请进！",alasan:"请 selalu diletakkan SEBELUM kata kerja, tidak pernah sesudahnya."},
+  {rumus:"S + 在 + tempat",py:"S zài tempat",judul:"在 menyatakan lokasi keberadaan",penjelasan:"在 + tempat menyatakan S berada di suatu tempat. Kalau ada kata kerja lain, 在+tempat tetap diletakkan SEBELUM kata kerja itu (lihat kotak peringatan).",contoh:[{n:12,zh:"我们的办公室在三层。",py:"Wǒmen de bàngōngshì zài sān céng.",id:"Kantor kami ada di lantai tiga."},{n:113,zh:"超市在负一层。",py:"Chāoshì zài fù yī céng.",id:"Supermarketnya ada di lantai B1."}],salah:"我工作在办公室。",benar:"我在办公室工作。",alasan:"在+tempat harus diletakkan SEBELUM kata kerja, bukan di akhir kalimat seperti pola Bahasa Indonesia."},
+  {rumus:"S + 还 + 在 + V",py:"S hái zài V",judul:"还在 — masih sedang",penjelasan:"还 (masih) + 在 (sedang) menunjukkan sesuatu masih berlangsung.",contoh:[{n:107,zh:"抱歉，领导还在开会。",py:"Bàoqiàn, lǐngdǎo hái zài kāihuì.",id:"Maaf, atasan masih rapat."}],salah:"我还没吃了饭。",benar:"我还没吃饭。",alasan:"还没 (belum) tidak pernah dipasangkan dengan 了 dalam klausa yang sama."},
+  {rumus:"Angka + Penggolong + Benda",py:"num + cl + noun",judul:"Angka + penggolong + kata benda",penjelasan:"Setiap kata benda dihitung punya penggolongnya sendiri (家, 张, 瓶, dst), diletakkan di antara angka dan kata benda.",contoh:[{n:14,zh:"那边有一家书店。",py:"Nàbian yǒu yì jiā shūdiàn.",id:"Di sana ada toko buku."},{n:37,zh:"我带了一瓶葡萄酒，希望您喜欢。",py:"Wǒ dàile yì píng pútaojiǔ, xīwàng nín xǐhuan.",id:"Saya membawa sebotol anggur, semoga Anda suka."},{n:73,zh:"我订一张8号去香港的机票。",py:"Wǒ dìng yì zhāng bā hào qù Xiānggǎng de jīpiào.",id:"Saya memesan satu tiket pesawat ke Hong Kong tanggal 8."}],salah:"一书店家。",benar:"一家书店。",alasan:"Urutan wajib: angka + penggolong + kata benda; penggolong tidak boleh dipisah ke belakang."},
+  {rumus:"Waktu sebelum Kata Kerja",py:"waktu + V",judul:"Kata waktu diletakkan sebelum kata kerja",penjelasan:"Keterangan waktu (明天, 下午, dst) diletakkan sebelum kata kerja/kegiatan, bukan di akhir kalimat.",contoh:[{n:64,zh:"您明天下午三点有时间吗？",py:"Nín míngtiān xiàwǔ sān diǎn yǒu shíjiān ma?",id:"Apakah Anda ada waktu besok jam 3 sore?"},{n:65,zh:"我们明天上午去，方便吗？",py:"Wǒmen míngtiān shàngwǔ qù, fāngbiàn ma?",id:"Kami akan datang besok pagi, apakah nyaman?"}],salah:"我们去明天上午。",benar:"我们明天上午去。",alasan:"Kata waktu selalu mendahului kata kerja, kebalikan dari kebiasaan Bahasa Indonesia menaruhnya di akhir."},
+  {rumus:"Benda + Kata Arah",py:"noun + direction word",judul:"方位词 — kata arah setelah benda",penjelasan:"Kata arah (左边, 右边, 南边, dst) diletakkan SETELAH kata benda yang diacu, kebalikan dari Bahasa Indonesia.",contoh:[{n:114,zh:"餐饮区在五楼南边。",py:"Cānyǐnqū zài wǔ lóu nánbian.",id:"Area makanan ada di sisi selatan lantai lima."}],salah:"上边桌子。",benar:"桌子上边。",alasan:"Kata arah diletakkan setelah kata benda, kebalikan susunan Bahasa Indonesia 'di atas meja'."},
+  {rumus:"再 + V",py:"zài + V",judul:"再 — melakukan lagi (belum terjadi)",penjelasan:"再 diletakkan tepat sebelum kata kerja untuk menyatakan pengulangan yang belum/akan terjadi.",contoh:[{n:72,zh:"您来之前再打电话确认一下。",py:"Nín lái zhīqián zài dǎ diànhuà quèrèn yíxià.",id:"Sebelum datang, mohon telepon lagi untuk konfirmasi."},{n:95,zh:"有空儿再来玩儿。",py:"Yǒu kòngr zài lái wánr.",id:"Kalau ada waktu, main lagi ya."}],salah:"再有空儿来玩儿。",benar:"有空儿再来玩儿。",alasan:"再 diletakkan tepat sebelum kata kerja yang diulang, bukan di awal seluruh klausa."},
+  {rumus:"V + 一下",py:"V + yíxià",judul:"一下 — melembutkan kata kerja",penjelasan:"一下 setelah kata kerja membuat permintaan/tindakan terasa singkat dan santai.",contoh:[{n:6,zh:"我来介绍一下。",py:"Wǒ lái jièshào yíxià.",id:"Biar saya perkenalkan."},{n:49,zh:"请等一下。",py:"Qǐng děng yíxià.",id:"Mohon tunggu sebentar."},{n:69,zh:"请你提前一天提醒我一下。",py:"Qǐng nǐ tíqián yìtiān tíxǐng wǒ yíxià.",id:"Tolong ingatkan saya sehari sebelumnya."}],salah:null,benar:null,alasan:null},
+  {rumus:"Adj/V + 了 (perubahan)",py:"Adj/V + le",judul:"了 menyatakan perubahan keadaan",penjelasan:"Kata sifat/kerja + 了 menyatakan keadaan baru terjadi (jadi rusak, jadi salah, dst).",contoh:[{n:56,zh:"你打错了。",py:"Nǐ dǎcuò le.",id:"Anda salah sambung."},{n:83,zh:"我的电脑坏了，你帮我看看吧。",py:"Wǒ de diànnǎo huài le, nǐ bāng wǒ kànkan ba.",id:"Komputer saya rusak, tolong bantu periksa."},{n:126,zh:"场地已经布置好了。",py:"Chǎngdì yǐjīng bùzhì hǎo le.",id:"Tempatnya sudah selesai ditata."}],salah:"电脑很坏了。",benar:"电脑坏了。",alasan:"Untuk menyatakan perubahan keadaan, tidak perlu 很 di depan kata sifat + 了."},
+  {rumus:"S + 是 + ... + 的",py:"S shì ... de",judul:"是...的 — menekankan cara/tujuan/waktu",penjelasan:"是...的 menekankan detail (cara, waktu, tujuan) dari kejadian yang sudah pasti terjadi.",contoh:[{n:102,zh:"我这次是专程来拜访您的。",py:"Wǒ zhè cì shì zhuānchéng lái bàifǎng nín de.",id:"Kali ini saya datang khusus untuk mengunjungi Anda."}],salah:"我是这次专程来拜访您。",benar:"我这次是专程来拜访您的。",alasan:"Pola 是...的 wajib ditutup dengan 的 di akhir kalimat untuk menekankan detailnya."},
+  {rumus:"跟/给 + Orang + V",py:"gēn/gěi + orang + V",judul:"跟/给 — preposisi sebelum kata kerja",penjelasan:"跟 (dengan) dan 给 (untuk/kepada) beserta objeknya diletakkan SEBELUM kata kerja utama.",contoh:[{n:101,zh:"您的朋友介绍我跟您联系。",py:"Nín de péngyou jièshào wǒ gēn nín liánxì.",id:"Teman Anda menyarankan saya untuk menghubungi Anda."},{n:93,zh:"我给你家宝宝买了个玩具。",py:"Wǒ gěi nǐ jiā bǎobao mǎile ge wánjù.",id:"Saya belikan mainan untuk anak Anda."}],salah:"我联系跟您。",benar:"我跟您联系。",alasan:"跟/给 + orang selalu mendahului kata kerja, berbeda dari pola preposisi Bahasa Indonesia yang taruh di belakang."},
+];
+
+const CHUNKS = [
+  {zh:"打电话",py:"dǎ diànhuà",id:"menelepon",catatan:"Verb+Objek",contoh:{n:72,zh:"您来之前再打电话确认一下。",py:"Nín lái zhīqián zài dǎ diànhuà quèrèn yíxià.",id:"Sebelum datang, mohon telepon lagi untuk konfirmasi."}},
+  {zh:"打错了",py:"dǎcuò le",id:"salah sambung",catatan:null,contoh:{n:56,zh:"你打错了。",py:"Nǐ dǎcuò le.",id:"Anda salah sambung."}},
+  {zh:"开车",py:"kāichē",id:"menyetir",catatan:"Verb+Objek",contoh:{n:85,zh:"我下班后开车带你过去。",py:"Wǒ xiàbān hòu kāichē dài nǐ guòqu.",id:"Setelah pulang kerja saya akan antar kamu ke sana."}},
+  {zh:"开会",py:"kāihuì",id:"rapat",catatan:"Verb+Objek",contoh:{n:107,zh:"抱歉，领导还在开会。",py:"Bàoqiàn, lǐngdǎo hái zài kāihuì.",id:"Maaf, atasan masih rapat."}},
+  {zh:"见面",py:"jiànmiàn",id:"bertemu (janjian)",catatan:"Beda dengan 见到 = berhasil bertemu tanpa janji",contoh:{n:22,zh:"我们又见面了。",py:"Wǒmen yòu jiànmiàn le.",id:"Kita bertemu lagi."}},
+  {zh:"见到",py:"jiàndào",id:"berhasil bertemu",catatan:"Beda dengan 见面 = bertemu yg sudah dijanjikan",contoh:{n:97,zh:"有机会见到您，真是太荣幸了！",py:"Yǒu jīhuì jiàndào nín, zhēn shì tài róngxìng le!",id:"Sungguh suatu kehormatan bisa bertemu dengan Anda!"}},
+  {zh:"帮忙",py:"bāngmáng",id:"membantu",catatan:"Verb+Objek",contoh:{n:76,zh:"有个事情想请你帮忙。",py:"Yǒu ge shìqing xiǎng qǐng nǐ bāngmáng.",id:"Ada hal yang ingin saya minta bantuan Anda."}},
+  {zh:"关机",py:"guānjī",id:"mematikan HP",catatan:"Verb+Objek",contoh:{n:60,zh:"她手机关机了。",py:"Tā shǒujī guānjī le.",id:"HP-nya mati."}},
+  {zh:"收下",py:"shōuxià",id:"menerima pemberian",catatan:"Beda dengan 收到 = menerima kabar/kiriman",contoh:{n:36,zh:"这是我的一点儿心意，请收下。",py:"Zhè shì wǒ de yìdiǎnr xīnyì, qǐng shōuxià.",id:"Ini sedikit tanda perhatian dari saya, mohon diterima."}},
+  {zh:"收到",py:"shōudào",id:"menerima kabar/kiriman",catatan:"Beda dengan 收下 = menerima pemberian langsung",contoh:{n:52,zh:"收到后请回个消息。",py:"Shōudào hòu qǐng huí ge xiāoxi.",id:"Setelah diterima, mohon balas pesannya."}},
+  {zh:"提前",py:"tíqián",id:"lebih awal/mendahulukan",catatan:"Sering tertukar dengan 提醒 (mengingatkan)",contoh:{n:69,zh:"请你提前一天提醒我一下。",py:"Qǐng nǐ tíqián yìtiān tíxǐng wǒ yíxià.",id:"Tolong ingatkan saya sehari sebelumnya."}},
+  {zh:"提醒",py:"tíxǐng",id:"mengingatkan",catatan:"Sering tertukar dengan 提前 (lebih awal)",contoh:{n:69,zh:"请你提前一天提醒我一下。",py:"Qǐng nǐ tíqián yìtiān tíxǐng wǒ yíxià.",id:"Tolong ingatkan saya sehari sebelumnya."}},
+  {zh:"一瓶葡萄酒",py:"yì píng pútaojiǔ",id:"satu botol anggur",catatan:"Angka+Penggolong+Benda",contoh:{n:37,zh:"我带了一瓶葡萄酒，希望您喜欢。",py:"Wǒ dàile yì píng pútaojiǔ, xīwàng nín xǐhuan.",id:"Saya membawa sebotol anggur, semoga Anda suka."}},
+  {zh:"敬一杯",py:"jìng yì bēi",id:"bersulang (hormat)",catatan:"Verb+Penggolong+Benda",contoh:{n:131,zh:"吴老师，我敬您一杯。",py:"Wú lǎoshī, wǒ jìng nín yì bēi.",id:"Bapak/Ibu Wu, saya persembahkan satu gelas untuk Anda (toast)."}},
+  {zh:"拍照",py:"pāizhào",id:"memotret",catatan:"Beda dengan 合影 = foto bersama",contoh:{n:87,zh:"您能帮我们拍张照吗？",py:"Nín néng bāng wǒmen pāi zhāng zhào ma?",id:"Bisakah Anda memotret kami?"}},
+  {zh:"合影",py:"héyǐng",id:"foto bersama",catatan:"Beda dengan 拍照 = memotret umum",contoh:{n:125,zh:"咱们一起合张影吧。",py:"Zánmen yìqǐ hé zhāng yǐng ba.",id:"Ayo kita foto bersama."}},
+  {zh:"开始",py:"kāishǐ",id:"mulai",catatan:null,contoh:{n:75,zh:"现在还没开始售票。",py:"Xiànzài hái méi kāishǐ shòu piào.",id:"Sekarang penjualan tiket belum dimulai."}},
+  {zh:"好久不见",py:"hǎojiǔ bújiàn",id:"lama tidak bertemu",catatan:"Ungkapan tetap",contoh:{n:20,zh:"好久不见。",py:"Hǎojiǔ bújiàn.",id:"Lama tidak berjumpa."}},
+  {zh:"不好意思",py:"bù hǎoyìsi",id:"maaf (santai)",catatan:"Beda formalitas dgn 抱歉 (lebih formal)",contoh:{n:55,zh:"不好意思，没及时回复。",py:"Bù hǎoyìsi, méi jíshí huífù.",id:"Maaf, tidak sempat membalas tepat waktu."}},
+  {zh:"抱歉",py:"bàoqiàn",id:"maaf (formal)",catatan:"Beda formalitas dgn 不好意思 (lebih santai)",contoh:{n:53,zh:"抱歉，刚才在路上，没听到。",py:"Bàoqiàn, gāngcái zài lùshang, méi tīngdào.",id:"Maaf, tadi sedang di jalan, tidak dengar."}},
+  {zh:"慢走",py:"mànzǒu",id:"hati-hati di jalan",catatan:"Ungkapan perpisahan hormat",contoh:{n:105,zh:"您慢走！",py:"Nín mànzǒu!",id:"Hati-hati di jalan!"}},
+];
+
+const SOAL = [
+  {jenis:"Dengar",soal:"Dengarkan audio kalimat No. 1. Apa artinya?",tipe:"pilihan",opsi:["Halo! Nama saya Ding Dawei.","Saya berasal dari Inggris.","Senang berkenalan dengan Anda."],jawaban:0,pembahasan:"你好！我叫丁大伟。(Nǐ hǎo! Wǒ jiào Dīng Dàwěi.) = Halo! Nama saya Ding Dawei. 叫 dipakai untuk menyebut nama sendiri."},
+  {jenis:"Dengar",soal:"Dengarkan: '好久不见。' Pilih hanzi yang tepat.",tipe:"pilihan",opsi:["好九不见","好久不见","好久不见了"],jawaban:1,pembahasan:"好久不见 (Hǎojiǔ bújiàn) = lama tidak bertemu. 久 (jiǔ, lama) sering tertukar dengan 九 (jiǔ, sembilan) karena pinyin sama."},
+  {jenis:"Dengar",soal:"Dengarkan kalimat No. 34. Yang ditawarkan adalah...",tipe:"pilihan",opsi:["nasi atau mi","teh atau kopi","air atau jus"],jawaban:1,pembahasan:"你喝茶还是咖啡？(Nǐ hē chá háishi kāfēi?) = Anda mau minum teh atau kopi? 还是 dipakai untuk pertanyaan pilihan."},
+  {jenis:"Dengar",soal:"Dengarkan: 'Wǒ xiǎng dìng ge bāojiān.' Ini kalimat No. berapa?",tipe:"pilihan",opsi:["No. 61","No. 71","No. 81"],jawaban:1,pembahasan:"我想订个包间。(No. 71) = Saya ingin memesan ruangan privat. 订 = memesan, 包间 = ruangan privat."},
+  {jenis:"Dengar",soal:"Dengarkan 'Nín màn zǒu!' — situasi apa yang cocok untuk kalimat ini?",tipe:"pilihan",opsi:["Menyambut tamu datang","Mengucapkan selamat berpisah pada tamu","Meminta bantuan"],jawaban:1,pembahasan:"您慢走！(No. 105) diucapkan saat melepas tamu pergi, artinya 'hati-hati di jalan'."},
+  {jenis:"Dengar",soal:"Dengarkan kalimat No. 56 dan No. 59. Persamaan topiknya adalah...",tipe:"pilihan",opsi:["Keduanya tentang telepon","Keduanya tentang uang","Keduanya tentang makanan"],jawaban:0,pembahasan:"No. 56 你打错了 (salah sambung) dan No. 59 他把电话挂了 (menutup telepon) — keduanya termasuk topik 通信 Komunikasi/telepon."},
+  {jenis:"Dengar",soal:"Dengarkan 'Gānbēi!' — nada suara yang tepat adalah...",tipe:"pilihan",opsi:["Bertanya, nada naik","Semangat/mengajak, nada tegas","Sedih, nada turun pelan"],jawaban:1,pembahasan:"干杯！(Gānbēi!) = Bersulang! diucapkan dengan semangat saat toast, bukan pertanyaan."},
+  {jenis:"Dengar",soal:"Dengarkan No. 96-100 (Unit 前辈/Senior). Konteksnya adalah percakapan dengan...",tipe:"pilihan",opsi:["Teman sebaya","Orang yang lebih senior/dihormati","Anak kecil"],jawaban:1,pembahasan:"Kalimat No. 96-100 memakai 您 (bentuk hormat), 拜访 (berkunjung formal), 请教 (minta petunjuk) — semua menunjukkan lawan bicara adalah senior."},
+  {jenis:"Dengar",soal:"Dengarkan 'Xìnhào bù hǎo, tīng bu qīngchu.' Apa masalah yang dialami?",tipe:"pilihan",opsi:["Baterai HP habis","Sinyal buruk, suara tidak jelas","Salah nomor"],jawaban:1,pembahasan:"信号不好，听不清楚。(No. 58) = Sinyalnya jelek, tidak terdengar jelas."},
+  {jenis:"Dengar",soal:"Dengarkan No. 121: 'Zhōumò wǒ yǒu yí ge jùhuì.' Kapan acaranya?",tipe:"pilihan",opsi:["Hari ini","Akhir pekan","Tahun depan"],jawaban:1,pembahasan:"周末 (zhōumò) = akhir pekan. 周末我有一个聚会 = Akhir pekan ini saya ada acara kumpul-kumpul."},
+  {jenis:"Membaca",soal:"这是我们公司大楼。 Kata yang bergaris bawah artinya benda apa?",tipe:"pilihan",opsi:["大楼 = gedung","大楼 = perusahaan","大楼 = kantor"],jawaban:0,pembahasan:"大楼 (dàlóu) = gedung. 公司 = perusahaan (kata sebelum 大楼)."},
+  {jenis:"Membaca",soal:"左边是图书馆，右边是___。 (体育馆 - benar penempatannya?)",tipe:"pilihan",opsi:["体育馆是右边","右边是体育馆","是体育馆右边"],jawaban:1,pembahasan:"右边是体育馆 (No. 13) — pola A是B, bukan urutan lain."},
+  {jenis:"Membaca",soal:"Baca: 我今天有事儿去不了了。 Apa maksudnya?",tipe:"pilihan",opsi:["Hari ini saya sangat sibuk","Hari ini saya ada urusan jadi tidak bisa datang","Hari ini saya mau pergi"],jawaban:1,pembahasan:"去不了了 (qùbuliǎo le) = jadi tidak bisa pergi. Pola V不了 menyatakan ketidakmampuan melakukan sesuatu."},
+  {jenis:"Membaca",soal:"Manakah pasangan hanzi-arti yang BENAR?",tipe:"pilihan",opsi:["拍照 = foto bersama","合影 = foto bersama","抱歉 = tidak apa-apa"],jawaban:1,pembahasan:"合影 (héyǐng) = foto bersama. 拍照 = memotret secara umum. 抱歉 = maaf (bukan tidak apa-apa)."},
+  {jenis:"Membaca",soal:"这个时间不合适。 合适 artinya...",tipe:"pilihan",opsi:["cocok","mahal","cepat"],jawaban:0,pembahasan:"合适 (héshì) = cocok/sesuai. Kalimat berarti 'Waktu ini tidak cocok'."},
+  {jenis:"Membaca",soal:"Baca kalimat No. 106: 我找国际合作部。 Yang dicari adalah...",tipe:"pilihan",opsi:["Seseorang bernama 国际","Departemen Kerja Sama Internasional","Kantor pusat"],jawaban:1,pembahasan:"国际合作部 (guójì hézuò bù) = Departemen Kerja Sama Internasional. 国际=internasional, 合作=kerja sama, 部=departemen."},
+  {jenis:"Membaca",soal:"业务方面您找我就可以。 方面 artinya...",tipe:"pilihan",opsi:["arah","segi/aspek","masalah"],jawaban:1,pembahasan:"方面 (fāngmiàn) = segi/aspek. Kalimat: 'Untuk urusan bisnis, Anda cukup hubungi saya.'"},
+  {jenis:"Membaca",soal:"Manakah yang merupakan pasangan SALAH (arti tidak cocok)?",tipe:"pilihan",opsi:["珍惜 = menghargai","支持 = mendukung","打扰 = membantu"],jawaban:2,pembahasan:"打扰 (dǎrǎo) artinya 'mengganggu', bukan 'membantu'. 帮忙 baru artinya membantu."},
+  {jenis:"Membaca",soal:"活动安排得很丰富。 丰富 artinya...",tipe:"pilihan",opsi:["mahal","beragam/kaya","cepat"],jawaban:1,pembahasan:"丰富 (fēngfù) = beragam/kaya. Kalimat: 'Acaranya diatur dengan sangat beragam.'"},
+  {jenis:"Membaca",soal:"Baca No. 68: 周六已经约满了。 Artinya jadwal hari Sabtu...",tipe:"pilihan",opsi:["masih kosong","sudah penuh terpesan","dibatalkan"],jawaban:1,pembahasan:"约满了 (yuēmǎn le) = sudah penuh terpesan. 已经 = sudah."},
+  {jenis:"Menulis",soal:"Susun jadi kalimat yang benar: [公司 / 是 / 这 / 我们的 / 大楼]",tipe:"susun",jawabanTeks:"这是我们的公司大楼。",pembahasan:"Pola A是B: 这(A) 是 我们的公司大楼(B). Ingat 的 harus tetap menempel sebelum kata benda."},
+  {jenis:"Menulis",soal:"Isi partikel yang tepat: 你喝茶___咖啡？ (pilihan)",tipe:"pilihan",opsi:["或者","还是","也"],jawaban:1,pembahasan:"还是 dipakai dalam kalimat tanya pilihan A还是B. 或者 dipakai di kalimat pernyataan."},
+  {jenis:"Menulis",soal:"Isi partikel yang tepat: 他___电话挂了。 (pola pemindahan objek)",tipe:"pilihan",opsi:["把","被","给"],jawaban:0,pembahasan:"把 memindahkan objek (电话) ke depan kata kerja (挂): 他把电话挂了。"},
+  {jenis:"Menulis",soal:"Susun jadi kalimat: [明天 / 你们 / 有 / 时间 / 下午三点 / 吗]",tipe:"susun",jawabanTeks:"你们明天下午三点有时间吗？",pembahasan:"Urutan waktu wajib: (明天)+(下午三点) sebelum kata kerja 有, lalu 吗 di akhir untuk pertanyaan."},
+  {jenis:"Menulis",soal:"Perbaiki kalimat yang salah: '我没是学生。'",tipe:"pilihan",opsi:["我不是学生。","我没有是学生。","我不有是学生。"],jawaban:0,pembahasan:"是 selalu dinegasikan dengan 不, bukan 没. Jawaban benar: 我不是学生。"},
+  {jenis:"Menulis",soal:"Isi angka+penggolong yang tepat: 我订___机票。(satu lembar)",tipe:"pilihan",opsi:["一个","一张","一件"],jawaban:1,pembahasan:"张 (zhāng) adalah penggolong untuk benda tipis/lembaran seperti tiket, kertas."},
+  {jenis:"Menulis",soal:"Susun jadi kalimat: [好 / 图书馆 / 是 / 左边]",tipe:"susun",jawabanTeks:"左边是图书馆。",pembahasan:"Pola 方位词: kata arah (左边) diletakkan di depan sebagai subjek lokasi, lalu 是+benda."},
+  {jenis:"Menulis",soal:"Pilih kata yang tepat untuk 'lebih awal mengingatkan saya': 请你___一天___我一下。",tipe:"pilihan",opsi:["提醒 / 提前","提前 / 提醒","提前 / 提前"],jawaban:1,pembahasan:"提前 (lebih awal) diikuti keterangan waktu, lalu 提醒 (mengingatkan) sebagai kata kerja utama: 请你提前一天提醒我一下。"},
+  {jenis:"Menulis",soal:"Perbaiki: '我们去明天上午。'",tipe:"pilihan",opsi:["我们明天上午去。","明天我们上午去。(sama saja)","去我们明天上午。"],jawaban:0,pembahasan:"Kata waktu (明天上午) wajib diletakkan sebelum kata kerja (去), bukan di akhir kalimat."},
+  {jenis:"Menulis",soal:"Susun jadi kalimat: [支持 / 你们的 / 离不开 / 我们的 / 成功]",tipe:"susun",jawabanTeks:"我们的成功离不开你们的支持。",pembahasan:"离不开 (tidak lepas dari) diletakkan di tengah, subjek 我们的成功 di depan, objek 你们的支持 di belakang."},
+];
+const RADICALS = [{"zh": "亻", "makna": "orang", "ket": "manusia/orang", "contoh": ["你", "他", "们"]}, {"zh": "氵", "makna": "air", "ket": "berkaitan dengan air/cairan", "contoh": ["没", "没", "汉"]}, {"zh": "扌", "makna": "tangan", "ket": "tindakan pakai tangan", "contoh": ["打", "拍", "找", "把", "拿", "提", "拿"]}, {"zh": "讠", "makna": "bicara", "ket": "berkaitan dengan ucapan", "contoh": ["请", "认", "谁", "该", "课"]}, {"zh": "忄", "makna": "hati", "ket": "perasaan/emosi", "contoh": ["快", "忙", "怎", "您"]}, {"zh": "艹", "makna": "tumbuhan", "ket": "tanaman/rumput", "contoh": ["茶", "花", "菜"]}, {"zh": "辶", "makna": "berjalan", "ket": "gerakan berjalan/perjalanan", "contoh": ["这", "过", "还", "进"]}, {"zh": "木", "makna": "kayu", "ket": "kayu/pohon", "contoh": ["楼", "机", "检"]}, {"zh": "口", "makna": "mulut", "ket": "mulut/ucapan/lubang", "contoh": ["哪", "喝", "吗", "呢", "吧", "唱", "咖啡"]}, {"zh": "女", "makna": "perempuan", "ket": "wanita", "contoh": ["她", "好", "姐"]}, {"zh": "大", "makna": "besar", "ket": "besar/ukuran", "contoh": ["大家", "大楼"]}, {"zh": "小", "makna": "kecil", "ket": "kecil/ukuran", "contoh": ["少"]}, {"zh": "山", "makna": "gunung", "ket": "gunung/bentuk menonjol", "contoh": ["岁"]}, {"zh": "日", "makna": "matahari", "ket": "matahari/hari/waktu", "contoh": ["明天", "是", "早", "时"]}, {"zh": "月", "makna": "bulan/daging", "ket": "bulan atau bagian tubuh", "contoh": ["有", "朋", "期"]}, {"zh": "心", "makna": "hati", "ket": "perasaan (bentuk penuh)", "contoh": ["想", "意", "忘", "心意"]}, {"zh": "手", "makna": "tangan", "ket": "tangan (bentuk penuh)", "contoh": ["手机", "拿"]}, {"zh": "金/钅", "makna": "logam", "ket": "logam/uang", "contoh": ["钱", "错", "钟"]}, {"zh": "车", "makna": "kendaraan", "ket": "kendaraan beroda", "contoh": ["较", "轻"]}, {"zh": "门", "makna": "pintu", "ket": "pintu/gerbang", "contoh": ["问", "间", "们"]}, {"zh": "雨", "makna": "hujan", "ket": "cuaca/hujan", "contoh": ["雪", "需"]}, {"zh": "糹/纟", "makna": "benang", "ket": "benang/tekstil", "contoh": ["经", "给", "红", "练"]}, {"zh": "饣", "makna": "makanan", "ket": "berkaitan dengan makanan", "contoh": ["饭", "饮", "饮料"]}, {"zh": "宀", "makna": "atap", "ket": "rumah/bangunan", "contoh": ["家", "室", "定", "宝"]}, {"zh": "疒", "makna": "penyakit", "ket": "sakit/penyakit", "contoh": ["病"]}, {"zh": "言", "makna": "bicara", "ket": "(bentuk penuh dari 讠)", "contoh": ["誉", "警"]}, {"zh": "石", "makna": "batu", "ket": "batu/mineral", "contoh": ["确", "码"]}, {"zh": "目", "makna": "mata", "ket": "mata/penglihatan", "contoh": ["看", "真", "眼"]}, {"zh": "耳", "makna": "telinga", "ket": "telinga/pendengaran", "contoh": ["取", "联"]}, {"zh": "足/⻊", "makna": "kaki", "ket": "kaki/gerakan kaki", "contoh": ["跑", "路", "跟"]}, {"zh": "走", "makna": "berjalan", "ket": "berjalan/lari", "contoh": ["起", "越"]}, {"zh": "竹", "makna": "bambu", "ket": "bambu/alat dari bambu", "contoh": ["第", "答", "签"]}, {"zh": "鸟", "makna": "burung", "ket": "jenis burung", "contoh": ["鸡"]}, {"zh": "马", "makna": "kuda", "ket": "kuda", "contoh": ["骑"]}, {"zh": "犬/犭", "makna": "anjing", "ket": "binatang buas/anjing", "contoh": ["猫", "状"]}, {"zh": "贝", "makna": "kerang (uang kuno)", "ket": "nilai/uang/perdagangan", "contoh": ["贵", "账", "贵重"]}, {"zh": "力", "makna": "tenaga", "ket": "kekuatan/usaha", "contoh": ["办", "加", "男"]}, {"zh": "刀/刂", "makna": "pisau", "ket": "memotong/tajam", "contoh": ["别", "到", "刚才"]}, {"zh": "土", "makna": "tanah", "ket": "tanah/bumi/bangunan", "contoh": ["在", "地", "场", "场地"]}, {"zh": "阝(kiri)", "makna": "gundukan/tempat", "ket": "lokasi/wilayah (di kiri karakter)", "contoh": ["院", "阳"]}];
+const STROKES = [{"zh": "横", "py": "héng", "ket": "garis datar (kiri ke kanan)", "contoh": "一"}, {"zh": "竖", "py": "shù", "ket": "garis tegak (atas ke bawah)", "contoh": "十"}, {"zh": "撇", "py": "piě", "ket": "goresan miring turun ke kiri", "contoh": "八"}, {"zh": "捺", "py": "nà", "ket": "goresan miring turun ke kanan", "contoh": "八"}, {"zh": "点", "py": "diǎn", "ket": "titik", "contoh": "小"}, {"zh": "提", "py": "tí", "ket": "goresan naik dari bawah-kiri ke atas-kanan", "contoh": "打"}, {"zh": "横钩", "py": "hénggōu", "ket": "datar lalu kait ke bawah", "contoh": "字"}, {"zh": "竖钩", "py": "shùgōu", "ket": "tegak lalu kait ke kiri", "contoh": "小"}, {"zh": "斜钩", "py": "xiégōu", "ket": "miring lalu kait", "contoh": "我"}, {"zh": "卧钩", "py": "wògōu", "ket": "kait rebah (lengkung bawah)", "contoh": "心"}, {"zh": "横折", "py": "héngzhé", "ket": "datar lalu belok tegak", "contoh": "口"}, {"zh": "竖折", "py": "shùzhé", "ket": "tegak lalu belok datar", "contoh": "山"}, {"zh": "撇折", "py": "piězhé", "ket": "miring-kiri lalu belok naik", "contoh": "么"}, {"zh": "横撇", "py": "héngpiě", "ket": "datar lalu belok miring-kiri", "contoh": "又"}, {"zh": "竖提", "py": "shùtí", "ket": "tegak lalu naik ke kanan", "contoh": "衣"}, {"zh": "横折钩", "py": "héngzhégōu", "ket": "datar-belok-kait", "contoh": "月"}, {"zh": "横折提", "py": "héngzhétí", "ket": "datar-belok-naik", "contoh": "language"}, {"zh": "横撇弯钩", "py": "héngpiěwāngōu", "ket": "datar-miring-lengkung-kait", "contoh": "那"}, {"zh": "竖弯钩", "py": "shùwāngōu", "ket": "tegak-lengkung-kait", "contoh": "儿"}, {"zh": "竖弯", "py": "shùwān", "ket": "tegak lalu melengkung datar", "contoh": "四"}, {"zh": "横斜钩", "py": "héngxiégōu", "ket": "datar-miring-kait", "contoh": "饭"}, {"zh": "横折弯", "py": "héngzhéwān", "ket": "datar-belok-lengkung", "contoh": "朵"}, {"zh": "横折折撇", "py": "héngzhézhépiě", "ket": "datar-belok-belok-miring", "contoh": "建"}, {"zh": "横折折折钩", "py": "héngzhézhézhégōu", "ket": "datar-belok berulang-kait", "contoh": "乃(游旁)"}, {"zh": "竖折折钩", "py": "shùzhézhégōu", "ket": "tegak-belok-belok-kait", "contoh": "马"}, {"zh": "横折折", "py": "héngzhézhé", "ket": "datar-belok-belok", "contoh": "凸"}, {"zh": "撇点", "py": "piědiǎn", "ket": "miring-kiri lalu titik", "contoh": "女"}, {"zh": "横折弯钩", "py": "héngzhéwāngōu", "ket": "datar-belok-lengkung-kait", "contoh": "九"}];
+const DECOMP = {"你": {"makna_bag": "亻(orang)", "bunyi_bag": "尔 (mirip bunyi 'nǐ')", "catatan": "亻 menunjukkan berkaitan dengan orang."}, "们": {"makna_bag": "亻(orang)", "bunyi_bag": "门 (mén, bergeser jadi 'men')", "catatan": "Penanda jamak untuk kata ganti/orang."}, "好": {"makna_bag": "女(perempuan)+子(anak)", "bunyi_bag": "—", "catatan": "Gabungan piktografis 'perempuan+anak' = baik/bagus."}, "吗": {"makna_bag": "口(mulut)", "bunyi_bag": "马 (mǎ, bergeser jadi 'ma')", "catatan": "口 karena partikel ini diucapkan (terkait mulut/ucapan)."}, "呢": {"makna_bag": "口(mulut)", "bunyi_bag": "尼 (ní, mirip 'ne')", "catatan": "Partikel akhir kalimat, radikal mulut karena fungsi lisan."}, "吧": {"makna_bag": "口(mulut)", "bunyi_bag": "巴 (bā, bergeser jadi 'ba')", "catatan": "Partikel akhir kalimat, radikal mulut."}, "请": {"makna_bag": "讠(bicara)", "bunyi_bag": "青 (qīng, mirip 'qǐng')", "catatan": "讠 karena berkaitan dengan ucapan permintaan."}, "说": {"makna_bag": "讠(bicara)", "bunyi_bag": "兑 (duì, bergeser)", "catatan": "讠 menunjukkan tindakan berbicara."}, "谢": {"makna_bag": "讠(bicara)", "bunyi_bag": "射 (shè, bergeser jadi 'xiè')", "catatan": "讠 karena mengucapkan terima kasih."}, "认": {"makna_bag": "讠(bicara)", "bunyi_bag": "人 (rén, bergeser jadi 'rèn')", "catatan": "讠 terkait pengakuan lisan/mental."}, "想": {"makna_bag": "心(hati)", "bunyi_bag": "相 (xiāng, bergeser jadi 'xiǎng')", "catatan": "心 di bawah karena 'berpikir/ingin' adalah aktivitas batin."}, "您": {"makna_bag": "心(hati, di bawah)", "bunyi_bag": "你 (nǐ, bergeser jadi 'nín')", "catatan": "心 menunjukkan rasa hormat yang tulus."}, "忙": {"makna_bag": "忄(hati)", "bunyi_bag": "亡 (wáng, bergeser jadi 'máng')", "catatan": "忄 karena 'sibuk' dulunya dikaitkan dgn keadaan batin terdesak."}, "怎": {"makna_bag": "心(hati, di bawah)", "bunyi_bag": "作(zuò)-related", "catatan": "Bagian atas menunjukkan cara bertindak, 心 di bawah."}, "给": {"makna_bag": "纟(benang/tekstil)", "bunyi_bag": "合 (hé, bergeser jadi 'gěi')", "catatan": "纟 dari makna kuno 'menyediakan/pasokan'."}, "打": {"makna_bag": "扌(tangan)", "bunyi_bag": "丁 (dīng, bergeser jadi 'dǎ')", "catatan": "扌 karena tindakan tangan (memukul/menelepon)."}, "找": {"makna_bag": "扌(tangan)", "bunyi_bag": "戈-related", "catatan": "扌 karena 'mencari' melibatkan gerakan tangan."}, "拿": {"makna_bag": "手(tangan, di bawah)", "bunyi_bag": "合 (hé, bergeser)", "catatan": "手 di bawah menunjukkan tindakan mengambil dengan tangan."}, "把": {"makna_bag": "扌(tangan)", "bunyi_bag": "巴 (bā, bergeser jadi 'bǎ')", "catatan": "扌 dari makna asal 'memegang'."}, "拍": {"makna_bag": "扌(tangan)", "bunyi_bag": "白 (bái, bergeser jadi 'pāi')", "catatan": "扌 karena tindakan menepuk/memotret dgn tangan."}, "推": {"makna_bag": "扌(tangan)", "bunyi_bag": "隹 (zhuī, bergeser jadi 'tuī')", "catatan": "扌 karena tindakan mendorong."}, "提": {"makna_bag": "扌(tangan)", "bunyi_bag": "是 (shì, bergeser jadi 'tí')", "catatan": "扌 karena tindakan membawa/mengangkat."}, "看": {"makna_bag": "手(tangan)+目(mata)", "bunyi_bag": "—", "catatan": "Piktografis: tangan di atas mata (melihat jauh)."}, "听": {"makna_bag": "口(mulut)", "bunyi_bag": "斤 (jīn, bergeser jadi 'tīng')", "catatan": "Versi sederhana; bentuk tradisional 聽 pakai 耳(telinga)."}, "来": {"makna_bag": "piktografis (gandum)", "bunyi_bag": "—", "catatan": "Bentuk kuno menggambarkan tanaman gandum, dipinjam bunyinya untuk 'datang'."}, "去": {"makna_bag": "piktografis", "bunyi_bag": "—", "catatan": "Karakter kuno, tidak terpecah radikal+fonetik secara jelas."}, "见": {"makna_bag": "目(mata di atas)+儿(kaki, orang)", "bunyi_bag": "—", "catatan": "Piktografis: mata di atas kaki = orang melihat."}, "家": {"makna_bag": "宀(atap)", "bunyi_bag": "豕 (shǐ, babi — piktografis kuno)", "catatan": "宀 = rumah, dahulu rumah dgn ternak babi di bawahnya."}, "楼": {"makna_bag": "木(kayu)", "bunyi_bag": "娄 (lóu)", "catatan": "木 karena bangunan kayu/gedung bertingkat."}, "层": {"makna_bag": "尸(atap miring)", "bunyi_bag": "云-related", "catatan": "Menunjukkan lapisan/tingkat."}, "边": {"makna_bag": "辶(berjalan)", "bunyi_bag": "—", "catatan": "辶 terkait posisi/arah pergerakan di tepi."}, "方": {"makna_bag": "piktografis", "bunyi_bag": "—", "catatan": "Karakter dasar bermakna arah/persegi."}, "机": {"makna_bag": "木(kayu)", "bunyi_bag": "几 (jǐ, bergeser jadi 'jī')", "catatan": "木 dari makna asal 'mesin kayu/pesawat tenun'."}, "电": {"makna_bag": "piktografis (petir)", "bunyi_bag": "—", "catatan": "Bentuk kuno menggambarkan kilat = listrik."}, "话": {"makna_bag": "讠(bicara)", "bunyi_bag": "舌 (shé, lidah, bergeser jadi 'huà')", "catatan": "讠+舌 = ucapan yang keluar dari lidah."}, "号": {"makna_bag": "口(mulut)", "bunyi_bag": "—", "catatan": "口 dari makna asal 'berseru/menandai'."}, "票": {"makna_bag": "piktografis", "bunyi_bag": "—", "catatan": "Asal makna 'melayang ringan', dipinjam untuk 'tiket/surat'."}, "钱": {"makna_bag": "钅(logam)", "bunyi_bag": "戋 (jiān, bergeser jadi 'qián')", "catatan": "钅 karena uang logam."}, "买": {"makna_bag": "贝(kerang/nilai)", "bunyi_bag": "—", "catatan": "贝 = uang kuno, terkait transaksi membeli."}, "时": {"makna_bag": "日(matahari)", "bunyi_bag": "寺 (sì, bergeser jadi 'shí')", "catatan": "日 karena waktu terkait pergerakan matahari."}, "间": {"makna_bag": "门(pintu)+日(matahari)", "bunyi_bag": "—", "catatan": "Piktografis: cahaya matahari masuk celah pintu = ruang/jarak/waktu."}, "天": {"makna_bag": "piktografis", "bunyi_bag": "—", "catatan": "Gabungan 一+大 = 'yang di atas manusia' = langit/hari."}, "年": {"makna_bag": "piktografis", "bunyi_bag": "—", "catatan": "Bentuk kuno menggambarkan panen padi = satu tahun."}, "工": {"makna_bag": "piktografis (alat kerja)", "bunyi_bag": "—", "catatan": "Menggambarkan alat pertukangan."}, "作": {"makna_bag": "亻(orang)", "bunyi_bag": "乍 (zhà, bergeser jadi 'zuò')", "catatan": "亻 karena aktivitas dilakukan orang."}, "老": {"makna_bag": "piktografis (orang tua bertongkat)", "bunyi_bag": "—", "catatan": "Menggambarkan orang tua/lansia."}, "师": {"makna_bag": "巾(kain, sisi kanan bawah)", "bunyi_bag": "—", "catatan": "Asal makna terkait kelompok/pemimpin, kini berarti 'guru/ahli'."}, "朋": {"makna_bag": "月(bulan, ganda)", "bunyi_bag": "—", "catatan": "Piktografis kuno 'dua keping giok berdampingan' = teman sepadan."}, "友": {"makna_bag": "piktografis (dua tangan berjabat)", "bunyi_bag": "—", "catatan": "Menggambarkan dua tangan yang saling membantu = sahabat."}, "经": {"makna_bag": "纟(benang)", "bunyi_bag": "圣-related", "catatan": "纟 dari makna asal 'benang lungsin/mengatur'."}, "理": {"makna_bag": "王/玉(giok)", "bunyi_bag": "里 (lǐ)", "catatan": "玉 karena makna asal 'mengurai serat giok' = mengatur/prinsip."}, "总": {"makna_bag": "心(hati, di bawah)", "bunyi_bag": "㹉-related", "catatan": "心 dari makna 'mengumpulkan/menyeluruh'."}, "公": {"makna_bag": "piktografis", "bunyi_bag": "—", "catatan": "Asal makna 'membagi rata' = publik/umum."}, "司": {"makna_bag": "piktografis", "bunyi_bag": "—", "catatan": "Asal makna 'mengelola/mengurus'."}};
+const PHONETIC = [{"komponen": "青", "py_komponen": "qīng", "anggota": [{"zh": "请", "py": "qǐng", "status": "mirip (beda nada)"}, {"zh": "清", "py": "qīng", "status": "sama persis"}]}, {"komponen": "也", "py_komponen": "yě", "anggota": [{"zh": "他", "py": "tā", "status": "bergeser jauh"}, {"zh": "她", "py": "tā", "status": "bergeser jauh"}, {"zh": "地", "py": "de", "status": "bergeser jauh"}]}, {"komponen": "生", "py_komponen": "shēng", "anggota": [{"zh": "先生", "py": "xiānsheng", "status": "sama (dlm kata majemuk)"}, {"zh": "性(tdk ada di korpus)", "py": "xìng", "status": "contoh umum di luar korpus"}]}];
+
+const CHAR_PY = {"你": "nǐ", "好": "hǎo", "我": "wǒ", "叫": "jiào", "丁": "dīng", "大": "dà", "伟": "wěi", "来": "lái", "自": "zì", "英": "yīng", "国": "guó", "这": "zhè", "是": "shì", "第": "dì", "一": "yī", "次": "cì", "中": "zhōng", "您": "nín", "怎": "zěn", "么": "me", "称": "chēng", "呼": "hū", "认": "rèn", "识": "shí", "很": "hěn", "高": "gāo", "兴": "xìng", "介": "jiè", "绍": "shào", "下": "xià", "位": "wèi", "李": "lǐ", "老": "lǎo", "师": "shī", "他": "tā", "的": "de", "朋": "péng", "友": "yǒu", "林": "lín", "先": "xiān", "生": "shēng", "久": "jiǔ", "仰": "yǎng", "们": "men", "加": "jiā", "微": "wēi", "信": "xìn", "吧": "ba", "公": "gōng", "司": "sī", "楼": "lóu", "办": "bàn", "室": "shì", "在": "zài", "三": "sān", "层": "céng", "左": "zuǒ", "边": "bian", "图": "tú", "书": "shū", "馆": "guǎn", "右": "yòu", "体": "tǐ", "育": "yù", "那": "nà", "有": "yǒu", "家": "jiā", "店": "diàn", "座": "zuò", "多": "duō", "年": "nián", "历": "lì", "史": "shǐ", "了": "le", "杨": "yáng", "阳": "yáng", "上": "shàng", "班": "bān", "去": "qù", "呀": "ya", "也": "yě", "跑": "pǎo", "步": "bù", "哇": "wa", "最": "zuì", "近": "jìn", "忙": "máng", "什": "shén", "呢": "ne", "挺": "tǐng", "不": "bù", "见": "jiàn", "真": "zhēn", "又": "yòu", "面": "miàn", "巧": "qiǎo", "没": "méi", "想": "xiǎng", "到": "dào", "儿": "ér", "碰": "pèng", "差": "chà", "点": "diǎn", "出": "chū", "总": "zǒng", "早": "zǎo", "张": "zhāng", "经": "jīng", "理": "lǐ", "王": "wáng", "姐": "jiě", "工": "gōng", "作": "zuò", "辛": "xīn", "苦": "kǔ", "更": "gèng", "欢": "huān", "迎": "yíng", "快": "kuài", "请": "qǐng", "进": "jìn", "坐": "zuò", "喝": "hē", "茶": "chá", "还": "hái", "咖": "kā", "啡": "fēi", "吃": "chī", "水": "shuǐ", "果": "guǒ", "心": "xīn", "意": "yì", "收": "shōu", "带": "dài", "瓶": "píng", "葡": "pú", "萄": "tao", "酒": "jiǔ", "希": "xī", "望": "wàng", "喜": "xǐ", "就": "jiù", "东": "dōng", "西": "xī", "干": "gàn", "吗": "ma", "太": "tài", "贵": "guì", "重": "zhòng", "谢": "xiè", "杯": "bēi", "尝": "cháng", "个": "ge", "菜": "cài", "感": "gǎn", "款": "kuǎn", "待": "dài", "喂": "wéi", "刘": "liú", "佳": "jiā", "问": "wèn", "哪": "nǎ", "等": "děng", "事": "shì", "联": "lián", "系": "xì", "再": "zài", "现": "xiàn", "方": "fāng", "便": "biàn", "说": "shuō", "话": "huà", "后": "hòu", "回": "huí", "消": "xiāo", "息": "xī", "抱": "bào", "歉": "qiàn", "刚": "gāng", "才": "cái", "路": "lù", "听": "tīng", "直": "zhí", "看": "kàn", "手": "shǒu", "机": "jī", "思": "sī", "及": "jí", "时": "shí", "复": "fù", "打": "dǎ", "错": "cuò", "电": "diàn", "占": "zhàn", "线": "xiàn", "号": "hào", "清": "qīng", "楚": "chǔ", "把": "bǎ", "挂": "guà", "她": "tā", "关": "guān", "江": "jiāng", "约": "yuē", "几": "jǐ", "候": "hòu", "空": "kòng", "明": "míng", "天": "tiān", "午": "wǔ", "间": "jiān", "赵": "zhào", "夫": "fū", "四": "sì", "傅": "fù", "周": "zhōu", "六": "liù", "已": "yǐ", "满": "mǎn", "提": "tí", "前": "qián", "醒": "xǐng", "今": "jīn", "订": "dìng", "包": "bāo", "之": "zhī", "确": "què", "香": "xiāng", "港": "gǎng", "票": "piào", "合": "hé", "适": "shì", "开": "kāi", "始": "shǐ", "售": "shòu", "情": "qíng", "帮": "bāng", "声": "shēng", "交": "jiāo", "给": "gěi", "能": "néng", "份": "fèn", "餐": "cān", "脑": "nǎo", "坏": "huài", "拿": "ná", "用": "yòng", "车": "chē", "过": "guò", "需": "xū", "要": "yào", "拍": "pāi", "照": "zhào", "麻": "má", "烦": "fán", "推": "tuī", "正": "zhèng", "会": "huì", "厅": "tīng", "宝": "bǎo", "买": "mǎi", "玩": "wán", "具": "jù", "花": "huā", "养": "yǎng", "得": "de", "拜": "bài", "访": "fǎng", "荣": "róng", "幸": "xìng", "身": "shēn", "样": "yàng", "教": "jiào", "题": "tí", "扰": "rǎo", "跟": "gēn", "专": "zhuān", "程": "chéng", "项": "xiàng", "目": "mù", "案": "àn", "业": "yè", "务": "wù", "找": "zhǎo", "可": "kě", "以": "yǐ", "慢": "màn", "走": "zǒu", "际": "jì", "部": "bù", "领": "lǐng", "导": "dǎo", "稍": "shāo", "概": "gài", "梯": "tī", "卫": "wèi", "购": "gòu", "器": "qì", "人": "rén", "超": "chāo", "市": "shì", "负": "fù", "饮": "yǐn", "区": "qū", "五": "wǔ", "南": "nán", "反": "fǎn", "向": "xiàng", "参": "cān", "议": "yì", "材": "cái", "料": "liào", "签": "qiān", "应": "yīng", "该": "gāi", "往": "wǎng", "报": "bào", "告": "gào", "二": "èr", "末": "mò", "聚": "jù", "新": "xīn", "晚": "wǎn", "表": "biǎo", "演": "yǎn", "节": "jié", "唱": "chàng", "首": "shǒu", "歌": "gē", "取": "qǔ", "咱": "zán", "起": "qǐ", "影": "yǐng", "场": "chǎng", "地": "dì", "布": "bù", "置": "zhì", "辈": "bèi", "排": "pái", "各": "gè", "代": "dài", "讲": "jiǎng", "句": "jù", "蒸": "zhēng", "日": "rì", "吴": "wú", "敬": "jìng", "段": "duàn", "获": "huò", "特": "tè", "别": "bié", "活": "huó", "动": "dòng", "安": "ān", "丰": "fēng", "富": "fù", "都": "dōu", "珍": "zhēn", "惜": "xī", "成": "chéng", "功": "gōng", "离": "lí", "支": "zhī", "持": "chí"};
+
+
+</script>
+<script>
+/* ══════════════ STATE ══════════════ */
+let curVoice=null, curChar=null, writerInst=null, quizInst=null, wpQuizInst=null;
+let animSpd=0.8, looping=false, loopT=null;
+let hwLoaded=false, hwLoading=null;
+let wpList=[], wpIdx=0;
+
+/* ══════════════ AUDIO ══════════════ */
+function pickVoice(){
+  const vs=speechSynthesis.getVoices();
+  curVoice=vs.find(v=>v.lang==="zh-CN")||vs.find(v=>v.lang&&v.lang.startsWith("zh"))||null;
+}
+speechSynthesis.onvoiceschanged=pickVoice; pickVoice();
+function speak(zh){
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(zh);
+    u.lang="zh-CN"; u.rate=0.85;
+    if(curVoice)u.voice=curVoice;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ══════════════ NAV ══════════════ */
+function showScreen(name){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("screen-"+name).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active", b.dataset.s===name));
+}
+function goHome(){ showScreen("home"); }
+
+/* ══════════════ PINYIN / ARTI TOGGLE ══════════════ */
+let showPy=true, showId=true;
+function togglePy(){ showPy=!showPy; document.body.classList.toggle("hide-py",!showPy); document.getElementById("togPy").classList.toggle("off",!showPy); }
+function toggleId(){ showId=!showId; document.body.classList.toggle("hide-id",!showId); document.getElementById("togId").classList.toggle("off",!showId); }
+
+/* ══════════════ HANZI helpers ══════════════ */
+function isHanzi(c){ return /[\u4e00-\u9fff\u3007]/.test(c); }
+function uniqueCharsOf(sentences){
+  const seen=new Set(); const out=[];
+  sentences.forEach(s=>{ [...s.zh].forEach(c=>{ if(isHanzi(c) && !seen.has(c)){ seen.add(c); out.push(c);} }); });
+  return out;
+}
+function allSentencesFlat(){
+  const out=[];
+  UNITS.forEach(u=>u.scenarios.forEach(sc=>sc.sentences.forEach(s=>out.push(s))));
+  return out;
+}
+function sentencesContaining(ch){
+  return allSentencesFlat().filter(s=>s.zh.includes(ch));
+}
+function zhToSpans(zh){
+  return [...zh].map(c=>{
+    if(isHanzi(c)) return `<span class="hz" onclick="openChar('${c}')">${c}</span>`;
+    return c;
+  }).join("");
+}
+
+/* ══════════════ RENDER HOME ══════════════ */
+function renderHome(){
+  const wrap=document.getElementById("unitList");
+  wrap.innerHTML=UNITS.map((u,i)=>{
+    const total=u.scenarios.reduce((a,s)=>a+s.sentences.length,0);
+    const scNames=u.scenarios.map(s=>s.zh).join(" · ");
+    return `<div class="unit-card" onclick="openUnit(${i})">
+      <div class="unit-icon">${u.emoji}</div>
+      <div style="flex:1">
+        <div class="unit-no">UNIT ${u.no}</div>
+        <div class="unit-title"><span class="zh">${u.zh}</span><span class="en">${u.en}</span></div>
+        <div class="unit-scenarios">${scNames}</div>
+      </div>
+      <div class="unit-count">${total}</div>
+    </div>`;
+  }).join("");
+  const allChars=uniqueCharsOf(allSentencesFlat());
+  document.getElementById("charCountBadge").textContent=allChars.length;
+}
+
+/* ══════════════ RENDER UNIT ══════════════ */
+let curUnitIdx=0;
+function openUnit(i){
+  curUnitIdx=i;
+  const u=UNITS[i];
+  document.getElementById("unitTitle").textContent=u.zh;
+  document.getElementById("unitSub").textContent="Unit "+u.no+" · "+u.en;
+  document.getElementById("unitBody").innerHTML=u.scenarios.map(sc=>{
+    return `<div class="scenario-block">
+      <div class="scenario-hdr"><span class="scenario-tag zh">${sc.zh}</span><span class="scenario-en">${sc.en}</span></div>
+      ${sc.sentences.map(s=>sentCard(s)).join("")}
+    </div>`;
+  }).join("")+`<div style="height:10px"></div>`;
+  showScreen("unit");
+  window.scrollTo(0,0);
+}
+
+function sentCard(s){
+  return `<div class="sent-card">
+    <div class="sent-top">
+      <div class="sent-n">${s.n}</div>
+      <div style="flex:1">
+        <div class="sent-py">${s.py}</div>
+        <div class="sent-zh zh">${zhToSpans(s.zh)}</div>
+        <div class="sent-id">${s.id}</div>
+      </div>
+      <button class="sent-audio" onclick="speak('${s.zh.replace(/'/g,"")}')">🔊</button>
+    </div>
+  </div>`;
+}
+
+/* ══════════════ SEARCH ══════════════ */
+function doSearch(){
+  const q=document.getElementById("searchInp").value.trim().toLowerCase();
+  const body=document.getElementById("searchBody");
+  if(!q){ body.innerHTML=`<div class="search-empty">Ketik untuk mencari di antara 135 kalimat.<br>Contoh: "terima kasih", "nǐ hǎo", "谢谢"</div>`; return; }
+  let res=[];
+  UNITS.forEach(u=>u.scenarios.forEach(sc=>sc.sentences.forEach(s=>{
+    const hay=(s.zh+" "+s.py+" "+s.id).toLowerCase();
+    if(hay.includes(q)) res.push(s);
+  })));
+  if(!res.length){ body.innerHTML=`<div class="search-empty">Tidak ditemukan kalimat yang cocok dengan "${q}".</div>`; return; }
+  body.innerHTML=`<div class="search-res-meta">${res.length} kalimat ditemukan</div><div class="scenario-block" style="margin-top:6px">`+res.map(s=>sentCard(s)).join("")+`</div>`;
+}
+
+/* ══════════════ LAZY LOAD HANZI WRITER ══════════════ */
+function loadHanziWriter(){
+  if(hwLoaded) return Promise.resolve();
+  if(hwLoading) return hwLoading;
+  hwLoading=new Promise((resolve,reject)=>{
+    const s=document.createElement("script");
+    s.src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js";
+    s.onload=()=>{ hwLoaded=true; resolve(); };
+    s.onerror=()=>reject(new Error("Gagal memuat Hanzi Writer. Pastikan internet aktif."));
+    document.head.appendChild(s);
+  });
+  return hwLoading;
+}
+
+/* ══════════════ MODAL: DETAIL KARAKTER ══════════════ */
+function openChar(ch){
+  curChar=ch;
+  modalMode='char';
+  curVocabChars=[ch];
+  ['tabBtnArti','tabBtnBentuk','tabBtnInfo'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById("mZh").textContent=ch;
+  const found=sentencesContaining(ch).map(s=>s.n);
+  document.getElementById("mAppears").textContent="Muncul di kalimat No. "+found.join(", ");
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow="hidden";
+  mTab("stroke", document.getElementById("tabBtnStroke"));
+}
+function closeModal(){
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow="";
+  stopLoop();
+  if(quizInst){ try{quizInst.cancelQuiz();}catch(e){} quizInst=null; }
+  writerInst=null;
+}
+function closeMIfBg(e){ if(e.target===document.getElementById("overlay")) closeModal(); }
+
+let modalMode='char';
+function mTab(tab, btn){
+  document.querySelectorAll(".modal-tab").forEach(b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  const panelId = "m"+tab.charAt(0).toUpperCase()+tab.slice(1);
+  ["mStroke","mQuiz","mArti","mBentuk","mInfo"].forEach(id=>{
+    document.getElementById(id).style.display = (id===panelId) ? "" : "none";
+  });
+  if(tab==="stroke" && writerInst===null) initWriter();
+  if(tab==="quiz"){ document.getElementById("qChar").textContent=curChar; }
+  if(tab==="arti") renderArtiTab();
+  if(tab==="bentuk") renderBentukTab();
+  if(tab==="info") renderInfoTab();
+}
+
+function initWriter(){
+  document.getElementById("writerTarget").innerHTML="";
+  document.getElementById("fanRow").innerHTML='<div style="text-align:center;padding:20px;color:#aaa"><span class="spinner"></span>Memuat data goresan...</div>';
+  document.getElementById("strokeBadge").textContent="";
+  const char=curChar;
+  loadHanziWriter().then(()=>{
+    try{
+      writerInst=HanziWriter.create("writerTarget", char, {
+        width:220, height:220, padding:22,
+        showOutline:true,
+        strokeColor:"#6B8E23", outlineColor:"#DDD",
+        strokeAnimationSpeed:animSpd,
+        delayBetweenStrokes:200,
+        onLoadCharDataSuccess:function(data){
+          document.getElementById("strokeBadge").textContent=data.strokes.length+" goresan (stroke)";
+          document.getElementById("strokeTip").textContent=`💡 "${char}" punya ${data.strokes.length} goresan. Tap ▶ Animasi untuk lihat urutan penulisan!`;
+          buildFanning(char, data);
+        },
+        onLoadCharDataError:function(){
+          document.getElementById("strokeBadge").textContent="Data tidak tersedia";
+          document.getElementById("fanRow").innerHTML='<div style="color:#aaa;font-size:12px;padding:10px">Data goresan tidak ditemukan untuk karakter ini.</div>';
+        }
+      });
+    }catch(e){
+      document.getElementById("writerTarget").innerHTML='<div style="text-align:center;padding:30px;color:#aaa;font-size:12px">Gagal memuat. Pastikan internet aktif.</div>';
+    }
+  }).catch(()=>{
+    document.getElementById("writerTarget").innerHTML='<div style="text-align:center;padding:30px;color:#aaa;font-size:12px">Gagal memuat Hanzi Writer. Pastikan internet aktif.</div>';
+  });
+}
+
+function buildFanning(char, data){
+  const container=document.getElementById("fanRow");
+  container.innerHTML="";
+  const size=48, T=HanziWriter.getScalingTransform(size,size,2);
+  data.strokes.forEach((_, si)=>{
+    if(si>0){
+      const a=document.createElement("div"); a.className="fan-arrow"; a.textContent="→";
+      container.appendChild(a);
+    }
+    const wrap=document.createElement("div"); wrap.className="fan-item";
+    const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+    svg.style.cssText=`width:${size}px;height:${size}px;border:1px solid #EEE;border-radius:6px;background:#FFFDF8;display:block`;
+    svg.setAttribute("viewBox",`0 0 ${size} ${size}`);
+    const g=document.createElementNS("http://www.w3.org/2000/svg","g");
+    g.setAttribute("transform",T.transform);
+    for(let i=0;i<=si;i++){
+      const p=document.createElementNS("http://www.w3.org/2000/svg","path");
+      p.setAttribute("d",data.strokes[i]);
+      p.style.fill = i===si ? "#6B8E23" : "#555";
+      p.style.opacity = i===si ? "1" : "0.4";
+      g.appendChild(p);
+    }
+    svg.appendChild(g);
+    const badge=document.createElementNS("http://www.w3.org/2000/svg","text");
+    badge.setAttribute("x",size-1); badge.setAttribute("y",9); badge.setAttribute("text-anchor","end");
+    badge.setAttribute("font-size","8"); badge.setAttribute("fill","#6B8E23"); badge.setAttribute("font-weight","bold");
+    badge.textContent=si+1;
+    svg.appendChild(badge);
+    wrap.appendChild(svg);
+    const lbl=document.createElement("div"); lbl.className="fan-lbl"; lbl.textContent="画"+(si+1);
+    wrap.appendChild(lbl);
+    container.appendChild(wrap);
+  });
+}
+
+function doAnimate(){ stopLoop(); if(writerInst) writerInst.animateCharacter(); }
+function doShow(){ stopLoop(); if(writerInst) writerInst.showCharacter(); }
+function doHide(){ stopLoop(); if(writerInst) writerInst.hideCharacter(); }
+function doLoop(){
+  if(looping){ stopLoop(); return; }
+  looping=true;
+  document.getElementById("loopBtn").textContent="⏹ Stop";
+  function run(){ if(!looping||!writerInst) return; writerInst.animateCharacter({onComplete:()=>{ if(looping) loopT=setTimeout(run,1200); }}); }
+  run();
+}
+function stopLoop(){ looping=false; clearTimeout(loopT); const b=document.getElementById("loopBtn"); if(b)b.textContent="🔁 Loop"; }
+function updateSpeed(el){
+  animSpd=parseFloat(el.value);
+  document.getElementById("speedVal").textContent=animSpd.toFixed(1)+"x";
+  if(writerInst) writerInst.updateDimensions({strokeAnimationSpeed:animSpd});
+}
+
+function startQuiz(){
+  document.getElementById("quizTarget").innerHTML="";
+  document.getElementById("quizResult").className="quiz-result";
+  const char=curChar;
+  loadHanziWriter().then(()=>{
+    quizInst=HanziWriter.create("quizTarget", char, {
+      width:220, height:220, padding:22,
+      showOutline:true, showCharacter:false,
+      strokeColor:"#1D4ED8", outlineColor:"#DDD", drawingColor:"#1D4ED8",
+      highlightOnComplete:true, highlightColor:"#D1FAE5",
+      quiz:{
+        onMistake: s=>showQuizResult(`❌ Goresan ke-${s.strokeNum+1} tidak tepat — coba lagi!`,"bad"),
+        onCorrectStroke: s=>showQuizResult(`✅ Goresan ke-${s.strokeNum+1} benar!`,"ok"),
+        onComplete: s=>showQuizResult(s.totalMistakes===0?"🏆 Sempurna! Semua goresan benar!":`✅ Selesai! ${s.totalMistakes} kesalahan.`, s.totalMistakes===0?"ok":"bad")
+      }
+    });
+    quizInst.quiz();
+  });
+}
+function showQuizResult(msg,cls){
+  const el=document.getElementById("quizResult");
+  el.textContent=msg; el.className="quiz-result show "+cls;
+}
+function resetQuiz(){
+  if(quizInst){ try{quizInst.cancelQuiz();}catch(e){} quizInst=null; }
+  document.getElementById("quizTarget").innerHTML="";
+  document.getElementById("quizResult").className="quiz-result";
+}
+
+/* ══════════════ LATIHAN TULIS BERURUTAN (Writer Practice) ══════════════ */
+function startWriterPractice(){
+  const u=UNITS[curUnitIdx];
+  wpList=uniqueCharsOf(u.scenarios.flatMap(sc=>sc.sentences));
+  wpIdx=0;
+  document.getElementById("wpUnitName").textContent="Unit "+u.no+" · "+u.zh;
+  showScreen("wp");
+  loadHanziWriter().then(wpRender);
+}
+function wpRender(){
+  const ch=wpList[wpIdx];
+  document.getElementById("wpCount").textContent=(wpIdx+1)+" / "+wpList.length;
+  document.getElementById("wpCharLabel").textContent="karakter";
+  document.getElementById("wpBarFill").style.width=((wpIdx+1)/wpList.length*100)+"%";
+  const found=sentencesContaining(ch);
+  document.getElementById("wpContext").innerHTML = found.length
+    ? "Contoh: <b class='zh'>"+found[0].zh+"</b> — "+found[0].id
+    : "";
+  wpDrawQuiz(ch);
+}
+function wpDrawQuiz(ch){
+  document.getElementById("wpQuizTarget").innerHTML="";
+  document.getElementById("wpResult").className="quiz-result";
+  if(wpQuizInst){ try{wpQuizInst.cancelQuiz();}catch(e){} wpQuizInst=null; }
+  try{
+    wpQuizInst=HanziWriter.create("wpQuizTarget", ch, {
+      width:240, height:240, padding:24,
+      showOutline:true, showCharacter:false,
+      strokeColor:"#1D4ED8", outlineColor:"#DDD", drawingColor:"#1D4ED8",
+      highlightOnComplete:true, highlightColor:"#D1FAE5",
+      quiz:{
+        onMistake: s=>wpResult(`❌ Goresan ke-${s.strokeNum+1} kurang tepat — coba lagi!`,"bad"),
+        onCorrectStroke: s=>wpResult(`✅ Goresan ke-${s.strokeNum+1} benar!`,"ok"),
+        onComplete: s=>wpResult(s.totalMistakes===0?"🏆 Sempurna!":`✅ Selesai! ${s.totalMistakes} kesalahan.`, s.totalMistakes===0?"ok":"bad")
+      },
+      onLoadCharDataError:function(){
+        document.getElementById("wpQuizTarget").innerHTML='<div style="text-align:center;padding:30px;color:#aaa;font-size:12px">Data goresan tidak ditemukan.</div>';
+      }
+    });
+    wpQuizInst.quiz();
+  }catch(e){}
+}
+function wpResult(msg,cls){
+  const el=document.getElementById("wpResult");
+  el.textContent=msg; el.className="quiz-result show "+cls;
+}
+function wpRedo(){ wpDrawQuiz(wpList[wpIdx]); }
+function wpNext(){ if(wpIdx<wpList.length-1){ wpIdx++; wpRender(); } else { showScreen("unit"); } }
+function wpPrev(){ if(wpIdx>0){ wpIdx--; wpRender(); } }
+
+
+/* ══════════════════════════════════════════════════════════
+   TAHAP 2 — Kosakata, Pola, Latihan, Rujukan
+   ══════════════════════════════════════════════════════════ */
+
+/* ---------- util pinyin/nada ---------- */
+function toneOf(py){
+  if(!py) return 0;
+  const t1='āēīōūǖ', t2='áéíóúǘ', t3='ǎěǐǒǔǚ', t4='àèìòùǜ';
+  for(const c of py){
+    if(t1.includes(c)) return 1;
+    if(t2.includes(c)) return 2;
+    if(t3.includes(c)) return 3;
+    if(t4.includes(c)) return 4;
+  }
+  return 0;
+}
+function stripTones(s){
+  const map={'ā':'a','á':'a','ǎ':'a','à':'a','ē':'e','é':'e','ě':'e','è':'e','ī':'i','í':'i','ǐ':'i','ì':'i','ō':'o','ó':'o','ǒ':'o','ò':'o','ū':'u','ú':'u','ǔ':'u','ù':'u','ǖ':'v','ǘ':'v','ǚ':'v','ǜ':'v','ü':'v'};
+  return s.split('').map(c=>map[c]||c).join('');
+}
+const VOCAB_ZH_SET = {}; VOCAB.forEach(v=>{ VOCAB_ZH_SET[v.zh]=v; });
+const VOCAB_CATS = [...new Set(VOCAB.map(v=>v.kategori))];
+function segmentSentence(zh){
+  const chars=[...zh]; let i=0; const out=[];
+  while(i<chars.length){
+    let matched=null;
+    for(let len=Math.min(4, chars.length-i); len>=1; len--){
+      const sub = chars.slice(i,i+len).join('');
+      if(VOCAB_ZH_SET[sub]){ matched={zh:sub, entry:VOCAB_ZH_SET[sub]}; break; }
+    }
+    if(!matched){
+      const c=chars[i];
+      if(isHanzi(c)) matched={zh:c, entry:{zh:c, py:CHAR_PY[c]||'?', id:'(di luar 258 kosakata Bab 1)', kategori:null}};
+      else matched={zh:c, entry:null};
+    }
+    out.push(matched);
+    i += [...matched.zh].length;
+  }
+  return out;
+}
+
+/* ---------- KOSAKATA screen ---------- */
+let vocabFilter='all';
+function renderVocabChips(){
+  const wrap=document.getElementById('vocabChips');
+  wrap.innerHTML = `<div class="chip on" onclick="setVocabFilter('all',this)">Semua (${VOCAB.length})</div>` +
+    VOCAB_CATS.map(c=>{
+      const n=VOCAB.filter(v=>v.kategori===c).length;
+      return `<div class="chip" onclick="setVocabFilter('${c}',this)">${c} (${n})</div>`;
+    }).join('');
+}
+function setVocabFilter(f,el){
+  vocabFilter=f;
+  document.querySelectorAll('#vocabChips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  renderVocabList();
+}
+function renderVocabList(){
+  const list = vocabFilter==='all'? VOCAB : VOCAB.filter(v=>v.kategori===vocabFilter);
+  document.getElementById('vocabCountLbl').textContent = list.length+' kata (dari 258 total)';
+  document.getElementById('vocabList').innerHTML = list.map(v=>{
+    const idx = VOCAB.indexOf(v);
+    return `<div class="vocab-row" onclick="openVocabModal(${idx})">
+      <div><div class="vocab-zh zh">${v.zh}</div><div class="vocab-py">${v.py}</div></div>
+      <div style="flex:1;min-width:0"><div class="vocab-id">${v.id}</div></div>
+      <div class="vocab-kat">${v.kategori}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ---------- POLA screen ---------- */
+let polaFilter='all';
+function setPolaFilter(f){
+  polaFilter=f;
+  document.getElementById('polaChipAll').classList.toggle('on', f==='all');
+  document.getElementById('polaChipWarn').classList.toggle('on', f==='warn');
+  document.getElementById('polaChipChunk').classList.toggle('on', f==='chunk');
+  renderPola();
+}
+function patternCard(p){
+  return `<div class="pattern-card">
+    <div class="pattern-formula zh">${p.rumus}</div>
+    <div class="pattern-py">${p.py}</div>
+    <div class="pattern-desc">${p.penjelasan}</div>
+    ${p.contoh.map(c=>`<div class="pattern-ex"><div class="sent-py">${c.py}</div><div class="sent-zh zh" style="font-size:16px">${c.zh}</div><div class="sent-id">${c.id}</div></div>`).join('')}
+    ${p.salah? `<div class="warn-box"><div class="warn-title">⚠️ SERING SALAH</div>
+      <div class="warn-line warn-salah">❌ ${p.salah}</div>
+      <div class="warn-line warn-benar">✅ ${p.benar}</div>
+      <div class="warn-line" style="color:#666;margin-top:4px">${p.alasan}</div></div>` : ''}
+  </div>`;
+}
+function chunkCard(c){
+  return `<div class="chunk-card">
+    <div><span class="zh" style="font-size:17px;font-weight:800">${c.zh}</span> <span class="pattern-py">${c.py}</span></div>
+    <div class="sent-id" style="margin-top:2px">${c.id}</div>
+    ${c.catatan? `<div class="chunk-note">💡 ${c.catatan}</div>` : ''}
+  </div>`;
+}
+function renderPola(){
+  const wrap=document.getElementById('polaList');
+  let html='';
+  if(polaFilter!=='chunk'){
+    const filtered = polaFilter==='warn'? PATTERNS.filter(p=>p.salah) : PATTERNS;
+    html += '<div class="sect-title">Pola Kalimat ('+filtered.length+')</div>';
+    html += filtered.map(patternCard).join('');
+  }
+  if(polaFilter==='all' || polaFilter==='chunk'){
+    html += '<div class="sect-title">词块 · Word Chunks ('+CHUNKS.length+')</div>';
+    html += CHUNKS.map(chunkCard).join('');
+  }
+  wrap.innerHTML = html;
+}
+
+/* ---------- VOCAB MODAL (Arti/Stroke/Tulis/Bentuk/Info) ---------- */
+let curVocabIdx=null, curVocabChars=[];
+function openVocabModal(idx){
+  curVocabIdx=idx;
+  const v=VOCAB[idx];
+  modalMode='vocab';
+  curVocabChars=[...v.zh];
+  curChar=curVocabChars[0];
+  writerInst=null;
+  document.getElementById('mZh').textContent=v.zh;
+  document.getElementById('mAppears').textContent=v.py+' · '+v.kategori;
+  ['tabBtnArti','tabBtnBentuk','tabBtnInfo'].forEach(id=>document.getElementById(id).style.display='');
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  mTab('arti', document.getElementById('tabBtnArti'));
+}
+function renderArtiTab(){
+  const v=VOCAB[curVocabIdx];
+  const related = VOCAB.filter((o,i)=> i!==curVocabIdx && [...o.zh].some(c=>v.zh.includes(c))).slice(0,8);
+  document.getElementById('mArtiBody').innerHTML = `
+    <div style="text-align:center;padding:4px 0 14px">
+      <div style="font-size:13px;color:#6B8E23;font-family:monospace">${v.py}</div>
+      <div style="font-size:15px;margin-top:6px">${v.id}</div>
+      <div class="vocab-kat" style="display:inline-block;margin-top:8px">${v.kategori}</div>
+    </div>
+    <div class="sect-title" style="padding:0 0 6px">Contoh dari Buku (No. ${v.contoh.n})</div>
+    <div class="sent-card" style="margin:0 0 10px">
+      <div class="sent-py">${v.contoh.py}</div>
+      <div class="sent-zh zh">${zhToSpans(v.contoh.zh)}</div>
+      <div class="sent-id">${v.contoh.id}</div>
+    </div>
+    ${related.length? `<div class="sect-title" style="padding:0 0 6px">Kata Gabungan (berbagi karakter)</div>
+    <div>${related.map(r=>`<span class="word-chip" style="cursor:pointer" onclick="openVocabModal(${VOCAB.indexOf(r)})"><span class="wc-zh zh">${r.zh}</span><span class="wc-py">${r.py}</span><span class="wc-id">${r.id}</span></span>`).join('')}</div>` : '<div style="font-size:11.5px;color:#bbb">Belum ada kata lain di 258 kosakata yang berbagi karakter.</div>'}
+    ${curVocabChars.length>1? '<div style="font-size:11px;color:#aaa;margin-top:10px">💡 Untuk goresan tiap karakter lain di kata ini, tap karakter tersebut langsung di kalimat contoh di atas.</div>':''}
+  `;
+}
+function detectFontAvailable(name){
+  try{
+    const c=document.createElement('canvas'); const ctx=c.getContext('2d');
+    ctx.font='72px "'+name+'", serif'; const w1=ctx.measureText('永').width;
+    ctx.font='72px "'+name+'", sans-serif'; const w2=ctx.measureText('永').width;
+    ctx.font='72px serif'; const wSerif=ctx.measureText('永').width;
+    ctx.font='72px sans-serif'; const wSans=ctx.measureText('永').width;
+    // Jika lebar dengan nama font berbeda dari KEDUA fallback generik, font kemungkinan terpasang & dipakai
+    return Math.abs(w1-wSans)>2 || Math.abs(w2-wSerif)>2;
+  }catch(e){ return false; }
+}
+const WEB_FONT_FALLBACK = {
+  'Songti SC': {family:'Noto Serif SC', url:'family=Noto+Serif+SC:wght@700', note:'宋体 asli tak terdeteksi — memuat pendekatan serif dari web (Noto Serif SC).'},
+  'Kaiti SC': {family:'Ma Shan Zheng', url:'family=Ma+Shan+Zheng', note:'楷体 asli tak terdeteksi — memuat pendekatan gaya kuas dari web (Ma Shan Zheng, bukan Kaiti SC persis).'},
+  'Yuanti SC': {family:'ZCOOL KuaiLe', url:'family=ZCOOL+KuaiLe', note:'圆体 asli tak terdeteksi — memuat pendekatan gaya bulat dari web (ZCOOL KuaiLe).'},
+};
+const loadedWebFonts = {};
+function loadWebFontFor(styleKey, ch, cellId){
+  const wf = WEB_FONT_FALLBACK[styleKey];
+  if(!wf) return;
+  const cell = document.getElementById(cellId);
+  const statusEl = cell.querySelector('.fc-status');
+  statusEl.innerHTML = '<span class="spinner"></span>Memuat dari internet…';
+  const cacheKey = wf.family;
+  const applyFont = () => {
+    cell.querySelector('.fc-char').style.fontFamily = "'"+wf.family+"', sans-serif";
+    statusEl.innerHTML = '✓ dimuat dari web ('+wf.family+')';
+    cell.querySelector('.fc-note').textContent = wf.note;
+  };
+  if(loadedWebFonts[cacheKey]){ applyFont(); return; }
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://fonts.googleapis.com/css2?'+wf.url+'&text='+encodeURIComponent(ch)+'&display=swap';
+  link.onload = () => { loadedWebFonts[cacheKey]=true; applyFont(); };
+  link.onerror = () => { statusEl.textContent = '❌ Gagal memuat — cek koneksi internet.'; };
+  document.head.appendChild(link);
+}
+function renderBentukTab(){
+  const ch=curVocabChars[0];
+  const fonts=[['PingFang SC','黑体 (Sans)',true],['Songti SC','宋体 (Serif)',false],['Kaiti SC','楷体 (Kai)',false],['Yuanti SC','圆体 (Rounded)',false]];
+  document.getElementById('mBentukBody').innerHTML = fonts.map(([f,label,isDefault],i)=>{
+    const cellId='fcell'+i;
+    if(isDefault){
+      // Gaya Sans adalah fallback default hampir semua perangkat/browser CJK — selalu tampil benar tanpa perlu deteksi.
+      return `<div class="font-cell" id="${cellId}">
+        <div class="fc-label">${label}</div>
+        <div class="fc-char zh" style="font-family:sans-serif">${ch}</div>
+        <div class="fc-status">✓ gaya default perangkat</div>
+        <div class="fc-note" style="font-size:9px;color:#ccc;margin-top:3px"></div>
+      </div>`;
+    }
+    const avail=detectFontAvailable(f);
+    return `<div class="font-cell" id="${cellId}">
+      <div class="fc-label">${label}</div>
+      <div class="fc-char zh" style="font-family:'${f}',sans-serif">${ch}</div>
+      <div class="fc-status">${avail? '✓ terdeteksi tersedia di perangkat' : '⚠️ tidak terdeteksi di perangkat ini'}</div>
+      ${avail? '' : `<button class="ctrl-btn" style="margin-top:6px;font-size:10px;padding:6px" onclick="loadWebFontFor('${f}','${ch}','${cellId}')">🌐 Muat dari internet</button>`}
+      <div class="fc-note" style="font-size:9px;color:#ccc;margin-top:3px"></div>
+    </div>`;
+  }).join('');
+}
+function renderInfoTab(){
+  let html='';
+  curVocabChars.forEach(c=>{
+    const d=DECOMP[c];
+    if(d){
+      html += `<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #f2f2f2">
+        <div style="font-size:28px;font-weight:800" class="zh">${c}</div>
+        <div style="font-size:12px;color:#666;margin-top:4px"><b>Bagian makna:</b> ${d.makna_bag}</div>
+        <div style="font-size:12px;color:#666;margin-top:2px"><b>Bagian bunyi:</b> ${d.bunyi_bag}</div>
+        <div style="font-size:11.5px;color:#999;margin-top:4px">${d.catatan}</div>
+      </div>`;
+    } else {
+      html += `<div style="margin-bottom:10px"><span style="font-size:22px" class="zh">${c}</span> <span style="font-size:12px;color:#bbb">— rincian komponen belum tersedia untuk karakter ini (baru 54 karakter tercakup)</span></div>`;
+    }
+  });
+  document.getElementById('mInfoBody').innerHTML = html || '<div class="info-empty">Tidak ada data.</div>';
+}
+
+/* ---------- SEARCH (upgraded: sentences + vocab, toneless) ---------- */
+function doSearch(){
+  const raw=document.getElementById("searchInp").value.trim().toLowerCase();
+  const body=document.getElementById("searchBody");
+  if(!raw){ body.innerHTML=`<div class="search-empty">Ketik untuk mencari di 135 kalimat & 258 kosakata.<br>Contoh: "terima kasih", "chi" (cari tanpa nada), "谢谢"</div>`; return; }
+  const rawT=stripTones(raw);
+  let sentRes=[], vocabRes=[];
+  UNITS.forEach(u=>u.scenarios.forEach(sc=>sc.sentences.forEach(s=>{
+    const hay=(s.zh+" "+s.py+" "+s.id).toLowerCase();
+    if(hay.includes(raw) || stripTones(s.py.toLowerCase()).includes(rawT)) sentRes.push(s);
+  })));
+  VOCAB.forEach(v=>{
+    const hay=(v.zh+" "+v.py+" "+v.id).toLowerCase();
+    if(hay.includes(raw) || stripTones(v.py.toLowerCase()).includes(rawT)) vocabRes.push(v);
+  });
+  if(!vocabRes.length && !sentRes.length){ body.innerHTML=`<div class="search-empty">Tidak ditemukan hasil untuk "${raw}".</div>`; return; }
+  let html='';
+  if(vocabRes.length){
+    html += `<div class="search-res-meta">📚 ${vocabRes.length} kosakata</div>`;
+    html += vocabRes.slice(0,30).map(v=>`<div class="vocab-row" onclick="openVocabModal(${VOCAB.indexOf(v)})">
+      <div><div class="vocab-zh zh">${v.zh}</div><div class="vocab-py">${v.py}</div></div>
+      <div style="flex:1;min-width:0"><div class="vocab-id">${v.id}</div></div><div class="vocab-kat">${v.kategori}</div>
+    </div>`).join('');
+  }
+  if(sentRes.length){
+    html += `<div class="search-res-meta" style="margin-top:10px">💬 ${sentRes.length} kalimat</div><div class="scenario-block" style="margin-top:6px">`+sentRes.map(sentCard).join("")+`</div>`;
+  }
+  body.innerHTML=html;
+}
+
+/* ---------- EXAM / LATIHAN (timed + untimed) ---------- */
+let examState={};
+let arrangePool=[], arrangeChosen=[], arrangeSlotId=null, arrangePoolId=null, arrangeAutoCheck=null;
+function initArrange(jawabanTeks, slotId, poolId){
+  arrangeChosen=[]; arrangeSlotId=slotId; arrangePoolId=poolId;
+  arrangePool = segmentSentence(jawabanTeks.replace(/[。！？]/g,'')).filter(s=>s.entry).map(s=>s.zh);
+  arrangePool.sort(()=>Math.random()-0.5);
+  drawArrange();
+}
+function drawArrange(){
+  document.getElementById(arrangeSlotId).innerHTML = arrangeChosen.map((w,i)=>`<span class="susun-word" onclick="arrangeRemove(${i})">${w}</span>`).join('');
+  document.getElementById(arrangePoolId).innerHTML = arrangePool.map((w,i)=>`<span class="susun-word" onclick="arrangePick(${i})">${w}</span>`).join('');
+}
+function arrangePick(i){ arrangeChosen.push(arrangePool[i]); arrangePool.splice(i,1); drawArrange(); if(arrangePool.length===0 && arrangeAutoCheck) arrangeAutoCheck(); }
+function arrangeRemove(i){ arrangePool.push(arrangeChosen[i]); arrangeChosen.splice(i,1); drawArrange(); }
+function arrangeResult(){ return arrangeChosen.join(''); }
+
+function openExam(timed){
+  examState={timed, idx:0, answers:new Array(SOAL.length).fill(null), seconds: timed? 15*60 : 0};
+  showScreen('exam');
+  if(examState.timerId) clearInterval(examState.timerId);
+  if(timed) examState.timerId=setInterval(examTick,1000);
+  renderExamQ();
+}
+function examTick(){
+  examState.seconds--;
+  if(examState.seconds<=0){ clearInterval(examState.timerId); finishExam(); return; }
+  updateTimerDisplay();
+}
+function updateTimerDisplay(){
+  const el=document.getElementById('examTimer');
+  if(!examState.timed){ el.textContent=''; return; }
+  const m=Math.floor(examState.seconds/60), s=examState.seconds%60;
+  el.textContent=m+':'+String(s).padStart(2,'0');
+  el.classList.toggle('warn', examState.seconds<60);
+}
+function renderExamQ(){
+  const q=SOAL[examState.idx];
+  document.getElementById('examProgress').textContent=(examState.idx+1)+' / '+SOAL.length+(examState.timed?'':' · Latihan Bebas');
+  updateTimerDisplay();
+  let optsHtml='';
+  if(q.tipe==='pilihan'){
+    optsHtml = q.opsi.map((o,i)=>`<div class="q-opt ${/[\u4e00-\u9fff]/.test(o)?'zh':''}" onclick="examSelectOpt(${i})">${o}</div>`).join('');
+  } else {
+    optsHtml = `<div class="susun-slot" id="susunSlot"></div><div class="susun-pool" id="susunPool"></div>`;
+  }
+  document.getElementById('examBody').innerHTML = `
+    <div class="q-card">
+      <div class="q-jenis">${q.jenis}</div>
+      <div class="q-text">${q.soal}</div>
+      ${optsHtml}
+      <div class="q-pemb" id="qPemb">💡 ${q.pembahasan}</div>
+    </div>
+    <div class="q-nav">
+      ${examState.idx>0? '<button class="ctrl-btn" onclick="examPrev()">← Kembali</button>':''}
+      <button class="ctrl-btn red" style="flex:2" onclick="examNext()">${examState.idx===SOAL.length-1?'✓ Selesai':'Lanjut →'}</button>
+    </div>`;
+  if(q.tipe==='susun'){
+    initArrange(q.jawabanTeks,'susunSlot','susunPool');
+    arrangeAutoCheck=()=>{
+      const ok = arrangeResult()===q.jawabanTeks.replace(/[。！？]/g,'');
+      examState.answers[examState.idx]=ok?'ok':'no';
+      const pemb=document.getElementById('qPemb');
+      pemb.classList.add('show');
+      pemb.innerHTML=(ok?'✅ Benar! ':'❌ Kurang tepat. Jawaban: '+q.jawabanTeks+'<br>')+'💡 '+q.pembahasan;
+    };
+  } else {
+    const prev=examState.answers[examState.idx];
+    if(prev!=null) examSelectOpt(prev,true);
+  }
+}
+function examSelectOpt(i,silent){
+  const q=SOAL[examState.idx];
+  examState.answers[examState.idx]=i;
+  document.querySelectorAll('#examBody .q-opt').forEach((el,idx)=>{
+    el.classList.remove('sel','correct','wrong');
+    if(!examState.timed){
+      if(idx===q.jawaban) el.classList.add('correct');
+      else if(idx===i) el.classList.add('wrong');
+    } else if(idx===i) el.classList.add('sel');
+  });
+  if(!examState.timed) document.getElementById('qPemb').classList.add('show');
+}
+function examNext(){ if(examState.idx<SOAL.length-1){ examState.idx++; renderExamQ(); } else finishExam(); }
+function examPrev(){ if(examState.idx>0){ examState.idx--; renderExamQ(); } }
+function finishExam(){
+  if(examState.timerId) clearInterval(examState.timerId);
+  let correct=0;
+  SOAL.forEach((q,i)=>{
+    if(q.tipe==='pilihan' && examState.answers[i]===q.jawaban) correct++;
+    if(q.tipe==='susun' && examState.answers[i]==='ok') correct++;
+  });
+  document.getElementById('examBody').innerHTML=`
+    <div class="result-box"><div class="result-score">${correct}/${SOAL.length}</div><div class="result-label">Jawaban benar</div></div>
+    <div class="q-nav"><button class="ctrl-btn red" style="width:100%" onclick="goHome()">Selesai</button></div>`;
+  document.getElementById('examProgress').textContent='Selesai';
+  document.getElementById('examTimer').textContent='';
+}
+
+/* ---------- MATCHING ---------- */
+let matchCategory=null, matchPairsLeft=[], matchPairsRight=[], matchSelLeft=null, matchSelRight=null, matchDoneCount=0, matchTotal=0;
+function openMatching(){
+  showScreen('matching');
+  document.getElementById('matchChips').innerHTML = VOCAB_CATS.map(c=>`<div class="chip" onclick="startMatch('${c}',this)">${c}</div>`).join('');
+  startMatch(VOCAB_CATS[0], document.querySelector('#matchChips .chip'));
+}
+function newMatchRound(){ startMatch(matchCategory, [...document.querySelectorAll('#matchChips .chip')].find(c=>c.classList.contains('on'))); }
+function startMatch(cat, el){
+  matchCategory=cat;
+  document.querySelectorAll('#matchChips .chip').forEach(c=>c.classList.remove('on'));
+  if(el) el.classList.add('on');
+  const pool=VOCAB.filter(v=>v.kategori===cat);
+  const n=Math.min(6,pool.length);
+  const picked=[...pool].sort(()=>Math.random()-0.5).slice(0,n);
+  matchTotal=n; matchDoneCount=0;
+  matchPairsLeft=picked.map((v,i)=>({idx:i, zh:v.zh, done:false}));
+  matchPairsRight=picked.map((v,i)=>({idx:i, id:v.id, done:false})).sort(()=>Math.random()-0.5);
+  matchSelLeft=null; matchSelRight=null;
+  document.getElementById('matchProgress').textContent=matchDoneCount+' / '+matchTotal+' pasang · '+cat;
+  drawMatch();
+}
+function drawMatch(){
+  document.getElementById('matchGrid').innerHTML = `
+    <div><div class="match-col-title">Hanzi</div>${matchPairsLeft.map((p,i)=>`<div class="match-item ${p.done?'done':''} ${matchSelLeft===i?'sel':''} zh" onclick="pickLeft(${i})">${p.done?'✓':p.zh}</div>`).join('')}</div>
+    <div><div class="match-col-title">Arti</div>${matchPairsRight.map((p,i)=>`<div class="match-item ${p.done?'done':''} ${matchSelRight===i?'sel':''}" style="font-size:11px" onclick="pickRight(${i})">${p.done?'✓':p.id}</div>`).join('')}</div>`;
+}
+function pickLeft(i){ if(matchPairsLeft[i].done) return; matchSelLeft=i; tryMatch(); }
+function pickRight(i){ if(matchPairsRight[i].done) return; matchSelRight=i; tryMatch(); }
+function tryMatch(){
+  drawMatch();
+  if(matchSelLeft==null || matchSelRight==null) return;
+  const l=matchPairsLeft[matchSelLeft], r=matchPairsRight[matchSelRight];
+  if(l.idx===r.idx){ l.done=true; r.done=true; matchDoneCount++; document.getElementById('matchProgress').textContent=matchDoneCount+' / '+matchTotal+' pasang · '+matchCategory; }
+  matchSelLeft=null; matchSelRight=null;
+  setTimeout(drawMatch,150);
+}
+
+/* ---------- FILL BLANK (isian rumpang) ---------- */
+let fbPool=[], fbIdx=0, fbCurrentAnswer='';
+function openFillblank(){
+  fbPool=allSentencesFlat().filter(s=>[...s.zh].filter(isHanzi).length>=4);
+  fbPool=[...fbPool].sort(()=>Math.random()-0.5).slice(0,15);
+  fbIdx=0; showScreen('fillblank'); renderFb();
+}
+function renderFb(){
+  const s=fbPool[fbIdx];
+  const chars=[...s.zh];
+  const hanziPos=chars.map((c,i)=>isHanzi(c)?i:-1).filter(i=>i>=0);
+  const blankPos=hanziPos[Math.floor(Math.random()*hanziPos.length)];
+  fbCurrentAnswer=chars[blankPos];
+  document.getElementById('fbProgress').textContent=(fbIdx+1)+' / '+fbPool.length;
+  document.getElementById('fbSent').innerHTML = chars.map((c,i)=>{
+    if(i===blankPos) return `<span class="ruby-char"><span class="ruby-top">?</span><span class="blank-box" id="blankBox">＿</span></span>`;
+    if(isHanzi(c)) return `<span class="ruby-char"><span class="ruby-top">${CHAR_PY[c]||''}</span><span>${c}</span></span>`;
+    return `<span>${c}</span>`;
+  }).join('');
+  const allChars=Object.keys(CHAR_PY);
+  const distractors=new Set();
+  while(distractors.size<3){ const c=allChars[Math.floor(Math.random()*allChars.length)]; if(c!==fbCurrentAnswer) distractors.add(c); }
+  const opts=[fbCurrentAnswer,...distractors].sort(()=>Math.random()-0.5);
+  document.getElementById('fbOpts').innerHTML = opts.map(o=>`<div class="fb-opt zh" onclick="fbAnswer('${o}',this)">${o}</div>`).join('');
+  document.getElementById('fbRemind').className='fb-remind';
+}
+function fbAnswer(choice,el){
+  document.querySelectorAll('.fb-opt').forEach(o=>o.style.pointerEvents='none');
+  const correct=choice===fbCurrentAnswer;
+  const box=document.getElementById('blankBox');
+  box.textContent=fbCurrentAnswer; box.style.borderStyle='solid';
+  box.style.color=correct?'#15803D':'#B91C1C'; box.style.width='auto'; box.style.padding='0 6px';
+  el.style.background=correct?'#F0FDF4':'#FEF2F2'; el.style.borderColor=correct?'#22C55E':'#EF4444';
+  const d=DECOMP[fbCurrentAnswer];
+  const remindEl=document.getElementById('fbRemind');
+  remindEl.className='fb-remind show';
+  remindEl.innerHTML=(correct?'✅ Benar! ':'❌ Jawaban benar: '+fbCurrentAnswer+'. ')+(d?`💡 <b>${fbCurrentAnswer}</b> (${CHAR_PY[fbCurrentAnswer]||''}): bagian makna ${d.makna_bag}, bagian bunyi ${d.bunyi_bag}.`:`Pinyin: ${CHAR_PY[fbCurrentAnswer]||'?'}. (rincian komponen belum tersedia utk karakter ini)`);
+}
+function fbNext(){ document.querySelectorAll('.fb-opt').forEach(o=>o.style.pointerEvents=''); fbIdx=(fbIdx+1)%fbPool.length; renderFb(); }
+
+/* ---------- ANALISIS KALIMAT ---------- */
+function openAnalisis(){ showScreen('analisis'); }
+const PATTERN_TOKEN_MAP = {
+  "A 是 B":"是", "A 的 B":"的", "...吗？":"吗", "...呢？":"呢", "...吧":"吧",
+  "Verb/Adj + 了":"了", "太 + Adj + 了":"太", "A 还是 B":"还是",
+  "S + 把 + O + V + 了":"把", "没(有) + V":"没", "不 + V/Adj":"不",
+  "想 + V":"想", "能/可以 + V":"能", "请 + V":"请", "S + 在 + tempat":"在",
+  "S + 还 + 在 + V":"还在", "再 + V":"再", "V + 一下":"一下",
+  "S + 是 + ... + 的":"是", "跟/给 + Orang + V":"跟",
+};
+function runAnalisis(){
+  const txt=document.getElementById('anInput').value.trim();
+  if(!txt) return;
+  const segs=segmentSentence(txt);
+  const known=allSentencesFlat().find(s=>s.zh===txt);
+  let translationHtml;
+  if(known){
+    translationHtml=`<div class="sent-py">${known.py}</div><div class="sent-zh zh" style="font-size:20px">${zhToSpans(known.zh)}</div><div class="sent-id">${known.id}</div>
+    <button class="sent-audio" style="margin-top:8px" onclick="speak('${known.zh.replace(/'/g,"")}')">🔊</button>`;
+  } else {
+    const guess=segs.filter(s=>s.entry&&s.entry.id&&!s.entry.id.startsWith('(')).map(s=>s.entry.id).join(' + ');
+    translationHtml=`<div class="sent-zh zh" style="font-size:20px">${zhToSpans(txt)}</div>
+    <div class="sent-id" style="margin-top:6px;color:#999">⚠️ Bukan salah satu dari 135 kalimat Bab 1 — tidak ada terjemahan resmi. Perkiraan kasar dari gabungan arti kata: <i>${guess||'(kata tidak dikenali kamus)'}</i></div>
+    <button class="sent-audio" style="margin-top:8px" onclick="speak('${txt.replace(/'/g,"")}')">🔊</button>`;
+  }
+  const wordHtml=segs.map(s=>{
+    if(!s.entry) return `<span style="font-size:20px;color:#ccc">${s.zh}</span>`;
+    const idShort=s.entry.id.length>16? s.entry.id.slice(0,16)+'…':s.entry.id;
+    return `<span class="word-chip"><span class="wc-zh zh">${s.zh}</span><span class="wc-py">${s.entry.py}</span><span class="wc-id">${idShort}</span></span>`;
+  }).join(' ');
+  const matched=PATTERNS.filter(p=>{ const tok=PATTERN_TOKEN_MAP[p.rumus]; return tok && txt.includes(tok); });
+  const structHtml=matched.length? matched.map(p=>`<div style="margin-bottom:9px"><b class="zh">${p.rumus}</b> — ${p.judul}<br><span style="color:#888;font-size:11.5px">${p.penjelasan}</span></div>`).join('') : '<div class="info-empty">Tidak ada pola (dari 24 pola Bab 1) yang cocok.</div>';
+  const hanziChars=[...txt].filter(isHanzi);
+  const toneData=hanziChars.map(c=>({zh:c, py:CHAR_PY[c]||null, tone: CHAR_PY[c]!==undefined? toneOf(CHAR_PY[c]) : -1}));
+  const toneHtml=toneData.map(t=>`<span class="tone-char"><span class="tc-zh zh tone-${t.tone<0?0:t.tone}">${t.zh}</span><span class="tc-py">${t.tone<0?'?':t.py}</span></span>`).join('');
+  let sandhi=[];
+  for(let i=0;i<toneData.length;i++){
+    const cur=toneData[i], next=toneData[i+1];
+    if(cur.tone===3 && next && next.tone===3) sandhi.push(`${cur.zh}${next.zh}: nada3+nada3 → ${cur.zh} dibaca nada2`);
+    if(cur.zh==='不' && next && next.tone===4) sandhi.push(`不${next.zh}: 不 sebelum nada4 → dibaca bú (nada2)`);
+    if(cur.zh==='一' && next){
+      if(next.tone===4) sandhi.push(`一${next.zh}: 一 sebelum nada4 → dibaca yí (nada2)`);
+      else if([1,2,3].includes(next.tone)) sandhi.push(`一${next.zh}: 一 sebelum nada1/2/3 → dibaca yì (nada4)`);
+    }
+    if(cur.tone===0 && CHAR_PY[cur.zh]!==undefined) sandhi.push(`${cur.zh}: nada netral (ringan, tanpa tanda nada)`);
+  }
+  const sandhiHtml=sandhi.length? sandhi.map(s=>`<div class="sandhi-tag">${s}</div>`).join('') : '<div class="info-empty">Tidak ada sandhi terdeteksi di kalimat ini.</div>';
+  document.getElementById('anResult').innerHTML=`
+    <div class="an-sect"><div class="an-sect-title">1. Terjemahan</div>${translationHtml}</div>
+    <div class="an-sect"><div class="an-sect-title">2. Kata per Kata</div>${wordHtml}</div>
+    <div class="an-sect"><div class="an-sect-title">3. Struktur Kalimat</div>${structHtml}</div>
+    <div class="an-sect"><div class="an-sect-title">4. Nada &amp; Perubahan Nada</div><div style="text-align:center;padding:6px 0">${toneHtml}</div>${sandhiHtml}</div>`;
+}
+
+/* ---------- LATIHAN NADA ---------- */
+function toneCurveSVG(tone){
+  const paths={1:'M2,10 L28,10',2:'M2,22 L28,4',3:'M2,10 C10,22 20,22 28,4',4:'M2,4 L28,22',0:'M12,13 L18,13'};
+  const color={1:'#DC2626',2:'#D97706',3:'#16A34A',4:'#2563EB',0:'#6B7280'}[tone];
+  return `<svg class="tone-curve" viewBox="0 0 30 26"><path d="${paths[tone]}" stroke="${color}" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+}
+function openTonePractice(){ showScreen('nada'); renderNada(); }
+function renderNada(){
+  const sample=[...VOCAB].filter(v=>[...v.zh].filter(isHanzi).length<=3).sort(()=>Math.random()-0.5).slice(0,10);
+  let html='<div class="sect-title">Kurva 4 Nada Mandarin</div><div style="display:flex;justify-content:space-around;padding:14px 16px;background:#fff;margin:0 16px 10px;border-radius:12px">'+
+    [1,2,3,4].map(t=>`<div style="text-align:center">${toneCurveSVG(t)}<div style="font-size:10px;color:#888;margin-top:3px">Nada ${t}</div></div>`).join('')+'</div>';
+  html+='<div class="sect-title">Contoh dari Kosakata Bab 1</div>';
+  html+=sample.map(v=>{
+    const chars=[...v.zh].filter(isHanzi);
+    return `<div class="vocab-row" style="cursor:default">
+      <div style="display:flex;gap:2px">${chars.map(c=>toneCurveSVG(CHAR_PY[c]!==undefined?toneOf(CHAR_PY[c]):0)).join('')}</div>
+      <div><div class="vocab-zh zh">${v.zh}</div><div class="vocab-py">${v.py}</div></div>
+      <div style="flex:1;min-width:0"><div class="vocab-id">${v.id}</div></div>
+    </div>`;
+  }).join('');
+  html+=`<div class="sect-title">Pasangan Minimal (korpus terbatas)</div>
+  <div class="an-sect" style="margin:0 16px 10px">
+    <div class="zh" style="font-size:16px">请 (qǐng, nada 3) — silakan &nbsp;|&nbsp; 清 (qīng, nada 1, di kata 清楚) — jelas</div>
+    <div style="margin-top:6px;color:#999;font-size:11px">Korpus 258 kata masih kecil, jadi pasangan minimal genuine baru sedikit. Akan bertambah di bab selanjutnya.</div>
+  </div>
+  <div class="sect-title">Aturan Perubahan Nada (Sandhi)</div>
+  <div class="an-sect" style="margin:0 16px 14px">
+    <div style="margin-bottom:8px">🔁 <b>Nada3 + Nada3</b> → suku kata pertama dibaca Nada2. Contoh: 你好 diucapkan níhǎo.</div>
+    <div style="margin-bottom:8px">🔁 <b>不(bù) + Nada4</b> → 不 dibaca bú. Contoh: 不是 → búshì.</div>
+    <div style="margin-bottom:8px">🔁 <b>一(yī) + Nada4</b> → dibaca yí. <b>一 + Nada1/2/3</b> → dibaca yì.</div>
+    <div>🔁 <b>Nada netral</b> — suku kata ringan tanpa tanda nada (吗/呢/的/了/吧), diucapkan pendek &amp; lemah.</div>
+  </div>
+  <button class="an-btn" onclick="renderNada()">🔄 Contoh Lain</button>`;
+  document.getElementById('nadaBody').innerHTML=html;
+}
+
+/* ---------- LATIHAN PRODUKSI ---------- */
+let prodList=[], prodIdx=0;
+function openProduksi(){ prodList=SOAL.filter(q=>q.tipe==='susun'); prodIdx=0; showScreen('produksi'); renderProd(); }
+function renderProd(){
+  const q=prodList[prodIdx];
+  document.getElementById('prodProgress').textContent=(prodIdx+1)+' / '+prodList.length;
+  document.getElementById('prodPrompt').textContent=q.soal;
+  document.getElementById('prodResult').className='q-pemb';
+  initArrange(q.jawabanTeks,'prodSlot','prodPool');
+  arrangeAutoCheck=null;
+}
+function prodCheck(){
+  const q=prodList[prodIdx];
+  const ok=arrangeResult()===q.jawabanTeks.replace(/[。！？]/g,'');
+  const el=document.getElementById('prodResult');
+  el.className='q-pemb show';
+  el.innerHTML=(ok?'✅ Benar! ':'❌ Kurang tepat. Jawaban: '+q.jawabanTeks+'<br>')+'💡 '+q.pembahasan;
+}
+function prodReset(){ renderProd(); }
+function prodNext(){ prodIdx=(prodIdx+1)%prodList.length; renderProd(); }
+
+/* ---------- DERET FONETIK ---------- */
+function openPhonetic(){ showScreen('phonetic'); renderPhonetic(); }
+function renderPhonetic(){
+  document.getElementById('phoneticBody').innerHTML=PHONETIC.map(p=>`
+    <div class="an-sect" style="margin:0 16px 10px">
+      <div class="an-sect-title">Komponen: ${p.komponen} (${p.py_komponen})</div>
+      ${p.anggota.map(a=>`<div style="margin-bottom:5px"><span class="zh" style="font-size:18px;font-weight:800">${a.zh}</span> <span style="color:#6B8E23;font-family:monospace">${a.py}</span> — <span style="font-size:12px;color:#888">${a.status}</span></div>`).join('')}
+    </div>`).join('');
+}
+
+/* ---------- RUJUKAN GORESAN / RADIKAL ---------- */
+function openStrokeRef(){ showScreen('strokeref'); renderStrokeRef(); }
+function renderStrokeRef(){
+  document.getElementById('strokeRefBody').innerHTML=STROKES.map(s=>`
+    <div class="ref-row"><div class="ref-zh zh">${s.zh}</div><div style="flex:1"><div class="ref-py">${s.py}</div><div class="ref-ket">${s.ket}</div></div><div class="ref-ex zh">${s.contoh}</div></div>`).join('');
+}
+function openRadicalRef(){ showScreen('radicalref'); renderRadicalRef(); }
+function renderRadicalRef(){
+  document.getElementById('radicalRefBody').innerHTML=RADICALS.map(r=>`
+    <div class="ref-row"><div class="ref-zh zh">${r.zh}</div><div style="flex:1"><div class="ref-ket"><b>${r.makna}</b> — ${r.ket}</div></div><div class="ref-ex zh">${r.contoh.join(' ')}</div></div>`).join('');
+}
+
+/* ---------- override showScreen utk lazy render + nav 5 tombol ---------- */
+const _renderedScreens=new Set();
+const _origShowScreen = showScreen;
+showScreen = function(name){
+  _origShowScreen(name);
+  if(!_renderedScreens.has(name)){
+    _renderedScreens.add(name);
+    if(name==='vocab'){ renderVocabChips(); renderVocabList(); }
+    if(name==='pola'){ renderPola(); }
+  }
+};
+
+renderHome();
+</script>
+</body>
+</html>
