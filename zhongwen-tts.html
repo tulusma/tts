@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>朗读 · Chinese Text to Speech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Zhi+Mang+Xing&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pinyin-pro/3.28.1/index.min.js"></script>
+<style>
+  :root{
+    color-scheme: light only;
+    --paper: #f7f1e0;
+    --paper-deep: #ecdfc0;
+    --card: #fdfaf1;
+    --ink: #1c1610;
+    --ink-soft: #4a4235;
+    --seal: #a02323;
+    --seal-dark: #7d1a1a;
+    --gold: #7a5416;
+    --line: rgba(28,22,16,0.20);
+  }
+  *{box-sizing:border-box;}
+  html{color-scheme: light only;}
+  body{
+    margin:0;
+    min-height:100vh;
+    color-scheme: light only;
+    background:
+      radial-gradient(circle at 8% 12%, rgba(122,84,22,0.10), transparent 40%),
+      radial-gradient(circle at 92% 85%, rgba(160,35,35,0.09), transparent 45%),
+      var(--paper);
+    background-attachment:fixed;
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 60px;
+  }
+  .sheet{
+    width:100%;
+    max-width:620px;
+  }
+  header{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:22px;
+    padding-bottom:16px;
+    border-bottom:1px solid var(--line);
+  }
+  header .title-cn{
+    font-family:'Noto Serif SC', serif;
+    font-weight:700;
+    font-size:2.1rem;
+    letter-spacing:0.02em;
+  }
+  header .title-sub{
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .stamp{
+    width:46px;height:46px;
+    border:2.5px solid var(--seal);
+    border-radius:4px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--seal);
+    font-family:'Noto Serif SC',serif;
+    font-weight:700;
+    font-size:1rem;
+    transform:rotate(-4deg);
+    flex-shrink:0;
+    line-height:1;
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 1px 2px rgba(28,22,16,0.05);
+  }
+
+  textarea{
+    width:100%;
+    min-height:110px;
+    resize:vertical;
+    border:none;
+    background:transparent;
+    font-family:'Noto Serif SC', serif;
+    font-size:1.55rem;
+    line-height:1.9;
+    color:var(--ink);
+    outline:none;
+  }
+  textarea::placeholder{
+    color:rgba(34,27,20,0.32);
+    font-family:'Work Sans',sans-serif;
+    font-size:1rem;
+  }
+
+  .pinyin-toggle{
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px dashed var(--line);
+  }
+  .switch{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    cursor:pointer;
+    user-select:none;
+  }
+  .switch input{
+    accent-color:var(--seal);
+    width:15px;height:15px;
+    cursor:pointer;
+  }
+
+  .charstrip{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-end;
+    gap:4px;
+    margin-top:10px;
+    padding-top:14px;
+    min-height:20px;
+  }
+  .charstrip .unit{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:4px 6px 6px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:background 0.15s ease;
+  }
+  .charstrip .unit:hover{
+    background:rgba(173,43,43,0.10);
+  }
+  .charstrip .unit.playing{
+    background:var(--seal);
+  }
+  .charstrip .unit.playing .py{
+    color:var(--paper);
+  }
+  .charstrip .unit.playing .hz{
+    color:var(--paper);
+  }
+  .charstrip .py{
+    font-family:'Work Sans', sans-serif;
+    font-weight:600;
+    font-size:0.8rem;
+    color:var(--gold);
+    line-height:1.3;
+    height:1.1em;
+    letter-spacing:0.01em;
+  }
+  .charstrip .hz{
+    font-family:'Noto Serif SC', serif;
+    font-size:1.4rem;
+    color:var(--ink);
+    line-height:1.3;
+  }
+  .charstrip .punct{
+    font-family:'Noto Serif SC', serif;
+    font-size:1.35rem;
+    color:var(--ink-soft);
+    padding-bottom:6px;
+    align-self:flex-end;
+  }
+  .charstrip .hint{
+    font-family:'Work Sans',sans-serif;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    align-self:center;
+    margin-left:2px;
+  }
+
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:18px;
+  }
+  .chip{
+    font-family:'Noto Serif SC', serif;
+    font-size:0.95rem;
+    background:var(--card);
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:6px 13px;
+    border-radius:20px;
+    cursor:pointer;
+  }
+  .chip:hover{
+    border-color:var(--seal);
+    color:var(--seal-dark);
+  }
+
+  .row{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .field{
+    flex:1;
+    min-width:150px;
+  }
+  .field label{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.75rem;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  select, input[type="range"]{
+    width:100%;
+  }
+  select{
+    padding:9px 10px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--card);
+    color:var(--ink);
+    font-family:'Work Sans',sans-serif;
+    font-size:0.9rem;
+    font-weight:500;
+  }
+  input[type="range"]{
+    accent-color:var(--seal);
+  }
+
+  .controls{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:20px;
+  }
+  .play-btn{
+    width:64px;height:64px;
+    border-radius:50%;
+    border:2px solid var(--seal);
+    background:var(--seal);
+    color:var(--paper);
+    font-size:1.4rem;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 3px 0 var(--seal-dark);
+    transition:transform 0.08s ease;
+    flex-shrink:0;
+  }
+  .play-btn:active{
+    transform:translateY(2px);
+    box-shadow:0 1px 0 var(--seal-dark);
+  }
+  .play-btn.stop{
+    background:transparent;
+    color:var(--seal);
+  }
+  .secondary-btn{
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--ink-soft);
+    padding:9px 16px;
+    border-radius:20px;
+    font-size:0.82rem;
+    cursor:pointer;
+    font-family:'Work Sans',sans-serif;
+  }
+  .secondary-btn:hover{
+    border-color:var(--gold);
+    color:var(--ink);
+  }
+  .status{
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    margin-left:auto;
+    text-align:right;
+  }
+
+  .history{
+    margin-top:4px;
+  }
+  .history-title{
+    font-size:0.75rem;
+    color:var(--ink-soft);
+    text-transform:none;
+    margin-bottom:10px;
+    letter-spacing:0.02em;
+  }
+  .history-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:9px 0;
+    border-bottom:1px solid var(--line);
+    font-family:'Noto Serif SC', serif;
+    font-size:1.05rem;
+  }
+  .history-item:last-child{border-bottom:none;}
+  .history-item button{
+    flex-shrink:0;
+    border:none;
+    background:none;
+    color:var(--seal);
+    cursor:pointer;
+    font-size:1.05rem;
+    font-family:'Work Sans',sans-serif;
+  }
+  .empty-note{
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+
+  .no-support{
+    background:rgba(173,43,43,0.08);
+    border:1px solid rgba(173,43,43,0.3);
+    padding:16px;
+    border-radius:6px;
+    font-size:0.9rem;
+    color:var(--seal-dark);
+    margin-bottom:18px;
+    display:none;
+  }
+
+  footer{
+    text-align:center;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    margin-top:26px;
+  }
+
+  @media (max-width:480px){
+    header .title-cn{font-size:1.7rem;}
+    textarea{font-size:1.3rem;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header>
+    <div>
+      <div class="title-cn">朗读</div>
+      <div class="title-sub">Chinese Text to Speech — dengarkan pelafalan alami</div>
+    </div>
+    <div class="stamp">读</div>
+  </header>
+
+  <div class="no-support" id="noSupport">
+    Browser ini tidak mendukung Web Speech API. Coba buka di Chrome atau Edge versi terbaru.
+  </div>
+
+  <div class="card">
+    <textarea id="textInput" placeholder="输入中文… ketik atau tempel teks Mandarin di sini">你好，很高兴认识你。</textarea>
+
+    <div class="pinyin-toggle">
+      <label class="switch">
+        <input type="checkbox" id="pinyinToggle" checked>
+        <span>tampilkan pinyin</span>
+      </label>
+    </div>
+
+    <div class="charstrip" id="charStrip">
+      <span class="hint">tap satu karakter untuk dengar sendiri</span>
+    </div>
+  </div>
+
+  <div class="chips" id="sampleChips"></div>
+
+  <div class="card">
+    <div class="row">
+      <div class="field">
+        <label>Suara <span id="voiceCount"></span></label>
+        <select id="voiceSelect"></select>
+      </div>
+      <div class="field">
+        <label>Kecepatan <span id="rateVal">1.0×</span></label>
+        <input type="range" id="rateSlider" min="0.5" max="1.6" step="0.1" value="0.9">
+      </div>
+      <div class="field">
+        <label>Nada <span id="pitchVal">1.0</span></label>
+        <input type="range" id="pitchSlider" min="0.6" max="1.4" step="0.1" value="1.0">
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="play-btn" id="playBtn" title="Putar">▶</button>
+      <button class="secondary-btn" id="repeatBtn">🔁 ulangi 3×</button>
+      <div class="status" id="statusText">siap</div>
+    </div>
+  </div>
+
+  <div class="card history">
+    <div class="history-title">Riwayat sesi ini</div>
+    <div id="historyList"><div class="empty-note">belum ada yang diputar</div></div>
+  </div>
+
+  <footer>Suara berasal dari mesin text-to-speech bawaan browser/perangkatmu — kualitas suara tergantung suara Mandarin yang tersedia di sistemmu.</footer>
+</div>
+
+<script>
+const synth = window.speechSynthesis;
+const textInput = document.getElementById('textInput');
+const voiceSelect = document.getElementById('voiceSelect');
+const rateSlider = document.getElementById('rateSlider');
+const pitchSlider = document.getElementById('pitchSlider');
+const rateVal = document.getElementById('rateVal');
+const pitchVal = document.getElementById('pitchVal');
+const playBtn = document.getElementById('playBtn');
+const repeatBtn = document.getElementById('repeatBtn');
+const statusText = document.getElementById('statusText');
+const charStrip = document.getElementById('charStrip');
+const pinyinToggle = document.getElementById('pinyinToggle');
+const historyList = document.getElementById('historyList');
+const sampleChips = document.getElementById('sampleChips');
+const voiceCount = document.getElementById('voiceCount');
+const noSupport = document.getElementById('noSupport');
+
+if(!('speechSynthesis' in window)){
+  noSupport.style.display = 'block';
+}
+
+let voices = [];
+let history = [];
+let repeatQueue = 0;
+
+const samples = [
+  "你好，很高兴认识你。",
+  "谢谢你，再见。",
+  "今天天气怎么样？",
+  "我在学习汉语。",
+  "请问，洗手间在哪里？",
+  "我想喝一杯咖啡。"
+];
+
+samples.forEach(s=>{
+  const chip = document.createElement('button');
+  chip.className = 'chip';
+  chip.textContent = s;
+  chip.onclick = ()=>{ textInput.value = s; renderCharStrip(); };
+  sampleChips.appendChild(chip);
+});
+
+function populateVoices(){
+  const all = synth.getVoices();
+  voices = all.filter(v => v.lang && v.lang.toLowerCase().startsWith('zh'));
+  const fallback = voices.length ? voices : all;
+  voiceSelect.innerHTML = '';
+  fallback.forEach((v, i)=>{
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `${v.name} (${v.lang})`;
+    voiceSelect.appendChild(opt);
+  });
+  voiceCount.textContent = voices.length
+    ? `— ${voices.length} suara Mandarin ditemukan`
+    : '— tidak ada suara zh terdeteksi, pakai default';
+}
+
+populateVoices();
+if(synth.onvoiceschanged !== undefined){
+  synth.onvoiceschanged = populateVoices;
+}
+
+rateSlider.addEventListener('input', ()=> rateVal.textContent = parseFloat(rateSlider.value).toFixed(1)+'×');
+pitchSlider.addEventListener('input', ()=> pitchVal.textContent = parseFloat(pitchSlider.value).toFixed(1));
+
+function getSelectedVoice(){
+  const list = voices.length ? voices : synth.getVoices();
+  const idx = parseInt(voiceSelect.value || 0, 10);
+  return list[idx] || null;
+}
+
+function speak(text, { onend } = {}){
+  if(!text || !text.trim()) return;
+  synth.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  const v = getSelectedVoice();
+  if(v) utter.voice = v;
+  utter.lang = v ? v.lang : 'zh-CN';
+  utter.rate = parseFloat(rateSlider.value);
+  utter.pitch = parseFloat(pitchSlider.value);
+  utter.onstart = ()=> { statusText.textContent = 'sedang membaca…'; playBtn.textContent='■'; playBtn.classList.add('stop'); };
+  utter.onend = ()=> { statusText.textContent = 'siap'; playBtn.textContent='▶'; playBtn.classList.remove('stop'); if(onend) onend(); };
+  utter.onerror = ()=> { statusText.textContent = 'terjadi kesalahan'; playBtn.textContent='▶'; playBtn.classList.remove('stop'); };
+  synth.speak(utter);
+}
+
+function addToHistory(text){
+  history = history.filter(h => h !== text);
+  history.unshift(text);
+  history = history.slice(0, 8);
+  renderHistory();
+}
+
+function renderHistory(){
+  if(!history.length){
+    historyList.innerHTML = '<div class="empty-note">belum ada yang diputar</div>';
+    return;
+  }
+  historyList.innerHTML = '';
+  history.forEach(text=>{
+    const row = document.createElement('div');
+    row.className = 'history-item';
+    const span = document.createElement('span');
+    span.textContent = text;
+    const btn = document.createElement('button');
+    btn.textContent = '▶ putar';
+    btn.onclick = ()=> speak(text);
+    row.appendChild(span);
+    row.appendChild(btn);
+    historyList.appendChild(row);
+  });
+}
+
+const CJK_RE = /[\u4e00-\u9fff]/;
+
+function getPinyinFor(ch){
+  try{
+    if(window.pinyinPro && typeof window.pinyinPro.pinyin === 'function'){
+      return window.pinyinPro.pinyin(ch, { toneType: 'symbol' });
+    }
+  }catch(e){ /* library belum siap */ }
+  return '';
+}
+
+function renderCharStrip(){
+  const text = textInput.value.trim();
+  const showPinyin = pinyinToggle.checked;
+  charStrip.innerHTML = '';
+  if(!text){
+    const hint = document.createElement('span');
+    hint.className = 'hint';
+    hint.textContent = 'tap satu karakter untuk dengar sendiri';
+    charStrip.appendChild(hint);
+    return;
+  }
+  [...text].forEach(ch=>{
+    if(ch.trim() === '') return;
+    if(!CJK_RE.test(ch)){
+      const p = document.createElement('span');
+      p.className = 'punct';
+      p.textContent = ch;
+      charStrip.appendChild(p);
+      return;
+    }
+    const unit = document.createElement('div');
+    unit.className = 'unit';
+
+    const py = document.createElement('div');
+    py.className = 'py';
+    py.textContent = showPinyin ? getPinyinFor(ch) : '';
+
+    const hz = document.createElement('div');
+    hz.className = 'hz';
+    hz.textContent = ch;
+
+    unit.appendChild(py);
+    unit.appendChild(hz);
+    unit.onclick = ()=>{
+      document.querySelectorAll('.charstrip .unit').forEach(s=>s.classList.remove('playing'));
+      unit.classList.add('playing');
+      speak(ch, { onend: ()=> unit.classList.remove('playing') });
+    };
+    charStrip.appendChild(unit);
+  });
+}
+
+pinyinToggle.addEventListener('change', renderCharStrip);
+textInput.addEventListener('input', renderCharStrip);
+renderCharStrip();
+
+playBtn.addEventListener('click', ()=>{
+  if(synth.speaking){
+    synth.cancel();
+    statusText.textContent = 'siap';
+    playBtn.textContent = '▶';
+    playBtn.classList.remove('stop');
+    return;
+  }
+  const text = textInput.value.trim();
+  if(!text) return;
+  addToHistory(text);
+  speak(text);
+});
+
+repeatBtn.addEventListener('click', ()=>{
+  const text = textInput.value.trim();
+  if(!text) return;
+  addToHistory(text);
+  repeatQueue = 3;
+  const playOnce = ()=>{
+    repeatQueue -= 1;
+    statusText.textContent = `mengulang… (${3-repeatQueue}/3)`;
+    speak(text, { onend: ()=> { if(repeatQueue > 0) setTimeout(playOnce, 350); else statusText.textContent = 'siap'; } });
+  };
+  playOnce();
+});
+</script>
+</body>
+</html>
