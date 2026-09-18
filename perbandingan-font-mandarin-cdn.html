@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perbandingan Gaya Font Mandarin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Noto+Serif+SC:wght@400;700;900&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#CC0000;
+    --bg:#F5F5F5;
+    --card:#fff;
+    --line:#eee;
+    --muted:#999;
+    --ink:#111;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    padding:22px 16px 50px;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+
+  .hero{
+    background:linear-gradient(135deg,#CC0000,#8B0000);
+    color:#fff;
+    border-radius:16px;
+    padding:20px 20px 18px;
+    margin-bottom:20px;
+  }
+  .hero .icon{font-size:26px;margin-bottom:6px;}
+  .hero h1{font-size:20px;margin:0 0 4px;font-weight:800;}
+  .hero p{font-size:13px;margin:0;opacity:.9;}
+
+  .input-box{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-bottom:22px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .input-box label{
+    display:block;font-size:11.5px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.08em;font-weight:700;
+    margin-bottom:8px;
+  }
+  #hanziInput{
+    width:100%;border:none;outline:none;font-size:24px;
+    font-family:'Segoe UI',sans-serif;background:transparent;color:var(--ink);
+    padding:2px 0;-webkit-appearance:none;
+  }
+
+  .section-title{
+    font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--muted);
+    text-transform:uppercase;margin:0 0 12px;
+  }
+
+  .grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  }
+  .fcard{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 14px;min-height:110px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .fcard .flabel{
+    font-size:13px;color:var(--muted);font-weight:700;margin-bottom:8px;
+  }
+  .fcard .fsample{
+    font-size:26px;line-height:1.35;word-break:break-all;color:var(--ink);
+  }
+  .fcard .fsample.empty{color:#ccc;font-size:14px;}
+  .fcard .fdesc{font-size:10.5px;color:#bbb;margin-top:8px;}
+
+  .f-hei{font-family:"Noto Sans SC",sans-serif;font-weight:700;}
+  .f-song{font-family:"Noto Serif SC",serif;font-weight:700;}
+  .f-kai{font-family:"Ma Shan Zheng",cursive;}
+  .f-yuan{font-family:"ZCOOL KuaiLe",sans-serif;}
+
+  footer{margin-top:22px;font-size:11px;color:var(--muted);line-height:1.5;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="icon">字</div>
+      <h1>Perbandingan Gaya Font Mandarin</h1>
+      <p>Ketik hanzi apa saja, lihat langsung dalam 4 gaya sekaligus</p>
+    </div>
+
+    <div class="input-box">
+      <label>Ketik hanzi di sini</label>
+      <input id="hanziInput" type="text" inputmode="text" autocomplete="off" autocorrect="off" placeholder="我爸爸在公司工作。" value="我爸爸在公司工作。">
+    </div>
+
+    <div class="section-title">Tampil dalam 4 gaya huruf</div>
+    <div class="grid">
+      <div class="fcard">
+        <div class="flabel">黑体 Heiti</div>
+        <div class="fsample f-hei" data-f>我爸爸在公司工作。</div>
+        <div class="fdesc">sans-serif tebal — papan nama, aplikasi, rambu</div>
+      </div>
+      <div class="fcard">
+        <div class="flabel">宋体 Songti</div>
+        <div class="fsample f-song" data-f>我爸爸在公司工作。</div>
+        <div class="fdesc">serif — buku, koran, teks cetak</div>
+      </div>
+      <div class="fcard">
+        <div class="flabel">楷体 Kaiti</div>
+        <div class="fsample f-kai" data-f>我爸爸在公司工作。</div>
+        <div class="fdesc">gaya kaligrafi — buku pelajaran, tulisan tangan</div>
+      </div>
+      <div class="fcard">
+        <div class="flabel">圆体 Yuanti</div>
+        <div class="fsample f-yuan" data-f>我爸爸在公司工作。</div>
+        <div class="fdesc">sans, ujung bulat — iklan, kemasan, konten anak</div>
+      </div>
+    </div>
+
+    <footer>
+      Font dimuat langsung dari Google Fonts (Noto Sans SC, Noto Serif SC, Ma Shan Zheng, ZCOOL KuaiLe) — butuh koneksi internet saat dibuka. Gaya Kaiti di sini memakai font kaligrafi kuas (Ma Shan Zheng), lebih artistik dibanding Kaiti cetak formal.
+    </footer>
+  </div>
+
+  <script>
+    var input = document.getElementById('hanziInput');
+    var samples = document.querySelectorAll('[data-f]');
+    function render(){
+      var val = input.value.trim();
+      samples.forEach(function(el){
+        if(val === ''){
+          el.textContent = 'Ketik hanzi di atas...';
+          el.classList.add('empty');
+        } else {
+          el.textContent = val;
+          el.classList.remove('empty');
+        }
+      });
+    }
+    input.addEventListener('input', render);
+    input.addEventListener('keyup', render);
+    input.addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>
