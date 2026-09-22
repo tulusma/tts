@@ -1,0 +1,34 @@
+
+That link is a GitHub Pages-style URL, and it is made of:
+
+https:// = secure web URL
+tulusma.github.io = your GitHub Pages domain
+/tts = the repository name
+/mandarin-lengkap 3.html = the HTML file inside the published site
+So in plain structure:
+
+https://{username}.github.io/{repo-name}/{file-name}
+
+For your example:
+
+username = tulusma
+repo = tts
+file = mandarin-lengkap 3.html
+So it means:
+
+“Open the file named mandarin-lengkap 3.html inside the tts project on GitHub Pages”
+Important:
+
+A space in a URL must be encoded as %20
+So the valid URL should normally be:
+https://tulusma.github.io/tts/mandarin-lengkap%203.html
+
+The version you posted, with a plain space: https://tulusma.github.io/tts/mandarin-lengkap 3.html
+
+may not work in many browsers because spaces are not valid unencoded in URLs.
+
+If you want, I can also tell you whether this link points to:
+
+a GitHub Pages site,
+a raw HTML file,
+or a repo file URL that should be converted to the correct browser link.
